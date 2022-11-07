@@ -1,0 +1,25 @@
+.logo{
+    width: 10%;
+    align-self: center;
+
+}
+
+#root{
+    max-width: 600px;
+    height: 100%;
+    
+}
+
+.homeDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center ;
+
+}
+
+body{
+    background-color: aquamarine;
+    max-width: 400px;
+    height: 100%;
+}
