@@ -2,27 +2,33 @@
 
 export const home = () => {
     const homeDiv = document.createElement('div');
-    const logo = document.createElement("div");
-    const img = document.createElement("img");
-    const inputName = document.createElement('input');
-    const inputPassword = document.createElement('input');
-    const buttonLogin = document.createElement('button');
 
-    //<img src="./assets/images/DRAGONITE.png" alt="pokemon-dragonite" class="img-pokemon-header" />
-   
+    const text = `  <section class="homeDivi">
+    <div class="logo1">
+      <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
+    </div>
+  
+    <div class="mainBox"> 
+        <img  class="iconoEmail" src="/img/iconoEmail_Mesa.png" alt= "icono email">
+        <input  type= "email" class="input1" placeholder="E-mail"> 
+        <img src= "" alt= "">
+        <input type="password" class="input1" placeholder="Password">
+        <button class="buttonSignIn">Sign In</button>
+        <p><span class="text1">Doesn’t have an account yet? </span> <a class="text2" href="/register.js">Register here</a></p>
+        <div class="login2">
+          <p>Or login with</p>
+          <a href="">Google</a>
+          <a href="">Facebook</a>
+        </div> 
+    </div>
+    <footer class="footer1">
+    <img  class="imgFooter" src="./img/puppy_22.png" alt="Puppy2">
+  </footer>
+  </section>
+ 
+   `
 
-    img.classList.add('logo')
-    homeDiv.classList.add("homeDiv")
-    inputName.textContent = 'E-mail';
-    inputPassword.textContent = 'Password';
-    buttonLogin.textContent = 'Sign In';
-    img.src= '/pawsfinder.png'
-
-    homeDiv.appendChild(img)
-    homeDiv.appendChild(inputName);
-    homeDiv.appendChild(inputPassword);
-    homeDiv.appendChild(buttonLogin);
-    
+    homeDiv.innerHTML= text
 
     return homeDiv;
 
