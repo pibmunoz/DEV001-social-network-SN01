@@ -5,7 +5,7 @@ const divRoot = document.getElementById("root");
 
 const routes ={
     '/':home,
-    //'/register': Register,
+    //  '/register': Register,
     //'/login': Login,
 }
 
