@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .homeDivi{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 576px;
+padding-top: 3rem;
+padding-right: 1rem;
+padding-left: 1rem;
+
+}
+
+
+
+  .logo1{
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo{
+    width: 80%;
+    height:80% ;
+    margin-bottom: 1rem;
+  }
+
+  .cuerpo{
+    max-width: 576px;
+    height:100%;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(176, 238, 235, 1) 2%,  rgba(32, 100, 149, 1) 26%,rgb(23, 233, 226) 100%);
+  background-size:cover;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  }
+
+  .imgFooter{
+    width: 90%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    z-index: 0
+  }
+
+  .login2{
+    max-width: 400px;
+    height:900px;
+    display: flex;
+    justify-content: center;
+    position:relative;
+  }
+
+  .mainBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    position: relative;
+  }
+
+.input1{
+    width: 20rem;
+    height: 3rem;
+    border-radius: 0.3rem;
+    border-style: none;
+    text-align: center;
+    font-size: 1.1rem;
+    display: flex;
+    padding: 1rem;
+    position:relative;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.root{
+  display: flex;
+  justify-content: center;
+}
+
+.buttonSignIn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 17rem;
+    height: 3rem;
+    border-radius: 0.3rem;
+    border-style: none;
+    background-color: rgba(212, 41, 255, 1);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color:white;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.registerText{
+    font-size: 0.9rem;
+    font-weight: 400;
+    color:white;
+}
+
+.text2{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+.login2{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    z-index: 100;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+hr{
+  border-top: 3px rgb(255, 255, 255);
+  width: 2.6rem;
+}
+
+.acomodo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconoEmail{
+    position: absolute;
+    z-index: 100;
+    width: 8%;
+    left:1rem;
+    top:0.5rem;
+}
+
+.iconoPassword{
+    position: absolute;
+    z-index: 100;
+    width: 7%;
+    left:1rem;
+    top: 4.4rem;
+   
+}
+
+.login2 p{
+    color: white;
+    font-weight: 500;
+}
+
+.google{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.iconoGoogle{
+    width: 40px;
+    height: 40px;
+    z-index:100;
+    margin-top:0.9em;
+
+}
+#circle{
+    z-index:0;
+    position:absolute;
+    background-color: rgb(255, 255, 255);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    top: 1.8rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
