@@ -1,4 +1,5 @@
 //vamos a hacer las rutas
+
 import {home} from './components/home.js'
 import {register} from './components/register.js';
 
@@ -37,10 +38,8 @@ onNavigate(location.hash)
 })
 
  
+    document.getElementById("buttonRegister").addEventListener("click", () => {
+      return onNavigate("#register");
+      });
 
-/* const router = (route) => {
-    divRoot.innerHTML = '';
-    switch (route) {
-      case '/#home': { return container.appendChild(components.home()); }
-      case '/#register': { return }}
-    }   */
+//
