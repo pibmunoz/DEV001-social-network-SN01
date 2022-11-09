@@ -37,6 +37,9 @@ onNavigate(location.hash)
 })
 
  
+    document.getElementById("buttonRegister").addEventListener("click", () => {
+      return onNavigate("#register");
+      });
 
 /* const router = (route) => {
     divRoot.innerHTML = '';
