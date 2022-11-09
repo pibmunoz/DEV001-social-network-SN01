@@ -18,8 +18,7 @@ export const home = () => {
         <input type="password" class="input1" placeholder="Password">
         <img class="iconoPassword" src= "/img/password.png" alt= "password">
         <button class="buttonSignIn">Sign In</button>
-        <p class="registerText"><span class="text1">Doesn't have an account yet? </span> <a class="text2 id="toRegisterForm" href="">Register here</a></p>
-        <button id="buttonRegister" class= "buttonRegister"">Register</button>
+        <p class="registerText"><span class="text1">Doesn't have an account yet? </span></p><button id="buttonRegister" class= "buttonRegister">Register here</button>
         <div class="login2">
           <div class="acomodo">
           <hr> <p>Or login with</p> <hr>
