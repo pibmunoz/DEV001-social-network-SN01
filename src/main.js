@@ -28,6 +28,7 @@ export const onNavigate = (pathname) => {
 
  }
  
+ 
 const component = routes[window.location.pathname];
 divRoot.appendChild(component());
 
@@ -37,10 +38,6 @@ onNavigate(location.hash)
 })
 
  
-
-/* const router = (route) => {
-    divRoot.innerHTML = '';
-    switch (route) {
-      case '/#home': { return container.appendChild(components.home()); }
-      case '/#register': { return }}
-    }   */
+document.getElementById("buttonRegister").addEventListener("click", () => {
+      return onNavigate("#register");
+      });

@@ -4,37 +4,39 @@ export const register = () => {
     registerDiv.classList.add("fullBodyOfRegister")
 
     const registerText = `  <section class="registerBody">
-    <div class="logo1">
-      <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
-      <h1 class= "signUp">Sign Up </h1>
+    <div class="headRegister">
+      <img class= "logo2" src="./img/pawsfinder.png" alt="Logo">
+      
     </div>
-  
+    <div class="toAlignSignUpAndForm">
+    <h1 class= "signUp">Sign Up </h1>
     <form class="formRegister">
         <div class="infoForm">
             <label for="fName">Name</label>
-            <input  type= "text" class="input1" id="fName" placeholder="Your name, e.g: John Doe"> 
+            <input  type= "text" class="input2" id="fName" placeholder="Your name, e.g: John Doe"> 
          </div>
+         <hr class="formLines">
         <div class="infoForm">
             <label for="fEmail">E-mail</label>
-            <input  type= "email" class="input1" placeholder="Your mail, e.g: someone@gmail.com"> 
+            <input  type= "email" class="input2" placeholder="Your mail, e.g: someone@gmail.com"> 
         </div>
         <div class="infoForm">
             <label for="fPhone">Phone</label>
-            <input  type= "phone" class="input1" placeholder="Your Tel, e.g:5541866643"> 
+            <input  type= "phone" class="input2" placeholder="Your Tel, e.g:5541866643"> 
         </div>
         <div class="infoForm">
             <label for="fPassword">Password</label>
-            <input  type= "text" class="input1" placeholder="Enter a password: only letters and numbers">
+            <input  type= "text" class="input2" placeholder="Enter a password: only letters and numbers">
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input1" placeholder="Confirm your password"> 
+            <input  type= "text" class="input2" placeholder="Confirm your password"> 
         </div>
         <button class="buttonSignUp">Sign Up</button>
 
           
     </form>
-    
+    </div>
   </section>
  
    `
