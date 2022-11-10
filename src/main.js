@@ -1,6 +1,6 @@
 //vamos a hacer las rutas
-
-import {home} from './components/home.js'
+import './firebase.js';
+import {home} from './components/home.js';
 import {register} from './components/register.js';
 
 const divRoot = document.getElementById("root");
@@ -44,3 +44,15 @@ onNavigate(location.hash)
       });
 
 //
+
+/*const signUp = document.getElementById("signUp");
+console.log()
+
+signUp.addEventListener("click", (e)=>{
+    e.preventDefault()
+
+   const email= form["signUpEmail"];
+   const password= form["signUpPassword"];
+ console.log(email, password)
+})*/
+

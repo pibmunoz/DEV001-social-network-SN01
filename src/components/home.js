@@ -38,7 +38,10 @@ export const home = () => {
    `
 
     homeDiv.insertAdjacentHTML("beforeend", text)
-      
+    let fo=document.querySelector("#mainBox")
+    console.log(fo)
+
+
     return homeDiv;
 
 }

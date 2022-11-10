@@ -27,8 +27,8 @@
 }
 
 .logo {
-  width: 80%;
-  height: 80%;
+  width: 70%;
+  height: 70%;
   margin-bottom: 1rem;
 }
 
@@ -44,7 +44,7 @@
   }
 
 .imgFooter {
-  width: 90vw;
+  width: 70vw;
   display: flex;
   position: fixed;
   bottom: 0;
