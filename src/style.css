@@ -32,16 +32,16 @@
   margin-bottom: 1rem;
 }
 
-.cuerpo {
-  max-width: 576px;
-  height: 100%;
-  margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(186, 217, 215, 1) 22%, rgba(32, 100, 149, 1) 56%, rgba(36, 228, 221, 1) 100%);
-  background-size: cover;
-}
+  .cuerpo{
+    max-width: 576px;
+    height:100%;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(186,217,215,1) 22%, rgba(32,100,149,1) 56%, rgba(36,228,221,1) 100%);
+  background-size:cover;
+  }
 
 .imgFooter {
   width: 90vw;

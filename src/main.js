@@ -1,4 +1,5 @@
 //vamos a hacer las rutas
+
 import {home} from './components/home.js'
 import {register} from './components/register.js';
 
@@ -38,6 +39,8 @@ onNavigate(location.hash)
 })
 
  
-document.getElementById("buttonRegister").addEventListener("click", () => {
+    document.getElementById("buttonRegister").addEventListener("click", () => {
       return onNavigate("#register");
       });
+
+//

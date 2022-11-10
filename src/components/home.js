@@ -9,12 +9,12 @@ export const home = () => {
     <div class="logo1">
       <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
     </div>
-  
-    <div class="mainBox"> 
-        
-        <input  type= "email" class="input1" placeholder="E-mail"> 
+
+    <div class="mainBox">
+
+        <input  type= "email" class="input1" placeholder="E-mail">
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
-       
+
         <input type="password" class="input1" placeholder="Password">
         <img class="iconoPassword" src= "/img/password.png" alt= "password">
         <button class="buttonSignIn">Sign In</button>
@@ -28,13 +28,13 @@ export const home = () => {
           <img class="iconoGoogle" src= "/img/google.svg" alt= "google">
           <div class = "circle" id= "circle"></div>
           </div>
-          
-        </div> 
+
+        </div>
         <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
     </div>
-    
+
   </section>
- 
+
    `
 
     homeDiv.insertAdjacentHTML("beforeend", text)
