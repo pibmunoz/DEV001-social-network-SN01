@@ -11,15 +11,17 @@ export const home = () => {
     </div>
 
     <div class="mainBox">
-
-        <input  type= "email" class="input1" placeholder="E-mail">
-        <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
-
-        <input type="password" class="input1" placeholder="Password">
-        <img class="iconoPassword" src= "/img/password.png" alt= "password">
+        <div class= "input-wrapper">
+          <input  type= "email" class="input1" placeholder="E-mail">
+          <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
+        </div>
+        <div class= "input-wrapper">
+          <input type="password" class="input1" placeholder="Password">
+          <img class="iconoPassword" src= "/img/password.png" alt= "password">
+          </div>
         <button class="buttonSignIn">Sign In</button>
         <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
-        <button id="buttonRegister" class= "buttonRegister" >Register</button>
+        <button id="buttonRegister" class= "buttonRegister" >Register</button></p>
         <div class="login2">
           <div class="acomodo">
           <hr> <p>Or login with</p> <hr>
@@ -38,8 +40,6 @@ export const home = () => {
    `
 
     homeDiv.insertAdjacentHTML("beforeend", text)
-    let fo=document.querySelector("#mainBox")
-    console.log(fo)
 
 
     return homeDiv;

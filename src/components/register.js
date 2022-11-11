@@ -20,14 +20,13 @@ export const register = () => {
       <img class= "logo2" src="./img/pawsfinder.png" alt="Logo">
       
     </div>
-    <div class="toAlignSignUpAndForm">
-    <h1 class= "signUp">Sign Up </h1>
     <form class="formRegister" id="formRegister">
+    <h1 class= "signUp">Sign Up </h1>
+    <div class="underline-title"></div>
         <div class="infoForm">
             <label for="fName">Name</label>
             <input  type= "text" class="input2" id="fName" placeholder="Your name, e.g: John Doe"> 
          </div>
-         <hr class="formLines">
         <div class="infoForm">
             <label for="fEmail">E-mail</label>
             <input  type= "email" class="input2" id="signUpEmail" placeholder="Your mail, e.g: someone@gmail.com"> 
@@ -44,11 +43,13 @@ export const register = () => {
             <label for="fConfPassword">Confirm password</label>
             <input  type= "text" class="input2" placeholder="Confirm your password"> 
         </div>
-        <button class="buttonSignUp" id="signUp">Sign Up</button>
-
+        <div class ="buttonsRegisterForRow">
+            <button class="buttonSignUp" id="signUp">Sign Up</button>
+            <button class="return" id="return">Return</button>
+        </div>
           
     </form>
-    </div>
+    
   </section>
  
    `
