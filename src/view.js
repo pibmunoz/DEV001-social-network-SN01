@@ -2,6 +2,7 @@ import { routes } from "./dictionary";
 
 export const changeView= (hash) =>{
     const divRoot= document.querySelector("#root")
+    divRoot.innerHTML="";
 
     switch(hash){
         case '#/':

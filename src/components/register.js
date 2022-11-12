@@ -2,7 +2,6 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import {auth} from "../firebase.js";
 
 export const register = () => {
-    window.location.hash = '#register';
     const registerDiv = document.createElement('div');
     /*const formCreate = document.createElement('form');
     const inputEmail = document.createElement('input');
@@ -59,7 +58,7 @@ export const register = () => {
     
     const returnToHome = registerDiv.querySelector('#return');
     returnToHome.addEventListener("click", ()=>{
-    alert("funcionando")
+    window.location.hash= '#/'
   })
     
 let formforRegister= registerDiv.querySelector("#formRegister");
