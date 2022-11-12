@@ -56,7 +56,10 @@ export const register = () => {
 
     registerDiv.innerHTML= registerText
     
-    
+    const returnToHome = registerDiv.querySelector('#return');
+    returnToHome.addEventListener("click", ()=>{
+    window.location.hash= '#/'
+  })
     
 let formforRegister= registerDiv.querySelector("#formRegister");
 console.log(formforRegister)
