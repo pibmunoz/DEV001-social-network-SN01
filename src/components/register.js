@@ -1,8 +1,22 @@
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
 import {auth} from "../firebase.js";
+import { onNavigate } from "../main.js"; 
 
 export const register = () => {
-    const registerDiv = document.createElement('div');
+
+    const divRegister = document.createElement('div');
+    const inputMail = document.createElement('input');
+
+    const buttonRegister2 = document.createElement('button');
+    
+    buttonRegister2.textContent = 'Register';
+  
+    div.append(buttonRegister2, inputMail)
+  
+    return divRegister; 
+};
+
+    //const registerDiv = document.createElement('div');
     /*const formCreate = document.createElement('form');
     const inputEmail = document.createElement('input');
     const signUpButton = document.createElement('button');
@@ -11,7 +25,7 @@ export const register = () => {
     formCreate.appendChild(inputEmail);
     registerDiv.appendChild(signUpButton);*/
 
-
+/* 
 
     registerDiv.classList.add("fullBodyOfRegister")
 
@@ -90,4 +104,4 @@ formforRegister.addEventListener("submit", async (e)=>{
 
 }
 
-
+ */
