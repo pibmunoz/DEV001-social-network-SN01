@@ -10,11 +10,27 @@ const root = document.getElementById("root");
 
 const routes ={
     '/': home,
-    //'#register': register,
+    '/register': register,
     //'#login': Login,
+};
+
+const onNavigate = (pathname) => {
+    window.history.pushState (
+        {},
+        pathname,
+        window.location,origin + pathname,
+    );
+    root.appendChild(routes[pathname]())
 }
 
-root.appendChild('home')
+const component = routes[window.location.pathname];
+
+root.appendChild(component());
+
+
+
+
+
 /* 
 export const onNavigate = (pathname) => {
     divRoot.innerHTML="";

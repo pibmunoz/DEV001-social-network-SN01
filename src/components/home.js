@@ -1,4 +1,4 @@
-
+import { onNavigate } from "../main.js"
 
 export const home = () => {
 
@@ -9,6 +9,10 @@ export const home = () => {
 
   buttonLogin.textContent = 'Login'
   buttonLogin.textContent = 'Register'
+
+  buttonLogin.addEventListener('click', ()=>{
+  onNavigate('/register');
+});
 
   div.append(buttonLogin, buttonRegister)
 

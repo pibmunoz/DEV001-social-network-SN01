@@ -20,7 +20,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "./deploy.sh",
-    "start": " node foo.js"
+   
     
   },
   "devDependencies": {
