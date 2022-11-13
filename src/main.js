@@ -3,14 +3,19 @@ import './firebase.js';
 import {home} from './components/home.js';
 import {register} from './components/register.js';
 
-const divRoot = document.getElementById("root");
+
+
+const root = document.getElementById("root");
+
 
 const routes ={
     '/': home,
-    '#register': register,
+    //'#register': register,
     //'#login': Login,
 }
 
+root.appendChild('home')
+/* 
 export const onNavigate = (pathname) => {
     divRoot.innerHTML="";
      window.history.pushState(
@@ -41,7 +46,7 @@ onNavigate(location.hash)
  
     document.getElementById("buttonRegister").addEventListener("click", () => {
       return onNavigate("#register");
-      });
+      }); */
 
 //
 

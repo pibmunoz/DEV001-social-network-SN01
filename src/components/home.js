@@ -1,7 +1,22 @@
 
 
 export const home = () => {
-    const homeDiv = document.createElement('div');
+
+  const div = document.createElement('div');
+
+  const buttonLogin = document.createElement('button');
+  const buttonRegister = document.createElement('button');
+
+  buttonLogin.textContent = 'Login'
+  buttonLogin.textContent = 'Register'
+
+  div.append(buttonLogin, buttonRegister)
+
+  return div; 
+
+}
+
+/*     const homeDiv = document.createElement('div');
 
     homeDiv.classList.add("cuerpo")
 
@@ -44,5 +59,5 @@ export const home = () => {
 
     return homeDiv;
 
-}
+} */
 
