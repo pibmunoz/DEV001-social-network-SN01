@@ -1,218 +1,358 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .homeDivi{
+.homeDivi {
   display: flex;
   flex-direction: column;
   align-items: center;
-padding-top: 3rem;
-padding-right: 1rem;
-padding-left: 1rem;
+  width: 100%;
+  max-height: 100%;
+  ;
+
 
 }
 
 
 
-  .logo1{
-    width: 80%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    z-index: 50;
-  }
-
-  .logo{
-    width: 80%;
-    height:80% ;
-    margin-bottom: 1rem;
-  }
-
-  .cuerpo{
-    max-width: 576px;
-    height:100%;
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(186,217,215,1) 22%, rgba(32,100,149,1) 56%, rgba(36,228,221,1) 100%);
-  background-size:cover;
-  }
-
-  .imgFooter{
-    width: 90vw;
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    z-index: 0;
-  }
-
-  .login2{
-    max-width: 95vw;
-    height:90vh;
-    display: flex;
-    justify-content: center;
-    position:relative;
-  }
-
-  .mainBox{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vh;
-    position: relative;
-  }
-
-.input1{
-    width: 85vw;
-    height: 6vh;
-    border-radius: 0.3rem;
-    border-style: none;
-    text-align: center;
-    font-size: 1.1rem;
-    display: flex;
-    padding: 1rem;
-    position:relative;
-    z-index: 50;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+.logo1 {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+  margin-top: 3rem;
 }
 
-.root{
+.logo {
+  width: 50%;
+  height: 50%;
+  margin-bottom: 8vh;
+}
+
+.cuerpo {
+  height: 100%;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(186, 217, 215, 1) 22%, rgba(32, 100, 149, 1) 56%, rgba(36, 228, 221, 1) 100%);
+  background-size: cover;
+}
+
+.imgFooter {
+  width: 34vh;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  z-index: 0;
+}
+
+
+.login2 {
+  max-width: 95vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.mainBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 85vw;
+}
+
+
+.input1 {
+  width: 85vw;
+  height: 6vh;
+  border-radius: 0.3rem;
+  border-style: none;
+  text-align: center;
+  font-size: 1.1rem;
+  display: flex;
+  padding: 1rem;
+  position: relative;
+  z-index: 50;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.root {
   display: flex;
   justify-content: center;
 }
 
-.buttonSignIn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60vw;
-    height: 6vh;
-    border-radius: 0.3rem;
-    border-style: none;
-    background-color: rgba(212, 41, 255, 1);
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    color:white;
-    font-weight: 600;
-    font-size: 1rem;
-    z-index: 50;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+.buttonSignIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 6vh;
+background: linear-gradient(to right, rgba(212, 4, 255, 1), #d41062);
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0px 1px 8px #2493c6;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1em;
+  z-index: 50;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  cursor: pointer;
 }
 
-.registerText{
-    font-size: 0.9rem;
-    font-weight: 400;
-    color:white;
-    z-index: 50;
-    text-align: center;
+.buttonSignIn:hover {
+  background-color: #910673;
 }
 
-.text2{
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
-    z-index: 50;
+.buttonRegister {
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  color: white;
+  font-size: 1em;
 }
 
-.login2{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    z-index: 100;
-    align-items: center;
-    justify-content: flex-start;
-
+.registerText {
+  text-align: center;
 }
 
-hr{
-  border-top: 3px rgb(255, 255, 255);
-  width: 17vw;
+.text2 {
+  font-size: 1em;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
   z-index: 50;
 }
 
-.acomodo{
+.text1 {
+  font-size: 1em;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  z-index: 50;
+}
+
+.login2 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  z-index: 100;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+hr {
+  border-top: 3px rgb(255, 255, 255);
+  width: 22vw;
+  z-index: 50;
+}
+
+.acomodo {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.iconoEmail{
-    position: absolute;
-    z-index: 100;
-    width: 8%;
-    left:1rem;
-    top:1.8vh;
+.iconoEmail {
+  z-index: 100;
+  position: absolute;
+  width: 5vw;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
 }
 
-.iconoPassword{
-    position: absolute;
-    z-index: 100;
-    width: 7%;
-    left:1rem;
-    top: 9vh;
-   
+.iconoPassword {
+  z-index: 100;
+  position: absolute;
+  width: 5vw;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.login2 p{
-    color: white;
-    font-weight: 500;
+.login2 p {
+  color: white;
+  font-weight: 500;
+  font-size: 1em;
 }
 
-.google{
+.google {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.iconoGoogle{
-    width: 40px;
-    height: 40px;
-    z-index:100;
-    margin-top:0.9em;
+
+.iconoGoogle {
+  width: 30px;
+  height: 30px;
+  z-index: 100;
+  margin-top: 0.9em;
 
 }
-#circle{
-    z-index:0;
-    position:absolute;
-    background-color: rgb(255, 255, 255);
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    top: 1.8rem;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  }
 
-  .fullBodyOfRegister{
-    max-width: 576px;
-    height:100%;
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(180deg, rgba(176, 238, 235, 1) 2%,  rgba(32, 100, 149, 1) 26%,rgb(23, 233, 226) 100%);
-  background-size:cover;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  }
+#circle {
+  z-index: 0;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  top: 1.8rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
 
-  .formRegister{
-    background: white;
-    width: 80%;
-    border-radius: 0.7rem;
-  }
+/*aqui va el css de register*/
 
-  .buttonRegister {
-    background-color: transparent;
-    border-color: transparent;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
-    z-index: 50;
-    
-  }
+.fullBodyOfRegister {
+  width: 100%;
+  height: 100vmax;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(186, 217, 215, 1) 22%, rgba(32, 100, 149, 1) 56%, rgba(36, 228, 221, 1) 100%);
+}
+
+.registerBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7vh;
+  padding-right: 1.5vw;
+  padding-left: 1.5vw;
+  height: 90%;
+
+
+}
+
+.infoForm {
+  width: 90%;
+}
+
+.headRegister {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo2 {
+  width: 40%;
+  margin-bottom: 1.5vh;
+}
+
+.toAlignSignUpAndForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 97%;
+}
+
+.signUp {
+  letter-spacing: 0.5vw;
+  padding-bottom: 0.6vh;
+  text-align: center;
+  margin-top: 0.3vh;
+  
+}
+
+.underline-title{
+  background: linear-gradient(to right, rgb(156, 225, 235), rgb(3, 23, 206));
+  height: 2px;
+  margin: -1.1rem auto 0 auto;
+  width: 25vw;
+}
+
+
+
+
+.formRegister {
+  background: white;
+  width: 95%;
+  border-radius: 0.7rem;
+  position: relative;
+  padding: 5% 0% 5% 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
+}
+
+
+
+.input2 {
+  width: 100%;
+  height: 4vh;
+  border-radius: 0.3rem;
+  border-bottom-style: dotted;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  text-align: left;
+  font-size: 1em;
+  display: flex;
+  padding: 1rem;
+  position: relative;
+  z-index: 50;
+  margin-bottom: 3vh;
+}
+
+.infoForm label {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.buttonsRegisterForRow {
+  display: flex;
+  justify-content: space-around;
+  width: 95%;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+}
+
+.buttonSignUp {
+  background: linear-gradient(to right, #7bdef7, #2da7bd);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 1px 8px #2493c6;
+  cursor: pointer;
+  color: white;
+  height: 5vh;
+  margin: 0;
+  transition: 0.25s;
+  width: 15vmax;
+  font-weight: 600;
+}
+
+.return {
+  background: linear-gradient(to right, #7bdef7, #2da7bd);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 1px 8px #2493c6;
+  cursor: pointer;
+  color: white;
+  height: 5vh;
+  margin: 0;
+  transition: 0.25s;
+  width: 15vmax;
+  font-weight: 600;
+}
