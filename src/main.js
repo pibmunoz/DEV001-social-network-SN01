@@ -1,4 +1,4 @@
-import { changeView } from './view.js';
+import { changeView } from './view';
 
 
 const initSpa = () => {
@@ -12,4 +12,4 @@ const initSpa = () => {
   
   };
   
-  window.addEventListener('DOMContentLoaded', initSpa); //cuando la pagina esta completamente cargada gatilla el initSpa
+  window.addEventListener('load', initSpa); //cuando la pagina esta completamente cargada gatilla el initSpa

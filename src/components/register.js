@@ -1,7 +1,6 @@
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
-import {auth} from "../firebase.js";
+import {submitRegister} from '../lib/index.js'
 
-export const register = () => {
+export const viewForRegister = () => {
     const registerDiv = document.createElement('div');
     /*const formCreate = document.createElement('form');
     const inputEmail = document.createElement('input');
@@ -45,44 +44,35 @@ export const register = () => {
         </div>
         <div class ="buttonsRegisterForRow">
             <button class="buttonSignUp" id="signUp">Sign Up</button>
-            <button class="return" id="return">Return</button>
+            
         </div>
           
     </form>
+    <button class="return" id="return">Return</button>
     
   </section>
  
    `
 
     registerDiv.innerHTML= registerText
-    
-    const returnToHome = registerDiv.querySelector('#return');
+    //seleccionamos el boton y funciona con template string cuando se usa querySelector y se coloca dentro de una variable
+    const returnToHome = registerDiv.querySelector('#return'); 
     returnToHome.addEventListener("click", ()=>{
     window.location.hash= '#/'
   })
     
-let formforRegister= registerDiv.querySelector("#formRegister");
-console.log(formforRegister)
 
-formforRegister.addEventListener("submit", async (e)=>{
-    e.preventDefault()
-    const displayName = formforRegister["fName"].value;
-    //const country = formforRegister["signUpCountry"].value;
-   const email= formforRegister["signUpEmail"].value;
-   const password= formforRegister["signUpPassword"].value;
- console.log( email, password)
 
- try{
-    const user=await createUserWithEmailAndPassword(auth, email,password);
-    console.log(user)
-    return result.user.updateProfile({
-        displayName: document.getElementById("name").value
-      })
- } catch(error){
-    console.log(error)
- }
-});
-
+    registerDiv.querySelector("#formRegister").addEventListener("submit", (e)=>{
+        e.preventDefault();
+    let email= registerDiv.querySelector('#signUpEmail').value;
+    let password= registerDiv.querySelector('#signUpPassword').value;
+    let fName= registerDiv.querySelector('#fName').value
+    let country= registerDiv.querySelector('#signUpCountry').value
+    console.log(email,password, fName, country)
+    //window.location.hash= '#/profile'
+    submitRegister(email,password, fName, country)
+})
 
 
 
