@@ -1,5 +1,6 @@
 import {submitRegister} from '../lib/index.js'
 
+// Constante que contiene el template de la vista de registro
 export const viewForRegister = () => {
     const registerDiv = document.createElement('div');
     /*const formCreate = document.createElement('form');
@@ -40,7 +41,7 @@ export const viewForRegister = () => {
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input2" id="passwordTwo" placeholder="Confirm your password"> 
+            <input  type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password"> 
         </div>
           
     </form>
@@ -56,6 +57,7 @@ export const viewForRegister = () => {
 
     registerDiv.innerHTML= registerText
     //seleccionamos el boton y funciona con template string cuando se usa querySelector y se coloca dentro de una variable
+    // Botón de retorno a la vista de home
     const returnToHome = registerDiv.querySelector('#return'); 
     returnToHome.addEventListener("click", ()=>{
     window.location.hash= '#/'
@@ -64,7 +66,7 @@ export const viewForRegister = () => {
   
 
 
-
+// Guarda values de inputs de registro
     registerDiv.querySelector("#signUp").addEventListener("click", (e)=>{
         e.preventDefault();
 
@@ -72,11 +74,22 @@ export const viewForRegister = () => {
         let password= registerDiv.querySelector('#signUpPassword').value;
         let fName= registerDiv.querySelector('#fName').value
         let country= registerDiv.querySelector('#signUpCountry').value
-        let passwordTwo= registerDiv.querySelector('#passwordTwo').value;
-        console.log(email,password, fName, country)
+       console.log(email,password, fName, country)
 
     //window.location.hash= '#/profile'
-})
+    
+// Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos antes de enviar el registro
+    let passwordConf= registerDiv.querySelector('#signUpPasswordConf').value;
+    if (password != passwordConf){
+        alert("Password doesn't match")
+    }
+    if (email== '' || password == '' || fName == '' || country == '') {
+        alert('Fill the empty inputs')
+     }
+    else {
+        submitRegister(email,password, fName, country)
+    }
+   })
 
 
 
