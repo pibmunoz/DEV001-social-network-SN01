@@ -3,7 +3,7 @@ import { app, db } from '../firebase';
 import {  doc, setDoc} from 'firebase/firestore'; 
 
 
-
+const auth = getAuth(app);
 
 
 
@@ -42,7 +42,6 @@ sendEmailVerification(auth.currentUser)
 
 // Exporta constante de registro + datos del usuario
 export let submitRegister = (email, password, fName, country) => {
-  const auth = getAuth(app);
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       let usersUid= userCredential.user.uid;
@@ -62,7 +61,6 @@ export let submitRegister = (email, password, fName, country) => {
 
 // Exporta variable ingreso con google. Que luego del logIn, lleva al usuario a la página de perfil
 export let googleLogIn= ()=>{
-  const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
   .then((result) => {
@@ -99,7 +97,6 @@ export let googleLogIn= ()=>{
 } 
 // Exporta constante que envía correo de reseteo de contraseña
 export const forgotPassword = (email)=>{
-const auth = getAuth(app);
 
 sendPasswordResetEmail(auth, email)
   .then(() => {
@@ -115,7 +112,6 @@ sendPasswordResetEmail(auth, email)
 
 // Exporta constante que permite al usuario ingresar con su correo y contraseña
 export let logInHome = (email, password) => {
-  const auth = getAuth(app);
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
