@@ -10,7 +10,7 @@ export const viewForRegister = () => {
     formCreate.appendChild(inputEmail);
     registerDiv.appendChild(signUpButton);*/
 
-/* 
+
 
     registerDiv.classList.add("fullBodyOfRegister")
 
@@ -40,7 +40,7 @@ export const viewForRegister = () => {
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input2" placeholder="Confirm your password"> 
+            <input  type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password"> 
         </div>
         <div class ="buttonsRegisterForRow">
             <button class="buttonSignUp" id="signUp">Sign Up</button>
@@ -71,8 +71,20 @@ export const viewForRegister = () => {
     let country= registerDiv.querySelector('#signUpCountry').value
     console.log(email,password, fName, country)
     //window.location.hash= '#/profile'
-    submitRegister(email,password, fName, country)
-})
+    
+
+    let passwordConf= registerDiv.querySelector('#signUpPasswordConf').value;
+    if (password != passwordConf){
+        alert('contraseña incorrecta')
+    }
+    if (email,password, fName, country == '') {
+        alert('fill the empty inputs')
+
+    }
+    else {
+        submitRegister(email,password, fName, country)
+    }
+   })
 
 
 
@@ -83,4 +95,3 @@ export const viewForRegister = () => {
 
 }
 
- */

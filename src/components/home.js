@@ -62,5 +62,5 @@ homeDiv.querySelector('#googleIcon').addEventListener("click", ()=>{
 })
   return homeDiv;
 
-} */
+}
 
