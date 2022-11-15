@@ -40,15 +40,15 @@ export const viewForRegister = () => {
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input2" placeholder="Confirm your password"> 
-        </div>
-        <div class ="buttonsRegisterForRow">
-            <button class="buttonSignUp" id="signUp">Sign Up</button>
-            
+            <input  type= "text" class="input2" id="passwordTwo" placeholder="Confirm your password"> 
         </div>
           
     </form>
-    <button class="return" id="return">Return</button>
+    <div class ="buttonsRegisterForRow">
+            <button class="buttonSignUp" id="signUp">Sign Up</button>
+            <button class="return" id="return">Return</button>
+        </div>
+    
     
   </section>
  
@@ -61,17 +61,21 @@ export const viewForRegister = () => {
     window.location.hash= '#/'
   })
     
+  
 
 
-    registerDiv.querySelector("#formRegister").addEventListener("submit", (e)=>{
+
+    registerDiv.querySelector("#signUp").addEventListener("click", (e)=>{
         e.preventDefault();
-    let email= registerDiv.querySelector('#signUpEmail').value;
-    let password= registerDiv.querySelector('#signUpPassword').value;
-    let fName= registerDiv.querySelector('#fName').value
-    let country= registerDiv.querySelector('#signUpCountry').value
-    console.log(email,password, fName, country)
+
+        let email= registerDiv.querySelector('#signUpEmail').value;
+        let password= registerDiv.querySelector('#signUpPassword').value;
+        let fName= registerDiv.querySelector('#fName').value
+        let country= registerDiv.querySelector('#signUpCountry').value
+        let passwordTwo= registerDiv.querySelector('#passwordTwo').value;
+        console.log(email,password, fName, country)
+
     //window.location.hash= '#/profile'
-    submitRegister(email,password, fName, country)
 })
 
 
@@ -82,5 +86,4 @@ export const viewForRegister = () => {
     
 
 }
-
 

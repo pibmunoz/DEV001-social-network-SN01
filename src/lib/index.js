@@ -63,7 +63,10 @@ export let googleLogIn= ()=>{
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    console.log(user)
     window.location.hash= '#/profile'
+
+    return user 
     // ...
   }).catch((error) => {
     // Handle Errors here.

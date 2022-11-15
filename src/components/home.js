@@ -19,8 +19,9 @@ export const viewForHome = () => {
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
       </div>
       <div class= "input-wrapper">
-        <input id="passwordButton" type="password" class="input1" placeholder="Password">
+        <input id="password" type="password" class="input1" placeholder="Password">
         <img class="iconoPassword" src= "/img/password.png" alt= "password">
+        <img class="iconoPasswordEye" id='eyePassword'  src= "/img/eye.png" alt= "showPassword">
         </div>
       <button class="buttonSignIn" id="buttonSignIn">Sign In</button>
       <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
@@ -34,13 +35,33 @@ export const viewForHome = () => {
         <div class = "circle" id= "circle"></div>
         </div>
       </div>
-      <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
+      
+  </div>
+  <div class="doggy">
+  <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
   </div>
 </section>
  `
 
  homeDiv.innerHTML=textHome
+
+
+//para mostrar el password oculto
+
+homeDiv.querySelector('#eyePassword').addEventListener('click', ()=>{
+  let typePassword = homeDiv.querySelector('#password')
+
+  if (typePassword.type == 'password'){
+    typePassword.type = 'text'
+  } else {
+    typePassword.type= 'password'
+  }
+
+})
   
+
+  
+//para dar click en el button register
  const forChangeViewToRegister= homeDiv.querySelector('#buttonRegister');
 
  forChangeViewToRegister.addEventListener('click', () =>{ //al hacer click hacemos cambio de hash :) 
@@ -50,7 +71,7 @@ export const viewForHome = () => {
  homeDiv.querySelector("#buttonSignIn").addEventListener("click", (e)=>{
   
   let email= homeDiv.querySelector('#signInButton').value;
-  let password= homeDiv.querySelector('#passwordButton').value;
+  let password= homeDiv.querySelector('#password').value;
   console.log(email,password)
   logInHome(email,password)
 
@@ -60,6 +81,8 @@ homeDiv.querySelector('#googleIcon').addEventListener("click", ()=>{
   googleLogIn()
   console.log("google auth")
 })
+
+
   return homeDiv;
 
 }
