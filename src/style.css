@@ -378,3 +378,23 @@ hr {
   color: white;
   font-weight: 700;
 }
+
+.bodyGif{
+  width: 400px;
+  height: 100%;
+  display: flex;
+  align-items:  center;
+  flex-direction: column;
+  background-color: crimson;
+  color: bisque;
+  padding: 5%;
+  font-size: larger;
+  text-align: center;
+
+}
+
+.bodyGif p{
+  font-weight: 800;
+  width: 300px;
+
+}
