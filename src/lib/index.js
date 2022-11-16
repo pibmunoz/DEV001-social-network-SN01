@@ -21,6 +21,8 @@ export  let saveDataFromUsers= (fName, country, usersUid, email, password)=>{
   
 }
 
+
+
 let saveDataFromGoogle= (nameGoogle, usersId, emailGoogle)=>{
 // Crea nuevo documento en cloud firestore con la data del usuario
   setDoc(doc(db, 'users', usersId),{
@@ -36,6 +38,7 @@ console.log(auth.currentUser)
 sendEmailVerification(auth.currentUser)
 .then(() => {
   alert("Email verification sent!")
+  window.location.hash = '#/'
 });
 }
 
@@ -48,12 +51,20 @@ export let submitRegister = (email, password, fName, country) => {
       saveDataFromUsers(fName, country, usersUid, email, password);
       sendEmail(auth)
       
+      
       return userCredential.user;
 
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorCode,errorMessage)
+        //agregue un mensaje de que el correo ya esta en uso en caso de que quieran volverse a registrar con el mismo
+      if (error.code.includes("auth/email-already-in-use")){
+        alert("el correo electronico ya esta registrado")
+      }
+
+     
       // ..
     });
 
@@ -91,8 +102,9 @@ export let googleLogIn= ()=>{
     // The email of the user's account used.
    // const email = error.customData.email;
     // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+    const credentialError = GoogleAuthProvider.credentialFromError(error);
     // ...
+    console.log(errorCode, errorMessage, credentialError)
   });
 } 
 // Exporta constante que envía correo de reseteo de contraseña
@@ -106,7 +118,7 @@ sendPasswordResetEmail(auth, email)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    
+    console.log(errorCode,errorMessage)
   });
 }
 
@@ -124,7 +136,7 @@ export let logInHome = (email, password) => {
       window.location.hash = '#/profile'
       return user
       // ...
-      const emailRestPassword= user.email
+      //const emailRestPassword= user.email
     })
     .catch((error) => {
 
@@ -136,3 +148,5 @@ export let logInHome = (email, password) => {
       }
     });
 }
+
+
