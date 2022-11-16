@@ -1,5 +1,6 @@
 import {submitRegister} from '../lib/index.js'
 
+// Constante que contiene el template de la vista de registro
 export const viewForRegister = () => {
     const registerDiv = document.createElement('div');
     /*const formCreate = document.createElement('form');
@@ -40,15 +41,15 @@ export const viewForRegister = () => {
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input2" placeholder="Confirm your password"> 
-        </div>
-        <div class ="buttonsRegisterForRow">
-            <button class="buttonSignUp" id="signUp">Sign Up</button>
-            
+            <input  type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password"> 
         </div>
           
     </form>
-    <button class="return" id="return">Return</button>
+    <div class ="buttonsRegisterForRow">
+            <button class="buttonSignUp" id="signUp">Sign Up</button>
+            <button class="return" id="return">Return</button>
+        </div>
+    
     
   </section>
  
@@ -56,23 +57,39 @@ export const viewForRegister = () => {
 
     registerDiv.innerHTML= registerText
     //seleccionamos el boton y funciona con template string cuando se usa querySelector y se coloca dentro de una variable
+    // Botón de retorno a la vista de home
     const returnToHome = registerDiv.querySelector('#return'); 
     returnToHome.addEventListener("click", ()=>{
     window.location.hash= '#/'
   })
     
+  
 
 
-    registerDiv.querySelector("#formRegister").addEventListener("submit", (e)=>{
+// Guarda values de inputs de registro
+    registerDiv.querySelector("#signUp").addEventListener("click", (e)=>{
         e.preventDefault();
-    let email= registerDiv.querySelector('#signUpEmail').value;
-    let password= registerDiv.querySelector('#signUpPassword').value;
-    let fName= registerDiv.querySelector('#fName').value
-    let country= registerDiv.querySelector('#signUpCountry').value
-    console.log(email,password, fName, country)
+
+        let email= registerDiv.querySelector('#signUpEmail').value;
+        let password= registerDiv.querySelector('#signUpPassword').value;
+        let fName= registerDiv.querySelector('#fName').value
+        let country= registerDiv.querySelector('#signUpCountry').value
+       console.log(email,password, fName, country)
+
     //window.location.hash= '#/profile'
-    submitRegister(email,password, fName, country)
-})
+    
+// Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos antes de enviar el registro
+    let passwordConf= registerDiv.querySelector('#signUpPasswordConf').value;
+    if (password != passwordConf){
+        alert("Password doesn't match")
+    }
+    if (email== '' || password == '' || fName == '' || country == '') {
+        alert('Fill the empty inputs')
+     }
+    else {
+        submitRegister(email,password, fName, country)
+    }
+   })
 
 
 
@@ -82,5 +99,4 @@ export const viewForRegister = () => {
     
 
 }
-
 
