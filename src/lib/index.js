@@ -1,3 +1,4 @@
+import { doc, setDoc } from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,9 +8,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   sendPasswordResetEmail,
-} from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { app, db } from '../firebase';
+  app,
+  db,
+} from '../firebase';
 
 const auth = getAuth(app);
 
