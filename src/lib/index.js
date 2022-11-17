@@ -1,11 +1,8 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, AuthErrorCodes, sendEmailVerification, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
 import { app, db } from '../firebase';
-import {  doc, setDoc} from 'firebase/firestore'; 
-
+import {doc,setDoc} from 'firebase/firestore'; 
 
 const auth = getAuth(app);
-
-
 
 //aqui guardamos base de datos x usuario usando su ID
 export  let saveDataFromUsers= (fName, country, usersUid, email, password)=>{
