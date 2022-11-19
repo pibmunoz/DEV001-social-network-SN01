@@ -1,12 +1,11 @@
 /**
+ *
  * @jest-environment jsdom
  */
 // importamos la funcion que vamos a testear
 import { submitRegister } from '../src/lib/index';
 import { viewForRegister } from '../src/components/register';
 
-jest.mock('../src/main.js');
-jest.mock('../src/lib/index.js');
 // configurando firebase moc
 /* const firebasemock = require('firebase-mock');
 
@@ -22,32 +21,53 @@ global.firebase = firebasemock.MockFirebaseSdk(
   () => mockfirestore,
 );
 */
-describe('submitRegister', () => {
+// Inicio Testeo a viewForRegister
+describe('viewForRegister', () => {
   it('debería ser una función', () => {
-    expect(typeof submitRegister).toBe('function');
-  });
-  it('Tenemos boton de submit', () => {
-    const bodyRegister = viewForRegister();
-    const botonSubmit = bodyRegister.querySelector('#signUp');
-    expect(botonSubmit).not.toBeNull();
+    expect(typeof viewForRegister).toBe('function');
   });
   it('Tenemos boton de return', () => {
     const registerDiv = viewForRegister();
     const returnToHome = registerDiv.querySelector('#return');
-    expect(returnToHome).not.toBeNull();
+    expect(returnToHome.outerHTML).toBe('<button class="return" id="return">Return</button>');
   });
-  it('cambia de hash', () => {
+  it('cambia de hash y retorna a home', () => {
     const registerDiv = viewForRegister();
     const buttonReturnToHome = registerDiv.querySelector('#return');
-    const returnToHome = buttonReturnToHome.addEventListener('click', () => {
-      window.location.hash = '#/';
-    });
-    expect(returnToHome).toHaveReturnedWith('#/');
+    expect(window.location.hash).toBe('');
+    buttonReturnToHome.click();
+    expect(window.location.hash).toBe('#/');
   });
-  // it('Tenemos boton de submit!', () => {
-  //   submitRegister('gabrilaavd@gmail.com', '123456', 'Gabriela', 'Chile')
-  //     .then((result) => {
-  //       expect(result.email).toBe('gabrilaavd@gmail.com');
-  //     });
-  // });
+  it('contraseña y confirmación no son iguales', () => {
+    const registerDiv = viewForRegister();
+    let password = registerDiv.querySelector('#signUpPassword').value;
+    let passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
+    password = 'holahola';
+    passwordConf = 'holasholas';
+    const buttonSignUp = registerDiv.querySelector('#signUp');
+    buttonSignUp.click();
+    expect(password !== passwordConf).toBe(true); // preguntar si esta bien :(
+  });
+  describe('elemento root', () => {
+    beforeAll(() => {
+      document.body.innerHTML = '<div class="root" id="root"></div>';
+    });
+    it('debería existir elemento root', () => {
+      const bodyRoot = document.getElementById('root');
+      expect(bodyRoot.outerHTML).toBe('<div class="root" id="root"></div>');
+    });
+  });
+  // Fin testeo viewForRegister
+  // Inicio testeo función submitRegister()
+  describe('submitRegister', () => {
+    it('debería ser una función', () => {
+      expect(typeof submitRegister).toBe('function');
+    });
+    it('Tenemos boton de submit', () => {
+      const bodyRegister = viewForRegister();
+      const botonSubmit = bodyRegister.querySelector('#signUp');
+      expect(botonSubmit.outerHTML).toBe('<button class="buttonSignUp" id="signUp">Sign Up</button>');
+    });
+  });
 });
+// Fin testeo función submitRegister
