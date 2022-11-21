@@ -59,9 +59,6 @@ export const viewForRegister = () => {
     const password = registerDiv.querySelector('#signUpPassword').value;
     const fName = registerDiv.querySelector('#fName').value;
     const country = registerDiv.querySelector('#signUpCountry').value;
-    console.log(email, password, fName, country);
-
-    // window.location.hash= '#/profile'
     // Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos
     // antes de enviar el registro
     const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;

@@ -1,3 +1,4 @@
+import { doc, setDoc } from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,9 +8,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   sendPasswordResetEmail,
-} from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { app, db } from '../firebase';
+  app,
+  db,
+} from '../firebase';
 
 const auth = getAuth(app);
 
@@ -34,7 +35,7 @@ const saveDataFromGoogle = (nameGoogle, usersId, emailGoogle) => {
 };
 
 // Envía correo de verificación de cuenta y emite alerta de que el correo fue enviado
-const sendEmail = () => {
+export const sendEmail = () => {
   // let actionCodeSettings= 'https://pawsfinder-2023.firebaseapp.com/__/auth/action?mode=action&oobCode=code'
   console.log(auth.currentUser);
   sendEmailVerification(auth.currentUser)
@@ -49,9 +50,11 @@ export const submitRegister = (email, password, fName, country) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const usersUid = userCredential.user.uid;
-      saveDataFromUsers(fName, country, usersUid, email, password);
+      const user = userCredential.user;
+      console.log(auth);
+      /* saveDataFromUsers(fName, country, usersUid, email, password); */
       sendEmail(auth);
-      return userCredential.user;
+      return user;
     })
     .catch((error) => {
       const errorCode = error.code;
