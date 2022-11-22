@@ -63,10 +63,10 @@ export const viewForRegister = () => {
     // antes de enviar el registro
     const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
     if (password !== passwordConf) {
-      alert("Password doesn't match");
+      console.log("Password doesn't match");
     }
     if (email === '' || password === '' || fName === '' || country === '') {
-      alert('Fill the empty inputs');
+      console.log('Fill the empty inputs');
     } else {
       submitRegister(email, password, fName, country);
     }

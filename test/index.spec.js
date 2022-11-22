@@ -4,9 +4,19 @@
  * @jest-environment jsdom
  */
 // importamos la funcion que vamos a testear
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { submitRegister, saveDataFromUsers, sendEmail } from '../src/lib/index';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider
+} from 'firebase/auth';
+import {
+  submitRegister, sendEmail, forgotPassword, logInHome, googleLogIn,
+} from '../src/lib/index';
 import { viewForRegister } from '../src/components/register';
+import { viewForHome } from '../src/components/home';
 
 jest.mock('firebase/auth');
 jest.mock('firebase/firestore');
@@ -69,3 +79,107 @@ describe('submitRegister', () => {
     submitRegister('test@test.test', '123');
   });
 });
+
+describe('envioCorreoVerificacion', () => {
+  it('debería ser una función', () => {
+    expect(typeof sendEmail).toBe('function');
+  });
+  it('deberia llamar correctamente sendEmailVerification', (done) => {
+    sendEmailVerification.mockImplementationOnce((currentUser) => {
+      expect(currentUser).toBe('testUser');
+      return Promise.resolve();
+    });
+    window.addEventListener('hashchange', () => {
+      expect(window.location.hash).toBe('#/');
+      done();
+    });
+    sendEmail('testUser');
+  });
+});
+// test de forgotPassword
+describe('forgotPassword', () => {
+  it('deberia ser una función', () => {
+    expect(typeof forgotPassword).toBe('function');
+  });
+  it('forgotPassword llama correctamente a sendPasswordResetEmail', () => {
+    sendPasswordResetEmail.mockImplementationOnce((auth, email) => {
+      expect(email).toBe('test@test.test');
+      return Promise.resolve();
+    });
+    forgotPassword('test@test.test');
+  });
+});
+// test de logInHome
+// describe('logInHome');
+
+describe('logInHome', () => {
+  it('debería ser una función', () => {
+    expect(typeof logInHome).toBe('function');
+  });
+  it('Tenemos boton de login', () => {
+    const bodyHome = viewForHome();
+    const buttonSignIn = bodyHome.querySelector('#buttonSignIn');
+    expect(buttonSignIn.outerHTML).toBe('<button class="buttonSignIn" id="buttonSignIn">Sign In</button>');
+  });
+  it('deberia llamar correctamente signInWithEmailAndPassword', () => {
+    signInWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
+      expect(email).toBe('test@test.test');
+      expect(password).toBe('123');
+      return Promise.resolve({ user: { email, password } });
+    });
+    window.addEventListener('hashchange', () => {
+      expect(window.location.hash).toBe('#/profile');
+    });
+    logInHome('test@test.test', '123');
+  });
+});
+// aqui va el test a logIn with Google
+describe.only('googleLogIn', () => {
+  it('debería ser una función', () => {
+    expect(typeof googleLogIn).toBe('function');
+  });
+  it('Tenemos boton de loginGoogle', () => {
+    const bodyHome = viewForHome();
+    const buttonGoogleLogIn = bodyHome.querySelector('#googleIcon');
+    expect(buttonGoogleLogIn.outerHTML).toBe('<img class="iconoGoogle" id="googleIcon" src="/img/google.svg" alt="google">');
+  });
+  it('deberia llamar correctamente  signInWithPopup', () => {
+    signInWithPopup.mockImplementationOnce((email, provider) => {
+      expect(email).toBe('test@test.test');
+      return Promise.resolve({ user: { email } });
+    });
+    window.addEventListener('hashchange', () => {
+      expect(window.location.hash).toBe('#/profile');
+    });
+    logInHome('test@test.test');
+  });
+});
+
+/* import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { submitRegister } from '../src/lib/index.js';
+
+jest.mock('firebase/auth');
+
+describe.only('submitRegister', () => {
+  it('debería ser una función', () => {
+    expect(typeof submitRegister).toBe('function');
+  });
+  it('deberia llamar correctamente userwithEmailAndPassword', () => {
+    createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
+      expect(email).toBe('test@test.testo');
+      expect(password).toBe('123');
+      return Promise.resolve({ user: { email, password } });
+    });
+    submitRegister('test@test.test', '123');
+  });
+  it('deberia regresar error', () => {
+    // esto es si no esta habilitado jsdom ... sí lo tenemos habilitado.
+    global.alert = (mensaje) => { expect(mensaje).toBe('el correo electronico ya esta registrado');
+};
+    createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
+      return Promise.reject({ tiene que tener un texto--como lo que espera el catch });
+    });
+
+    expect(typeof submitRegister).toBe('function');
+  });
+}); */
