@@ -38,6 +38,7 @@ describe('viewForRegister', () => {
     buttonSignUp.click();
     expect(password !== passwordConf).toBe(true); // preguntar si esta bien :(
   });
+
   describe('elemento root', () => {
     beforeAll(() => {
       document.body.innerHTML = '<div class="root" id="root"></div>';
@@ -47,41 +48,24 @@ describe('viewForRegister', () => {
       expect(bodyRoot.outerHTML).toBe('<div class="root" id="root"></div>');
     });
   });
-  // Fin testeo viewForRegister
-  // Inicio testeo función submitRegister()
-  describe.only('submitRegister', () => {
-    it('debería ser una función', () => {
-      expect(typeof submitRegister).toBe('function');
-    });
-    it('Tenemos boton de submit', () => {
-      const bodyRegister = viewForRegister();
-      const botonSubmit = bodyRegister.querySelector('#signUp');
-      expect(botonSubmit.outerHTML).toBe('<button class="buttonSignUp" id="signUp">Sign Up</button>');
-    });
-    it('deberia llamar correctamente userwithEmailAndPassword', () => {
-      createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
-        expect(email).toBe('test@test.test');
-        expect(password).toBe('123');
-        return Promise.resolve({ user: { email, password } });
-      });
-      submitRegister('test@test.test', '123');
-    });
-    it('deberia llamar a la función sendEmail', () => {
-      expect(sendEmail).toHaveBeenCalledTimes(1);
-    });
-  });
 });
-// Fin testeo función submitRegister;
-/* describe.only('sendEmail', () => {
+// Fin testeo viewForRegister
+// Inicio testeo función submitRegister()
+describe('submitRegister', () => {
   it('debería ser una función', () => {
-    expect(typeof sendEmail).toBe('function');
+    expect(typeof submitRegister).toBe('function');
   });
-  it('deberia llamar correctamente sendEmailVerification', () => {
-    sendEmailVerification.mockImplementationOnce((auth, email) => {
-      expect(auth.currentUser.email).toBe('test@test.test');
-      return Promise.resolve({ currentUser: { email } });
+  it('Tenemos boton de submit', () => {
+    const bodyRegister = viewForRegister();
+    const botonSubmit = bodyRegister.querySelector('#signUp');
+    expect(botonSubmit.outerHTML).toBe('<button class="buttonSignUp" id="signUp">Sign Up</button>');
+  });
+  it('deberia llamar correctamente userwithEmailAndPassword', () => {
+    createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
+      expect(email).toBe('test@test.test');
+      expect(password).toBe('123');
+      return Promise.resolve({ user: { email, password } });
     });
-    sendEmail('test@test.test');
+    submitRegister('test@test.test', '123');
   });
 });
-*/

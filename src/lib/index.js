@@ -35,10 +35,10 @@ const saveDataFromGoogle = (nameGoogle, usersId, emailGoogle) => {
 };
 
 // Envía correo de verificación de cuenta y emite alerta de que el correo fue enviado
-export const sendEmail = () => {
+export const sendEmail = (currentUser) => {
   // let actionCodeSettings= 'https://pawsfinder-2023.firebaseapp.com/__/auth/action?mode=action&oobCode=code'
-  console.log(auth.currentUser);
-  sendEmailVerification(auth.currentUser)
+
+  sendEmailVerification(currentUser)
     .then(() => {
       alert('mail verification sent!');
       window.location.hash = '#/';
@@ -50,11 +50,10 @@ export const submitRegister = (email, password, fName, country) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const usersUid = userCredential.user.uid;
-      const user = userCredential.user;
-      console.log(auth);
       /* saveDataFromUsers(fName, country, usersUid, email, password); */
-      sendEmail(auth);
-      return user;
+      const currentUser = userCredential.user;
+      //sendEmail(currentUser);
+      console.log(currentUser);
     })
     .catch((error) => {
       const errorCode = error.code;
