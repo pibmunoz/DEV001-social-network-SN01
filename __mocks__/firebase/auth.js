@@ -9,6 +9,9 @@ export const signInWithEmailAndPassword = jest.fn();
 export const AuthErrorCodes = jest.fn();
 export const GoogleAuthProvider = jest.fn();
 export const signInWithPopup = jest.fn();
+export const provider = jest.fn(GoogleAuthProvider());
+export const db = jest.fn();
+export const getFirestore = jest.fn();
 /* jest.fn((auth, email, password) => {
   Promise.resolve({ user: { email, password } });
 }); */

@@ -10,10 +10,17 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  setDoc,
+  db,
+  doc,
+  getFirestore,
 } from 'firebase/auth';
+// import {
+
+// } from 'firebase/firestore';
 import {
-  submitRegister, sendEmail, forgotPassword, logInHome, googleLogIn,
+  submitRegister, sendEmail, forgotPassword, logInHome, googleLogIn, saveDataFromUsers,
 } from '../src/lib/index';
 import { viewForRegister } from '../src/components/register';
 import { viewForHome } from '../src/components/home';
@@ -133,8 +140,9 @@ describe('logInHome', () => {
     logInHome('test@test.test', '123');
   });
 });
+
 // aqui va el test a logIn with Google
-describe.only('googleLogIn', () => {
+describe('googleLogIn', () => {
   it('debería ser una función', () => {
     expect(typeof googleLogIn).toBe('function');
   });
@@ -143,16 +151,25 @@ describe.only('googleLogIn', () => {
     const buttonGoogleLogIn = bodyHome.querySelector('#googleIcon');
     expect(buttonGoogleLogIn.outerHTML).toBe('<img class="iconoGoogle" id="googleIcon" src="/img/google.svg" alt="google">');
   });
-  it('deberia llamar correctamente  signInWithPopup', () => {
-    signInWithPopup.mockImplementationOnce((email, provider) => {
-      expect(email).toBe('test@test.test');
-      return Promise.resolve({ user: { email } });
+  /* it('deberia llamar correctamente  signInWithPopup', () => {
+    signInWithPopup.mockImplementationOnce((auth) => {
+      const provider = jest.fn(new GoogleAuthProvider());
+       expect(provider).toHaveBeenCalled();
+      expect(provider).toBe(new GoogleAuthProvider());
+      return Promise.resolve();
     });
     window.addEventListener('hashchange', () => {
       expect(window.location.hash).toBe('#/profile');
     });
-    logInHome('test@test.test');
+    googleLogIn();
+  }); */
+});
+
+describe.only('saveDataFromUsers', () => {
+  it('debería ser una función', () => {
+    expect(typeof saveDataFromUsers).toBe('function');
   });
+  
 });
 
 /* import { createUserWithEmailAndPassword } from 'firebase/auth';
