@@ -127,7 +127,8 @@ export const logInHome = (email, password) => {
     .catch((error) => {
       if (error.code === AuthErrorCodes.INVALID_PASSWORD
         || error.code === AuthErrorCodes.USER_DELETED) {
-        console.log('El E-mail o la contraseña son incorrectos');
+        console.log(error.code);
+        alert('El E-mail o la contraseña son incorrectos');
       } else {
         console.log('no has ingresado nada');
       }

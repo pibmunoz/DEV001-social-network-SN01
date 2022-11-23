@@ -9,12 +9,6 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  setDoc,
-  db,
-  doc,
-  getFirestore,
 } from 'firebase/auth';
 // import {
 
@@ -139,6 +133,13 @@ describe('logInHome', () => {
     });
     logInHome('test@test.test', '123');
   });
+  it('have an alert', async () => {
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    expect(window.alert).toBeDefined();
+    await expect(Promise.reject(new Error('auth/wrong-password'))).rejects.toThrow(
+      'auth/wrong-password',
+    );
+  });
 });
 
 // aqui va el test a logIn with Google
@@ -165,11 +166,10 @@ describe('googleLogIn', () => {
   }); */
 });
 
-describe.only('saveDataFromUsers', () => {
+describe('saveDataFromUsers', () => {
   it('debería ser una función', () => {
     expect(typeof saveDataFromUsers).toBe('function');
   });
-  
 });
 
 /* import { createUserWithEmailAndPassword } from 'firebase/auth';
