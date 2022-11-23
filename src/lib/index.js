@@ -16,13 +16,15 @@ const auth = getAuth(app);
 
 // aqui guardamos base de datos x usuario usando su ID
 export const saveDataFromUsers = (fName, country, usersUid, email, password) => {
-  setDoc(doc(db, 'users', usersUid), {
+  const docs = doc(db, 'users', usersUid);
+  setDoc(docs, {
     name: fName,
     countries: country,
     user: usersUid,
     emails: email,
     passwords: password,
   });
+  return saveDataFromUsers();
 };
 
 const saveDataFromGoogle = (nameGoogle, usersId, emailGoogle) => {
@@ -35,12 +37,12 @@ const saveDataFromGoogle = (nameGoogle, usersId, emailGoogle) => {
 };
 
 // Envía correo de verificación de cuenta y emite alerta de que el correo fue enviado
-const sendEmail = () => {
+export const sendEmail = (currentUser) => {
   // let actionCodeSettings= 'https://pawsfinder-2023.firebaseapp.com/__/auth/action?mode=action&oobCode=code'
-  console.log(auth.currentUser);
-  sendEmailVerification(auth.currentUser)
+
+  sendEmailVerification(currentUser)
     .then(() => {
-      alert('mail verification sent!');
+      console.log('mail verification sent!');
       window.location.hash = '#/';
     });
 };
@@ -51,16 +53,18 @@ export const submitRegister = (email, password, fName, country) => {
     .then((userCredential) => {
       const usersUid = userCredential.user.uid;
       saveDataFromUsers(fName, country, usersUid, email, password);
-      sendEmail(auth);
-      return userCredential.user;
+      const currentUser = userCredential.user;
+      sendEmail(currentUser);
+      console.log(currentUser);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
       // agregue un mensaje de que el correo ya esta en uso
-      if (error.code.includes('auth/email-already-in-use')) {
-        alert('el correo electronico ya esta registrado');
+      if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+        // alert('El E-mail ya existe');
+        console.log('alerta de email existente');
       }
     });
 };
@@ -99,7 +103,7 @@ export const googleLogIn = () => {
 export const forgotPassword = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
-      alert('Password reset email sent!');
+      // alert('Password reset email sent!');
       console.log(email);
     })
     .catch((error) => {
@@ -119,15 +123,13 @@ export const logInHome = (email, password) => {
       // forgotPassword(emailUser);
       window.location.hash = '#/profile';
       return user;
-      // ...
-      // const emailRestPassword= user.email
     })
     .catch((error) => {
       if (error.code === AuthErrorCodes.INVALID_PASSWORD
         || error.code === AuthErrorCodes.USER_DELETED) {
-        alert('El E-mail o la contraseña son incorrectos');
+        console.log('El E-mail o la contraseña son incorrectos');
       } else {
-        alert('no has ingresado nada');
+        console.log('no has ingresado nada');
       }
     });
 };
