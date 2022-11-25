@@ -1,5 +1,7 @@
 import { AuthErrorCodes } from '../firebase';
-import { submitRegister, sendEmail, saveDataFromUsers } from '../lib/index.js';
+import {
+  submitRegister, sendEmail, saveDataFromUsers, updateInfo,
+} from '../lib/index.js';
 
 // Exporta constante que contiene el template de la vista de registro
 export const viewForRegister = () => {
@@ -62,7 +64,7 @@ export const viewForRegister = () => {
     const email = registerDiv.querySelector('#signUpEmail').value;
     const password = registerDiv.querySelector('#signUpPassword').value;
 
-    const fName = registerDiv.querySelector('#fName').value;
+    const name = registerDiv.querySelector('#fName').value;
     const country = registerDiv.querySelector('#signUpCountry').value;
     const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
     const textMessageSecret = registerDiv.querySelector('#secretText');
@@ -80,21 +82,23 @@ export const viewForRegister = () => {
       passwordConfTwo.classList.remove('red');
       textMessageSecret.innerHTML = ' ';
     }
-    if (email === '' || password === '' || fName === '' || country === '') {
+    if (email === '' || password === '' || name === '' || country === '') {
       emptyAlert.innerHTML = 'Fill the empty inputs!!!';
       return emptyAlert;
     }
-    submitRegister(email, password, fName, country)
+    submitRegister(email, password, name, country)
       .then((userCredential) => {
         const usersUid = userCredential.user.uid;
-        saveDataFromUsers(fName, country, usersUid, email, password);
+        saveDataFromUsers(name, country, usersUid, email, password);
         const currentUser = userCredential.user;
+        updateInfo(currentUser, name);
+        console.log(currentUser);
         sendEmail(currentUser)
           .then(() => {
             alert('mail verification sent!');
-            window.location.hash = '#/';
+            // window.location.hash = '#/';
           });
-        console.log(currentUser);
+        console.log(currentUser.displayName);
       })
       // eslint-disable-next-line consistent-return
       .catch((error) => {
