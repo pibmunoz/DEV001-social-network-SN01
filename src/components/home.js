@@ -1,4 +1,7 @@
-import { logInHome, googleLogIn, forgotPassword } from '../lib/index';
+import {
+  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle,
+} from '../lib/index';
+import { AuthErrorCodes, GoogleAuthProvider } from '../firebase'; // esto podria estar en archivo intermedio!
 // Constante que contiene el template de la vista de home
 export const viewForHome = () => {
   const homeDiv = document.createElement('div');
@@ -68,12 +71,54 @@ export const viewForHome = () => {
   homeDiv.querySelector('#buttonSignIn').addEventListener('click', () => {
     const email = homeDiv.querySelector('#signInButton').value;
     const password = homeDiv.querySelector('#password').value;
-    console.log(email, password);
-    logInHome(email, password);
+    logInHome(email, password)
+      .then((userCredential) => {
+        window.location.hash = '#/profile';
+        // Signed in
+        const user = userCredential.user;
+        const emailUser = userCredential.email;
+        console.log(emailUser);
+        return user;
+      })
+      .catch((error) => {
+        if (error.code === AuthErrorCodes.INVALID_PASSWORD
+        || error.code === AuthErrorCodes.USER_DELETED) {
+          console.log('El E-mail o la contraseña son incorrectos');
+        } else {
+          console.log('no has ingresado nada');
+        }
+      });
   });
   // Si usuario hace click en botón google, llama a la función googleLogIn() que loguea con google
   homeDiv.querySelector('#googleIcon').addEventListener('click', () => {
-    googleLogIn();
+    const promesa = googleLogIn();
+    promesa
+      .then((result) => {
+        window.location.hash = '#/profile';
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        const usersId = user.uid;
+        const nameGoogle = user.displayName;
+        const emailGoogle = user.email;
+        console.log(usersId, nameGoogle, emailGoogle);
+        saveDataFromGoogle(nameGoogle, usersId, emailGoogle);
+
+        return user;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credentialError = GoogleAuthProvider.credentialFromError(error);
+        alert(errorCode, errorMessage, credentialError);
+      });
     console.log('google auth');
   });
 
@@ -85,7 +130,16 @@ export const viewForHome = () => {
     if (email === '') {
       alert('insert your email in the input call email');
     } else {
-      forgotPassword(email);
+      forgotPassword(email)
+        .then(() => {
+        // alert('Password reset email sent!');
+          console.log(email);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
     }
   });
   return homeDiv;

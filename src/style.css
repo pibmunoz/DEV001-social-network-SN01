@@ -391,3 +391,25 @@ hr {
   width: 300px;
 
 }
+
+.red{
+  border-color: #d41010;
+  border-style: solid;
+  border-width: 0.2rem; 
+}
+
+#secretText{
+text-align: center;
+font-size: 0.9rem;
+font-weight: 700;
+margin-top: -1rem;
+color: rgb(150, 7, 7);
+}
+
+#emptyInput{
+text-align: center;
+font-size: 1rem;
+font-weight: 700;
+margin-top: 0.8rem;
+color: rgb(150, 7, 7);
+}
