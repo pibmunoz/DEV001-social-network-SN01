@@ -1,6 +1,7 @@
-import { submitRegister } from '../lib/index.js';
+import { AuthErrorCodes } from '../firebase';
+import { submitRegister, sendEmail, saveDataFromUsers } from '../lib/index.js';
 
-// Constante que contiene el template de la vista de registro
+// Exporta constante que contiene el template de la vista de registro
 export const viewForRegister = () => {
   const registerDiv = document.createElement('div');
   registerDiv.classList.add('fullBodyOfRegister');
@@ -14,6 +15,7 @@ export const viewForRegister = () => {
     <h1 class= "signUp">Sign Up </h1>
     <div class="underline-title"></div>
         <div class="infoForm">
+        <div class='emptyInput', id ='emptyInput'> </div>
             <label for="fName">Name</label>
             <input  type= "text" class="input2" id="fName" placeholder="Your name, e.g: John Doe"> 
          </div>
@@ -31,7 +33,7 @@ export const viewForRegister = () => {
         </div>
         <div class="infoForm">
             <label for="fConfPassword">Confirm password</label>
-            <input  type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password"> 
+            <input  type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password"> <div class ='secretText' id='secretText'></div>
         </div>
           
     </form>
@@ -44,6 +46,7 @@ export const viewForRegister = () => {
   </section>
  
    `;
+
   registerDiv.innerHTML = registerText;
   // seleccionamos el boton y funciona con template string cuando se usa querySelector
   // Botón de retorno a la vista de home
@@ -52,24 +55,59 @@ export const viewForRegister = () => {
     window.location.hash = '#/';
   });
   // Guarda values de inputs de registro
+  // eslint-disable-next-line consistent-return
   registerDiv.querySelector('#signUp').addEventListener('click', (e) => {
     e.preventDefault();
 
     const email = registerDiv.querySelector('#signUpEmail').value;
     const password = registerDiv.querySelector('#signUpPassword').value;
+
     const fName = registerDiv.querySelector('#fName').value;
     const country = registerDiv.querySelector('#signUpCountry').value;
+    const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
+    const textMessageSecret = registerDiv.querySelector('#secretText');
+    console.log(passwordConf);
+    const passwordConfTwo = registerDiv.querySelector('#signUpPasswordConf');
+    const emptyAlert = registerDiv.querySelector('#emptyInput');
     // Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos
     // antes de enviar el registro
-    const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
     if (password !== passwordConf) {
-      console.log("Password doesn't match");
+      passwordConfTwo.classList.add('red');
+      textMessageSecret.innerHTML = 'Passwords do not match';
+      return textMessageSecret;
+    }
+    if (password === passwordConf) {
+      passwordConfTwo.classList.remove('red');
+      textMessageSecret.innerHTML = ' ';
     }
     if (email === '' || password === '' || fName === '' || country === '') {
-      console.log('Fill the empty inputs');
-    } else {
-      submitRegister(email, password, fName, country);
+      emptyAlert.innerHTML = 'Fill the empty inputs!!!';
+      return emptyAlert;
     }
+    submitRegister(email, password, fName, country)
+      .then((userCredential) => {
+        const usersUid = userCredential.user.uid;
+        saveDataFromUsers(fName, country, usersUid, email, password);
+        const currentUser = userCredential.user;
+        sendEmail(currentUser)
+          .then(() => {
+            alert('mail verification sent!');
+            window.location.hash = '#/';
+          });
+        console.log(currentUser);
+      })
+      // eslint-disable-next-line consistent-return
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // agregue un mensaje de que el correo ya esta en uso
+        if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+          // alert('El E-mail ya existe');
+          emptyAlert.innerHTML = 'Email already exist';
+          return emptyAlert;
+        }
+      });
   });
   return registerDiv;
 };
