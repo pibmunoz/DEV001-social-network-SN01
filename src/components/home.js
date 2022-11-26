@@ -1,7 +1,8 @@
 import {
-  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle,
+  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle, changeHash,
 } from '../lib/index';
 import { AuthErrorCodes, GoogleAuthProvider } from '../firebase'; // esto podria estar en archivo intermedio!
+
 // Constante que contiene el template de la vista de home
 export const viewForHome = () => {
   const homeDiv = document.createElement('div');
@@ -27,6 +28,7 @@ export const viewForHome = () => {
         </div>
       <button class="buttonSignIn" id="buttonSignIn">Sign In</button>
       <button class="forgotPassword" id="forgotPassword">Forgot Password</button>
+      <div class= "textDisplay" id="textDisplay"> </div><div class= "textDisplay" id="textWrongPassword"> </div>
       <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
       <button id="buttonRegister" class= "buttonRegister">Register</button></p>
       <div class="login2">
@@ -48,6 +50,15 @@ export const viewForHome = () => {
 
   homeDiv.innerHTML = textHome;
 
+  let textForAlert = homeDiv.querySelector('#textDisplay');
+  const displayNone = () => {
+    textForAlert.classList.add('textDisplayNone');
+  };
+
+  let textWrongPassword = homeDiv.querySelector('#textWrongPassword');
+
+  // homeDiv.querySelector('#password').addEventListener('keyup', displayNone);
+
   // Selecciona elemento eyePassword desde homeDiv que permite mostrar el password oculto
   homeDiv.querySelector('#eyePassword').addEventListener('click', () => {
     const typePassword = homeDiv.querySelector('#password');
@@ -64,31 +75,9 @@ export const viewForHome = () => {
 
   forChangeViewToRegister.addEventListener('click', () => {
     // al hacer click hacemos cambio de hash :)
-    window.location.hash = '#/register';
+    changeHash('#/register');
   });
 
-  // LogIn de usuario, según value de input email y password, confirma que existan
-  homeDiv.querySelector('#buttonSignIn').addEventListener('click', () => {
-    const email = homeDiv.querySelector('#signInButton').value;
-    const password = homeDiv.querySelector('#password').value;
-    logInHome(email, password)
-      .then((userCredential) => {
-        window.location.hash = '#/profile';
-        // Signed in
-        const user = userCredential.user;
-        const emailUser = userCredential.email;
-        console.log(emailUser);
-        return user;
-      })
-      .catch((error) => {
-        if (error.code === AuthErrorCodes.INVALID_PASSWORD
-        || error.code === AuthErrorCodes.USER_DELETED) {
-          console.log('El E-mail o la contraseña son incorrectos');
-        } else {
-          console.log('no has ingresado nada');
-        }
-      });
-  });
   // Si usuario hace click en botón google, llama a la función googleLogIn() que loguea con google
   homeDiv.querySelector('#googleIcon').addEventListener('click', () => {
     const promesa = googleLogIn();
@@ -132,7 +121,8 @@ export const viewForHome = () => {
     } else {
       forgotPassword(email)
         .then(() => {
-        // alert('Password reset email sent!');
+          textForAlert.innerHTML = 'check your E-mail';
+          // alert('Password reset email sent!');
           console.log(email);
         })
         .catch((error) => {
@@ -142,5 +132,30 @@ export const viewForHome = () => {
         });
     }
   });
+
+  // LogIn de usuario, según value de input email y password, confirma que existan
+  homeDiv.querySelector('#buttonSignIn').addEventListener('click', () => {
+    const email = homeDiv.querySelector('#signInButton').value;
+    const password = homeDiv.querySelector('#password').value;
+    logInHome(email, password)
+      .then((userCredential) => {
+        changeHash('#/profile');
+        // Signed in
+        const user = userCredential.user;
+        const emailUser = user.email;
+        console.log(emailUser);
+        return user;
+      })
+      .catch((error) => {
+        if (error.code === AuthErrorCodes.INVALID_PASSWORD
+        || error.code === AuthErrorCodes.USER_DELETED) {
+          textWrongPassword.innerHTML = 'contraseña incorrecta';
+          console.log('El E-mail o la contraseña son incorrectos');
+        } else {
+          console.log('no has ingresado nada');
+        }
+      });
+  });
+
   return homeDiv;
 };

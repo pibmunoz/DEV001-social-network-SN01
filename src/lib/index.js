@@ -9,17 +9,25 @@ import {
   sendPasswordResetEmail,
   app,
   db,
+  updateProfile,
 } from '../firebase';
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
+
+/**
+ * Exporta constante reutilizable (cambio de hash)
+ */
+export const changeHash = (hash) => {
+  window.location.hash = hash;
+};
 
 /**
  * Exporta constante que guarda data de usuarios usando su ID y crea documento en colección
  */
-export const saveDataFromUsers = (fName, country, usersUid, email, password) => {
+export const saveDataFromUsers = (name, country, usersUid, email, password) => {
   const docs = doc(db, 'users', usersUid);
   setDoc(docs, {
-    name: fName,
+    name: name,
     countries: country,
     user: usersUid,
     emails: email,
@@ -71,3 +79,10 @@ export const forgotPassword = (email) => sendPasswordResetEmail(auth, email);
  * Exporta constante que permite al usuario ingresar con su correo y contraseña
  */
 export const logInHome = (email, password) => signInWithEmailAndPassword(auth, email, password);
+
+/**
+ * Exporta constante que permite al usuario ser identificado en su sesión
+ */
+export const updateInfo = (currentUser, name) => updateProfile(currentUser, {
+  displayName: name,
+});
