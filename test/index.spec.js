@@ -45,9 +45,21 @@ describe('viewForRegister', () => {
   });
   it('cambia de hash y retorna a home', () => {
     const registerDiv = viewForRegister();
+    // const changeHash = jest.fn();
+    // changeHash();
+    viewForRegister();
     const buttonReturnToHome = registerDiv.querySelector('#return');
-    expect(window.location.hash).toBe('');
+    expect(window.location.hash).toBe('#/register');
     buttonReturnToHome.click();
+    expect(window.location.hash).toBe('#/');
+  });
+  it('se llama a changeHash desde botón return', () => {
+    const changeHash = jest.fn();
+    changeHash();
+    const registerDiv = viewForRegister();
+    const buttonReturnToHome = registerDiv.querySelector('#return');
+    buttonReturnToHome.click();
+    expect(changeHash).toHaveBeenCalledTimes(1);
     expect(window.location.hash).toBe('#/');
   });
   it('contraseña y confirmación no son iguales', () => {
@@ -61,11 +73,11 @@ describe('viewForRegister', () => {
     expect(password !== passwordConf).toBe(true); // preguntar si esta bien :(
   });
 
-  describe('elemento root', () => {
+  describe('elemento .root existe en el HTML', () => {
     beforeAll(() => {
       document.body.innerHTML = '<div class="root" id="root"></div>';
     });
-    it('debería existir elemento root', () => {
+    it('debería existir elemento .root', () => {
       const bodyRoot = document.getElementById('root');
       expect(bodyRoot.outerHTML).toBe('<div class="root" id="root"></div>');
     });
@@ -77,7 +89,7 @@ describe('submitRegister', () => {
   it('debería ser una función', () => {
     expect(typeof submitRegister).toBe('function');
   });
-  it('deberia llamar correctamente userwithEmailAndPassword', () => {
+  it('deberia llamar correctamente createUserWithEmailAndPassword', () => {
     createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
       expect(email).toBe('test@test.test');
       expect(password).toBe('123');
@@ -145,7 +157,7 @@ describe('viewForHome', () => {
   it('debería ser una función', () => {
     expect(typeof logInHome).toBe('function');
   });
-  it('Tenemos boton de login', () => {
+  it('Tenemos boton de login en HTML', () => {
     const bodyHome = viewForHome();
     const buttonSignIn = bodyHome.querySelector('#buttonSignIn');
     expect(buttonSignIn.outerHTML).toBe('<button class="buttonSignIn" id="buttonSignIn">Sign In</button>');
@@ -167,12 +179,13 @@ describe('viewForHome', () => {
   });
   // POR REVISAR
   it('cambia de hash y retorna a login', () => {
-    const homeDiv = logInHome();
+    const homeDiv = viewForHome();
     const buttonReturnToLogin = homeDiv.querySelector('#buttonSignIn');
+    console.log(window.location.hash);
     expect(window.location.hash).toBe('#/');
-    const clickEvent = new Event('click');
-    buttonReturnToLogin.dispatchEvent(clickEvent);
-    return Promise.resolve(expect(window.location.hash).toBe('#/'));
+    //const clickEvent = new Event('click');
+    buttonReturnToLogin.click();
+    return Promise.resolve(expect(window.location.hash).toBe('#/profile'));
   });
 });
 
@@ -196,13 +209,26 @@ describe('googleLogIn', () => {
   });
   // ----------------------Fin prueba 2----------------
 });
-
+/* // saveDataFromUsers
 describe('saveDataFromUsers', () => {
   it('debería ser una función', () => {
     expect(typeof saveDataFromUsers).toBe('function');
   });
+  it('debería llamar correctamente a', () => {
+    expect(saveDataFromUsers).toBe('');
+  });
 });
 
+// saveDataFromGoogle
+describe('saveDataFromGoogle', () => {
+  it('debería ser una función', () => {
+    expect(typeof saveDataFromGoogle).toBe('function');
+  });
+  it('debería llamar correctamente a', () => {
+    expect(saveDataFromG).toBe('');
+  });
+});
+ */
 /* import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { submitRegister } from '../src/lib/index.js';
 

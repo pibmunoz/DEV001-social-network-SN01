@@ -26,4 +26,5 @@ export {
   signInWithPopup,
   GoogleAuthProvider,
   sendPasswordResetEmail,
+  updateProfile,
 } from 'firebase/auth';
