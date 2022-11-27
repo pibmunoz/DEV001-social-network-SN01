@@ -86,3 +86,10 @@ export const logInHome = (email, password) => signInWithEmailAndPassword(auth, e
 export const updateInfo = (currentUser, name) => updateProfile(currentUser, {
   displayName: name,
 });
+
+/**
+ * Exporta constante que permite al usuario cambiar su foto
+ */
+export const updatePhoto = (currentUser, photo) => updateProfile(currentUser, {
+  photoUrl: photo,
+});
