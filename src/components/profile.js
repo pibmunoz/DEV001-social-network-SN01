@@ -2,78 +2,70 @@ import { doc, updateDoc } from 'firebase/firestore';
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
 } from 'firebase/storage';
-import { auth, updatePhoto } from '../lib/index';
+import { updatePhoto, changeHash } from '../lib/index';
 import { db } from '../firebase';
 
 export const viewForProfile = () => {
-  const user = auth.currentUser;
-  // console.log(user.displayName);
+//  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
   const profileDiv = document.createElement('div');
   profileDiv.classList.add('allViewForProfile');
 
-  profileDiv.innerHTML = `<section class='grandpaForProfile'>
-  <img src="./img/backg02.png" id='upperBackground' class='upperBackground'  alt="noseve">
-  <div class="hamburger-menu">
-  <input id="menu__toggle" type="checkbox" />
-  <label class="menu__btn" for="menu__toggle">
-    <span></span>
-  </label>
+  profileDiv.innerHTML = `
+  <section class='grandpaForProfile'>
+    <img src="./img/backg02.png" id='upperBackground' class='upperBackground'  alt="noseve">
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+      <span></span>
+      </label>
 
-  <ul class="menu__box">
-    <li><a class="menu__item" href="#">Home</a></li>
-    <li><a class="menu__item" href="#">Posts</a></li>
-    <li><a class="menu__item" href="#">Me</a></li>
-    <li><a class="menu__item" href="#">Adoptions</a></li>
-    <li><a class="menu__item" href="#"></a>Contact</li>
-  </ul>
-</div>
+      <ul class="menu__box">
+        <li><p class= 'menu__item'>Home</p></li>
+        <li><p id="postSelect" class="menu__item">Posts</p></li>
+        <li><p class="menu__item">Me</p></li>
+        <li><p class="menu__item">Adoptions</p></li>
+        <li><p class="menu__item"></p>Contact</li>
+      </ul>
+    </div>
 
     <form class="formProfile" id="formProfile">
-    <div class="headerProfile">
-    <img src="${user.photoURL}" id='photoProfile' class= 'photoForProfile'  alt="AQUI VA LA IMAGEN DE LA FOTO QUE VAMOS A SUBIR EN input">
-   <input type="file" accept="image/png image/jpeg" id="updatePhoto">Aqui podemos subir la foto</input>
+      <div class="headerProfile">
+        <img src="${user.photoURL}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil">
+        <input type="file" accept="image/png image/jpeg" id="updatePhoto">Sube una foto de perfil</input>
         <div class="profileFormDivDad">
-        <h1 class= "nameForProfile"> ${user.displayName} </h1>
-    </div>
-    </div>
+          <h1 class= "nameForProfile"> ${user.displayName} </h1>
+        </div>
+      </div>
 
-        <div class="profileFormDiv"></div>
+      <div class="profileFormDiv"></div>
         <label for="namePet">Name</label>
         <input  type= "text" class="inputProfile" id="namePet" placeholder="Pet name"> 
-         </div>        
-        <div class="profileFormDiv"></div>
-            <label for="type">Type</label>
-            <input  type= "text" class="inputProfile" id="type" placeholder="Type, e.g: Cat"> 
-         </div>
-        <div class="profileFormDiv">
-            <label for="age">Age</label>
-            <input  type= "number" class="inputProfile" id="age" placeholder="Age"> 
-        </div>
-        <div class="profileFormDiv">
-            <label for="location">Location</label>
-            <input  type="text" class="inputProfile" id="location" placeholder="Your location"> 
-        </div>
-        <div class="profileFormDiv">
-            <label for="caretaker">Caretaker</label>
-            <input  type= "text" class="inputProfile" id="caretaker" placeholder= "Caretaker Name">
-        </div>
-        <div class="profileFormDiv">
-            <label for="description">Description</label>
-            <textarea id="description" class="inputProfile" placeholder= "..."></textarea>
-            </div>
-        </div>
-          
+      </div>        
+      <div class="profileFormDiv"></div>
+        <label for="type">Type</label>
+        <input  type= "text" class="inputProfile" id="type" placeholder="Type, e.g: Cat"> 
+      </div>
+      <div class="profileFormDiv">
+        <label for="description">Description</label>
+        <textarea id="description" class="inputProfile" placeholder="..."></textarea>
+      </div>       
     </form>
     <div class ="buttonsProfile">
-            <button class="buttonProfile" id="buttonEdit">Edit</button>
-            <button class="buttonProfile" id="buttonSave">Save</button>
-        </div>
-    <img src="./img/backg01.png" id='backgroundIconsDown' class='backgroundIconsDown'  alt="noseve">
-  </section>
-`;
+      <button class="buttonProfile" id="buttonSave">Save</button>
+    </div>
+    <img src="./img/backg01.png" id='backgroundIconsDown' class='backgroundIconsDown' alt="noseve">
+  </section>`;
+  // menu cambio de hash
+  const post = profileDiv.querySelector('#postSelect');
+  post.addEventListener('click', () => {
+    changeHash('#/post');
+  });
 
   // Input con type file y ID updatePhoto
   const photoForProfile = profileDiv.querySelector('#updatePhoto');
+  console.log(user);
 
   // Escucha evento de cambio
   photoForProfile.addEventListener('change', (event) => {
@@ -83,9 +75,10 @@ export const viewForProfile = () => {
     // y muestra sólo la propiedad name, que es la ruta del archivo
     const newPhoto = fileList[0].name;
     console.log(fileList[0]);
+    console.log(user.photoURL);
     console.log(profileDiv.querySelector('#photoProfile'));
     // Guarda en constante usersRef la referencia a la colección
-    const usersRef = doc(db, 'users', auth.currentUser.uid);
+    const usersRef = doc(db, 'users', user.uid);
     // Guarda en constante la función getStorage
     const storage = getStorage();
 
@@ -107,7 +100,10 @@ export const viewForProfile = () => {
           photoURL: downloadURL,
         });
         profileDiv.querySelector('#photoProfile').src = downloadURL;
-        updatePhoto(auth.currentUser, downloadURL);
+        updatePhoto(user, downloadURL);
+
+        console.log(`hola${user.photoURL}`);
+
         return downloadURL;
       });
   });

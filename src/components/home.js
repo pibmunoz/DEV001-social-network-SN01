@@ -12,41 +12,41 @@ export const viewForHome = () => {
   button.classList.add('buton');
 
   button.innerText = 'Hola';
-  const textHome = `  <section class="homeDivi">
-  <div class="logo1">
-    <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
-  </div>
-  <div class="mainBox">
-      <div class= "input-wrapper">
-        <input  type= "email" class="input1" id="signInButton" placeholder="E-mail">
-        <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
+  const textHome = `
+  <section class="homeDivi">
+    <div class="logo1">
+      <img class="logo" src="./img/pawsfinder.png" alt="Logo">
+    </div>
+    <div class="mainBox">
+      <div class="input-wrapper">
+        <input type="email" class="input1" id="signInButton" placeholder="E-mail">
+        <img class="iconoEmail" src="/img/email.png" alt="icono email">
       </div>
-      <div class= "input-wrapper">
+      <div class="input-wrapper">
         <input id="password" type="password" class="input1" placeholder="Password">
-        <img class="iconoPassword" src= "/img/password.png" alt= "password">
-        <img class="iconoPasswordEye" id='eyePassword'  src= "/img/eye.png" alt= "showPassword">
-        </div>
+        <img class="iconoPassword" src="/img/password.png" alt="password">
+        <img class="iconoPasswordEye" id='eyePassword'  src="/img/eye.png" alt="showPassword">
+      </div>
       <button class="buttonSignIn" id="buttonSignIn">Sign In</button>
       <button class="forgotPassword" id="forgotPassword">Forgot Password</button>
-      <div class= "textDisplay" id="textDisplay"> </div><div class= "textDisplay" id="textWrongPassword"> </div>
-      <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
+      <div class="textDisplay" id="textDisplay"></div>
+      <div class="textDisplay" id="textWrongPassword"></div>
+        <p class="registerText"><span class="text1">Doesn't have an account yet?</span> 
       <button id="buttonRegister" class= "buttonRegister">Register</button></p>
       <div class="login2">
         <div class="acomodo">
-        <hr> <p>Or login with</p> <hr>
+          <hr> <p>Or login with</p> <hr>
         </div>
         <div class="google">
-        <img class="iconoGoogle" id='googleIcon' src= "/img/google.svg" alt= "google">
-        <div class = "circle" id= "circle"></div>
+          <img class="iconoGoogle" id='googleIcon' src="/img/google.svg" alt="google">
+          <div class="circle" id="circle"></div>
         </div>
       </div>
-      
-  </div>
-</section>
-<div class="doggy">
-  <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
-  </div>
- `;
+    </div>
+  </section>
+  <div class="doggy">
+    <img class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
+  </div>`;
 
   homeDiv.innerHTML = textHome;
 
@@ -83,12 +83,13 @@ export const viewForHome = () => {
     const promesa = googleLogIn();
     promesa
       .then((result) => {
-        window.location.hash = '#/profile';
+        changeHash('#/profile');
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        // consultar el usuario en la BD y traerlo
         console.log(user);
         const usersId = user.uid;
         const nameGoogle = user.displayName;
@@ -139,10 +140,12 @@ export const viewForHome = () => {
     const password = homeDiv.querySelector('#password').value;
     logInHome(email, password)
       .then((userCredential) => {
+        console.log(userCredential.user);
         changeHash('#/profile');
         // Signed in
         const user = userCredential.user;
         const emailUser = user.email;
+        localStorage.setItem('user', JSON.stringify(user));
         console.log(emailUser);
         return user;
       })

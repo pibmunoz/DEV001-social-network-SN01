@@ -1,4 +1,4 @@
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -24,16 +24,19 @@ export const changeHash = (hash) => {
 /**
  * Exporta constante que guarda data de usuarios usando su ID y crea documento en colección
  */
-export const saveDataFromUsers = (name, country, usersUid, email, password) => {
+export const saveDataFromUsers = async (name, country, usersUid, email, password) => {
   const docs = doc(db, 'users', usersUid);
   setDoc(docs, {
-    name: name,
+    name,
     countries: country,
     user: usersUid,
     emails: email,
     passwords: password,
   });
-  // return saveDataFromUsers();
+  const userFromFirestore = await getDoc(docs);
+  console.log(userFromFirestore.data(usersUid).user);
+  // localStorage.setItem('user', userFromFirestore.data(usersUid));
+  console.log(userFromFirestore.data(usersUid));
 };
 
 /**
@@ -93,3 +96,8 @@ export const updateInfo = (currentUser, name) => updateProfile(currentUser, {
 export const updatePhoto = (currentUser, photo) => updateProfile(currentUser, {
   photoUrl: photo,
 });
+
+/* export const obtainUserFromData = (db, 'user', usersId) =>{
+  user: usersId
+}
+*/
