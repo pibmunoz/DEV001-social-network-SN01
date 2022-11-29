@@ -1,4 +1,6 @@
-import { doc, setDoc } from 'firebase/firestore';
+import {
+  doc, setDoc, getDoc, addDoc, collection, onSnapshot,
+} from 'firebase/firestore';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -24,7 +26,7 @@ export const changeHash = (hash) => {
 /**
  * Exporta constante que guarda data de usuarios usando su ID y crea documento en colección
  */
-export const saveDataFromUsers = (name, country, usersUid, email, password) => {
+export const saveDataFromUsers = async (name, country, usersUid, email, password) => {
   const docs = doc(db, 'users', usersUid);
   setDoc(docs, {
     name,
@@ -33,7 +35,10 @@ export const saveDataFromUsers = (name, country, usersUid, email, password) => {
     emails: email,
     passwords: password,
   });
-  // return saveDataFromUsers();
+  const userFromFirestore = await getDoc(docs);
+  console.log(userFromFirestore.data(usersUid).user);
+  // localStorage.setItem('user', userFromFirestore.data(usersUid));
+  console.log(userFromFirestore.data(usersUid));
 };
 
 /**
@@ -86,3 +91,34 @@ export const logInHome = (email, password) => signInWithEmailAndPassword(auth, e
 export const updateInfo = (currentUser, name) => updateProfile(currentUser, {
   displayName: name,
 });
+
+/**
+ * Exporta constante que permite al usuario cambiar su foto
+ */
+export const updatePhoto = (currentUser, photo) => updateProfile(currentUser, {
+  photoUrl: photo,
+});
+
+/**
+ * Exporta constante que permite guardar información de los posts
+ */
+export const savePost = (textOfEachPost, nameOfUser, usersId, creationDate) => {
+  addDoc(collection(db, 'posts'), {
+    textOfEachPost, nameOfUser, usersId, creationDate,
+  });
+  console.log('base datos');
+};
+
+/**
+ * Exporta constante que recupera la colección de posts
+ */
+export const getSavePosts = () => {
+  getDoc(collection(db, 'posts'));
+};
+
+/**
+ * Exporta constante que llama al documento de la colección
+ */
+export const getPost = (callback) => {
+  onSnapshot(collection(db, 'posts'), callback);
+};

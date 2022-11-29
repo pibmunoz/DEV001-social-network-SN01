@@ -13,8 +13,8 @@ export const viewForHome = () => {
 
   button.innerText = 'Hola';
   const textHome = `  <section class="homeDivi">
-  <img src="./img/homeBack01.png" id='upperBackground' class='upperBackground'  alt="noseve">
-  <div class="logo1">
+  <img src="./img/homeBack01.png" id='upperBackground' class='upperBackground'  alt="fondos superior">
+  <div class="headerLogo">
     <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
   </div>
   <div class="mainBox">
@@ -22,23 +22,24 @@ export const viewForHome = () => {
         <input  type= "email" class="input1" id="signInButton" placeholder="E-mail">
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
       </div>
-      <div class= "input-wrapper">
+      <div class="input-wrapper">
         <input id="password" type="password" class="input1" placeholder="Password">
-        <img class="iconoPassword" src= "/img/password.png" alt= "password">
-        <img class="iconoPasswordEye" id='eyePassword'  src= "/img/eye.png" alt= "showPassword">
-        </div>
+        <img class="iconoPassword" src="/img/password.png" alt="password">
+        <img class="iconoPasswordEye" id='eyePassword'  src="/img/eye.png" alt="showPassword">
+      </div>
       <button class="buttonSignIn" id="buttonSignIn">Sign In</button>
       <button class="forgotPassword" id="forgotPassword">Forgot Password</button>
-      <div class= "textDisplay" id="textDisplay"> </div><div class= "textDisplay" id="textWrongPassword"> </div>
-      <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
+      <div class="textDisplay" id="textDisplay"></div>
+      <div class="textDisplay" id="textWrongPassword"></div>
+        <p class="registerText"><span class="text1">Doesn't have an account yet?</span> 
       <button id="buttonRegister" class= "buttonRegister">Register</button></p>
       <div class="login2">
         <div class="acomodo">
-        <hr> <p>Or login with</p> <hr>
+          <hr> <p>Or login with</p> <hr>
         </div>
         <div class="google">
-        <img class="iconoGoogle" id='googleIcon' src= "/img/google.svg" alt= "google">
-        <div class = "circle" id= "circle"></div>
+          <img class="iconoGoogle" id='googleIcon' src="/img/google.svg" alt="google">
+          <div class="circle" id="circle"></div>
         </div>
       </div>
       
@@ -52,14 +53,8 @@ export const viewForHome = () => {
 
   homeDiv.innerHTML = textHome;
 
-  let textForAlert = homeDiv.querySelector('#textDisplay');
-  const displayNone = () => {
-    textForAlert.classList.add('textDisplayNone');
-  };
-
-  let textWrongPassword = homeDiv.querySelector('#textWrongPassword');
-
-  // homeDiv.querySelector('#password').addEventListener('keyup', displayNone);
+  const textForAlert = homeDiv.querySelector('#textDisplay');
+  textForAlert.innerHTML = '';
 
   // Selecciona elemento eyePassword desde homeDiv que permite mostrar el password oculto
   homeDiv.querySelector('#eyePassword').addEventListener('click', () => {
@@ -85,20 +80,20 @@ export const viewForHome = () => {
     const promesa = googleLogIn();
     promesa
       .then((result) => {
-        window.location.hash = '#/profile';
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        // consultar el usuario en la BD y traerlo
         console.log(user);
         const usersId = user.uid;
         const nameGoogle = user.displayName;
         const emailGoogle = user.email;
         console.log(usersId, nameGoogle, emailGoogle);
         saveDataFromGoogle(nameGoogle, usersId, emailGoogle);
-
-        return user;
+        actualUser(user);
+        changeHash('#/profile');
       })
       .catch((error) => {
         // Handle Errors here.
@@ -145,13 +140,14 @@ export const viewForHome = () => {
         // Signed in
         const user = userCredential.user;
         const emailUser = user.email;
+        localStorage.setItem('user', JSON.stringify(user));
         console.log(emailUser);
         return user;
       })
       .catch((error) => {
         if (error.code === AuthErrorCodes.INVALID_PASSWORD
         || error.code === AuthErrorCodes.USER_DELETED) {
-          textWrongPassword.innerHTML = 'contraseña incorrecta';
+          textForAlert.innerHTML = 'contraseña incorrecta';
           console.log('El E-mail o la contraseña son incorrectos');
         } else {
           console.log('no has ingresado nada');

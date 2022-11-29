@@ -21,21 +21,24 @@
 
 
 
-.logo1 {
+.headerLogo {
   width: 80%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: 100;
   margin-top: 3rem;
 }
 
 .logo {
-  width: 50%;
-  height: 50%;
-  margin-bottom: 10%;
+  width: 20vh;
+  margin-bottom: 4vh;
+  z-index: 100;
 }
 
+
+
 .cuerpo {
+  width: 100%;
   height: 100%;
   margin-top: 0;
   display: flex;
@@ -89,7 +92,7 @@
   border-radius: 0.3rem;
   border-style: none;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 2.3vh;
   display: flex;
   padding: 1rem;
   position: relative;
@@ -243,9 +246,12 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(179, 232, 232, 0.5);
+  background:rgb(252, 250, 250);
   background-size: cover;
+  padding-bottom: 5vh;
 }
+
+
 
 .registerBody {
   display: flex;
@@ -254,9 +260,8 @@ hr {
   padding-top: 7vh;
   padding-right: 1.5vw;
   padding-left: 1.5vw;
+  padding-bottom: 4vh;
   height: 90%;
-
-
 }
 
 .infoForm {
@@ -268,12 +273,13 @@ hr {
   width: 95%;
   align-items: center;
   justify-content: center;
+  z-index: 90;
 }
 
 
 .logo2 {
-  width: 40%;
-  margin-bottom: 1.1vh;
+  width: 20vh;
+  margin-bottom: 2vh;
 }
 
 .toAlignSignUpAndForm {
@@ -303,15 +309,15 @@ hr {
 
 .formRegister {
   background: white;
-  width: 95%;
+  width: 80vw;
   border-radius: 0.7rem;
   position: relative;
-  padding: 5% 0% 2% 0%;
+  padding: 5% 2% 5% 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-
+  z-index: 100;
 }
 
 
@@ -343,34 +349,48 @@ hr {
   justify-content: space-around;
   width: 95%;
   margin-top: 1.6vh;
+  z-index: 100;
 }
 
 .buttonSignUp {
-  background:  #ffffff;
+  background-image: linear-gradient(to right, #00c6ff 0%, #0072ff  51%, #00c6ff  100%);
+  transition: 0.5s;
+  background-size: 200% auto;
   border: none;
   border-radius: 21px;
-  box-shadow: 0px 1px 8px #2493c6;
+  box-shadow: 0 0 20px #eee;
   cursor: pointer;
-  color: #2493c6;
-  height: 150%;
+  color: #ffffff;
+  height: 6vh;
   margin: 0;
   transition: 0.25s;
   width: 15vmax;
   font-weight: 600;
+  z-index: 100;
 }
 
+.manchaRegister{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  z-index: 0;
+}
 .return {
-  background:  #ffffff;
+  background-image: linear-gradient(to right, #00c6ff 0%, #0072ff  51%, #00c6ff  100%);
+  transition: 0.5s;
+  background-size: 200% auto;
   border: none;
   border-radius: 21px;
-  box-shadow: 0px 1px 8px #2493c6;
+  box-shadow: 0 0 20px #eee;
   cursor: pointer;
-  color: #2493c6;
-  height: 150%;
+  color: #ffffff;
+  height: 6vh;
   margin: 0;
   transition: 0.25s;
   width: 15vmax;
   font-weight: 600;
+  z-index: 100;
 }
 
 .forgotPassword{
@@ -380,25 +400,6 @@ hr {
   font-weight: 700;
 }
 
-.bodyGif{
-  width: 400px;
-  height: 100%;
-  display: flex;
-  align-items:  center;
-  flex-direction: column;
-  background-color: crimson;
-  color: bisque;
-  padding: 5%;
-  font-size: larger;
-  text-align: center;
-
-}
-
-.bodyGif p{
-  font-weight: 800;
-  width: 300px;
-
-}
 
 .red{
   border-color: #d41010;
@@ -428,157 +429,17 @@ color: rgb(150, 7, 7);
   text-transform: uppercase;
 }
 
-.textDisplayNone{
-  display: none;
-}
-
 .red{
   border-color: #d41062;
   border-width: 0.3rem;
   border-style: solid;
 }
 
-/* /* Inicio Burger menu */
-.hamburger-menu{
-  margin-bottom: 10%;
+.manchaRegisterBajo{
+width: 100vw;
+position: absolute;
+bottom: 0;
+right: 0;
+z-index: 0;
 
-}
-
-#menu__toggle {
-  opacity: 0;
-}
-#menu__toggle:checked + .menu__btn > span {
-  transform: rotate(45deg);
-}
-#menu__toggle:checked + .menu__btn > span::before {
-  top: 0;
-  transform: rotate(0deg);
-}
-#menu__toggle:checked + .menu__btn > span::after {
-  top: 0;
-  transform: rotate(90deg);
-}
-#menu__toggle:checked ~ .menu__box {
-  left: 0 !important;
-}
-.menu__btn {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-  z-index: 15;
-}
-.menu__btn > span,
-.menu__btn > span::before,
-.menu__btn > span::after {
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background-color: #616161;
-  transition-duration: .25s;
-}
-.menu__btn > span::before {
-  content: '';
-  top: -8px;
-}
-.menu__btn > span::after {
-  content: '';
-  top: 8px;
-}
-.menu__box {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 300px;
-  height: 100%;
-  margin: 0;
-  padding: 80px 0;
-  list-style: none;
-  background-color: #ECEFF1;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-  transition-duration: .25s;
-  z-index: 10;
-}
-.menu__item {
-  display: block;
-  padding: 12px 24px;
-  color: #333;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  text-decoration: none;
-  transition-duration: .25s;
-}
-.menu__item:hover {
-  background-color: #CFD8DC;
-}
-/* Fin burger menu */
-
-.photoForProfile{
-  width:20%;
-  border-radius: 100%;
-}
-
-.allViewForProfile{
-  background-color: rgba(186, 217, 215, 1);
-  width: 100%;
-  height: 100vmax;
-  margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.formProfile{
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 5%;
-  width: 85%;
-  z-index: 3;
-  padding: 5%;
-}
-
-.headerProfile{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-.structureOfBackground{
-width: 100%;
-
-}
-
-.backgroundIconsDown{
-  width: 100%;
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  z-index: 0;
-  left: 0;
-  opacity: 0.7;
-}
-
-.grandpaForProfile{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 10%;
-}
-
-.upperBackground{
-  width: 100%;
-  display: flex;
-  position: fixed;
-  top: 0;
-  z-index: 0;
-  right: 0;
-  opacity: 0.4;
 }

@@ -27,4 +27,5 @@ export {
   GoogleAuthProvider,
   sendPasswordResetEmail,
   updateProfile,
+  onAuthStateChanged,
 } from 'firebase/auth';
