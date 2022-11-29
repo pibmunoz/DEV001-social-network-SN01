@@ -27,7 +27,7 @@ export const changeHash = (hash) => {
 export const saveDataFromUsers = (name, country, usersUid, email, password) => {
   const docs = doc(db, 'users', usersUid);
   setDoc(docs, {
-    name: name,
+    name,
     countries: country,
     user: usersUid,
     emails: email,

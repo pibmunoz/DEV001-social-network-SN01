@@ -13,6 +13,7 @@ export const viewForHome = () => {
 
   button.innerText = 'Hola';
   const textHome = `  <section class="homeDivi">
+  <img src="./img/homeBack01.png" id='upperBackground' class='upperBackground'  alt="noseve">
   <div class="logo1">
     <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
   </div>
@@ -44,8 +45,9 @@ export const viewForHome = () => {
   </div>
 </section>
 <div class="doggy">
-  <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
+  <img  class="imgFooter" src="./img/multiPets.png" alt="Puppy2">
   </div>
+
  `;
 
   homeDiv.innerHTML = textHome;
