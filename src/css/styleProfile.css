@@ -229,6 +229,9 @@
       padding: 20px;
       text-align: center;
       z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
   
     #downBackgroundPost{
@@ -244,4 +247,9 @@
       z-index: 150;
     }
 
-    
+    .prueba{
+      background-color: #514A9D;
+      width: 18vw;
+      margin-bottom: 1rem;
+     
+    }

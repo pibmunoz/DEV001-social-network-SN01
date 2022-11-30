@@ -72,30 +72,29 @@ export const viewForHome = () => {
   // para dar click en el button register
   const forChangeViewToRegister = homeDiv.querySelector('#buttonRegister');
 
+  // Agrega evento a button en constante forChangeViewToRegister
   forChangeViewToRegister.addEventListener('click', () => {
-    // al hacer click hacemos cambio de hash :)
+    // Cambio de hash con función changeHash
     changeHash('#/register');
   });
 
   // Si usuario hace click en botón google, llama a la función googleLogIn() que loguea con google
   homeDiv.querySelector('#googleIcon').addEventListener('click', () => {
-    const promesa = googleLogIn();
-    promesa
+    const promise = googleLogIn();
+    promise
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // consultar el usuario en la BD y traerlo
-        console.log(user);
-        const usersId = user.uid;
-        const nameGoogle = user.displayName;
-        const emailGoogle = user.email;
-        console.log(usersId, nameGoogle, emailGoogle);
-        saveDataFromGoogle(nameGoogle, usersId, emailGoogle);
-        actualUser(user);
-        changeHash('#/profile');
+        getUser(result.user.uid).then((userSnap) => {
+          const user = result.user;
+          // Crea item en localStorage con nombre 'user' y 'userProfile'
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('userProfile', JSON.stringify(userSnap.data()));
+          const usersId = user.uid;
+          const nameGoogle = user.displayName;
+          const emailGoogle = user.email;
+          console.log(usersId, nameGoogle, emailGoogle);
+          saveDataFromGoogle(nameGoogle, usersId, emailGoogle);
+          changeHash('#/profile');
+        });
       })
       .catch((error) => {
         // Handle Errors here.

@@ -5,13 +5,16 @@ import {
 import { updatePhoto, changeHash, getUser } from '../lib/index';
 import { db } from '../firebase';
 
+// Exporta vista de perfil de usuario
 export const viewForProfile = () => {
+  // Crea constante user que guarda usuario desde localStorage con nombre 'user'
   const user = JSON.parse(localStorage.getItem('user'));
+  // Crea constante userProfile que guarda usuario desde localStorage con nombre 'userProfile'
   const userProfile = JSON.parse(localStorage.getItem('userProfile'));
   let photo = userProfile.photoURL;
   const profileDiv = document.createElement('div');
   profileDiv.classList.add('allViewForProfile');
-
+  // Añade el template de viewForProfile en HTML
   profileDiv.innerHTML = `
   <section class='grandpaForProfile'>
     <img src="./img/backg02.png" id='upperBackground' class='upperBackground'  alt="noseve">
@@ -57,8 +60,9 @@ export const viewForProfile = () => {
     </div>
     <img src="./img/backg01.png" id='backgroundIconsDown' class='backgroundIconsDown' alt="noseve">
   </section>`;
-  // menu cambio de hash
+  // Guarda en constante sección post del menu
   const post = profileDiv.querySelector('#postSelect');
+  // Escucha evento 'click' en constante post y realiza cambio de hash con función changeHash
   post.addEventListener('click', () => {
     changeHash('#/post');
   });
@@ -67,7 +71,7 @@ export const viewForProfile = () => {
   const photoForProfile = profileDiv.querySelector('#updatePhoto');
   // Escucha evento de cambio
   photoForProfile.addEventListener('change', (event) => {
-    // Selecciona la propiedad de files del target evento
+    // Selecciona la propiedad de files del target del evento
     const fileList = event.target.files;
     // Selecciona el primer elemento de fileList
     // y muestra sólo la propiedad name, que es la ruta del archivo
@@ -98,9 +102,11 @@ export const viewForProfile = () => {
           photoURL: downloadURL,
         });
         updatePhoto(user, downloadURL);
+        // Promesa, según uid del user
         getUser(user.uid).then((userSnap) => {
-          const userPhotos = localStorage.setItem('userPhotos', JSON.stringify(userSnap.data()));
-          const userPhotosnew = JSON.parse(localStorage.getItem('userPhotos'));
+          // Crea elemento en localStorage con la data del user
+          localStorage.setItem('userProfile', JSON.stringify(userSnap.data()));
+          const userPhotosnew = JSON.parse(localStorage.getItem('userProfile'));
           console.log(userPhotosnew.photoURL);
           profileDiv.querySelector('#photoProfile').src = userPhotosnew.photoURL;
           updatePhoto(user, userPhotosnew.photoURL);
