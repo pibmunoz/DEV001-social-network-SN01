@@ -13,12 +13,13 @@ export const viewForHome = () => {
 
   button.innerText = 'Hola';
   const textHome = `  <section class="homeDivi">
-  <img src="./img/homeBack01.png" id='upperBackground' class='upperBackground'  alt="fondos superior">
+  <img src="./img/homeBack01.png" id='upperBackground' class='upBackgroundHome'  alt="fondos superior">
   <div class="headerLogo">
     <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
   </div>
   <div class="mainBox">
-  <img src="./img/boyPet-01.png" id='imgForHome' class='imgForHome'  alt="boy with pet">
+  <img src="./img/boyPet-01.png" id='imgForHomeLeft' class='imgForHomeLeft'  alt="boy with pet">
+  <img src="./img/girlPet-01.png" id='imgForHomeRight' class='imgForHomeRight'  alt="girl with pet">
       <div class= "input-wrapper">
         <input  type= "email" class="input1" id="signInButton" placeholder="E-mail">
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">

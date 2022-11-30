@@ -244,12 +244,4 @@
       z-index: 150;
     }
 
-    .upperBackground{
-      width: 100%;
-      display: flex;
-      position: fixed;
-      top: 0;
-      z-index: 0;
-      right: 0;
-      opacity: 0.9;
-    }
+    
