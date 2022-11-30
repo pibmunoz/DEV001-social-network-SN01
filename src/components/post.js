@@ -40,6 +40,7 @@ export const viewForPost = () => {
   </section>
 
 `;
+  let postArea = postDiv.querySelector('#showPost');
 
   postDiv.querySelector('#buttonPost').addEventListener('click', () => {
     const textAreaPost = postDiv.querySelector('#inputPost').value;
@@ -54,7 +55,15 @@ export const viewForPost = () => {
   postDiv.querySelector('#buttonShowPost').addEventListener('click', async () => {
     getPost((QuerySnapshot) => {
       console.log('querySnapshot', QuerySnapshot);
+      postArea = '';
+
+    /*  const newPost = [];
+      QuerySnapshot.forEach((doc) => {
+        const data = doc.data;
+        const idDoc = doc.id;
+        newPost.push([data, {id: idDoc }]); */
     });
   });
+
   return postDiv;
 };
