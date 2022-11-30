@@ -2,26 +2,13 @@ import { doc, updateDoc } from 'firebase/firestore';
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
 } from 'firebase/storage';
-import { updatePhoto, changeHash } from '../lib/index';
+import { updatePhoto, changeHash, getUser } from '../lib/index';
 import { db } from '../firebase';
 
 export const viewForProfile = () => {
-//  const user = JSON.parse(localStorage.getItem('user'));
-
-/* onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const actualUserSigned = user;
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-   return actualUserSigned
-  // ...
-  } else {
-  // User is signed out
-  // ...
-  }
-}); */
-
   const user = JSON.parse(localStorage.getItem('user'));
+  const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+  let photo = userProfile.photoURL;
   const profileDiv = document.createElement('div');
   profileDiv.classList.add('allViewForProfile');
 
@@ -45,7 +32,7 @@ export const viewForProfile = () => {
 
     <form class="formProfile" id="formProfile">
       <div class="headerProfile">
-        <img src="${user.photoURL}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil">
+        <img src="${photo}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil">
         <input type="file" accept="image/png image/jpeg" id="updatePhoto">Sube una foto de perfil</img>
         <div class="profileFormDivDad">
           <h1 class= "nameForProfile"> ${user.displayName} </h1>
@@ -110,10 +97,26 @@ export const viewForProfile = () => {
         updateDoc(usersRef, {
           photoURL: downloadURL,
         });
-        profileDiv.querySelector('#photoProfile').src = downloadURL;
-      })
-      .then((downloadURL) => {
         updatePhoto(user, downloadURL);
+        getUser(user.uid).then((userSnap) => {
+          const userPhotos = localStorage.setItem('userPhotos', JSON.stringify(userSnap.data()));
+          const userPhotosnew = JSON.parse(localStorage.getItem('userPhotos'));
+          console.log(userPhotosnew.photoURL);
+          profileDiv.querySelector('#photoProfile').src = userPhotosnew.photoURL;
+          updatePhoto(user, userPhotosnew.photoURL);
+          if (userPhotosnew) {
+            photo = userPhotosnew;
+          }
+          // eslint-disable-next-line max-len
+          // profileDiv.querySelector('#photoProfile').src = JSON.parse(localStorage.getItem(userPhotos.photoURL);
+        });
+        // eslint-disable-next-line consistent-return
+        // .then((downloadURL) => {
+        //   console.log(userPhotos);
+        //   if (userPhotosnew !== null) {
+        //     userProfile = userPhotosnew;
+        //   }
+        // });
       });
   });
   return profileDiv;
