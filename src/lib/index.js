@@ -122,3 +122,8 @@ export const getSavePosts = () => {
 export const getPost = (callback) => {
   onSnapshot(collection(db, 'posts'), callback);
 };
+
+export const getUser = (docId) => {
+  const docRef = doc(db, 'users', docId);
+  return getDoc(docRef);
+};

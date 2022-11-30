@@ -1,5 +1,5 @@
 import {
-  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle, changeHash,
+  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle, changeHash, getUser,
 } from '../lib/index';
 import { AuthErrorCodes, GoogleAuthProvider } from '../firebase'; // esto podria estar en archivo intermedio!
 
@@ -136,15 +136,16 @@ export const viewForHome = () => {
     const password = homeDiv.querySelector('#password').value;
     logInHome(email, password)
       .then((userCredential) => {
-        changeHash('#/profile');
-        // Signed in
-        const user = userCredential.user;
-        const emailUser = user.email;
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log(emailUser);
-        return user;
+        getUser(userCredential.user.uid).then((userSnap) => {
+          // Signed in
+          const user = userCredential.user;
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('userProfile', JSON.stringify(userSnap.data()));
+          changeHash('#/profile');
+        });
       })
       .catch((error) => {
+        console.log(error);
         if (error.code === AuthErrorCodes.INVALID_PASSWORD
         || error.code === AuthErrorCodes.USER_DELETED) {
           textForAlert.innerHTML = 'contraseña incorrecta';
