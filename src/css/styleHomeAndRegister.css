@@ -443,3 +443,88 @@ right: 0;
 z-index: 0;
 
 }
+
+.imgForHome{
+  display: none;
+}
+
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  .imgFooter {
+    width: 45vh;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    z-index: 0;
+  }
+  
+  .mainBox {
+    background-color: #ffffff;
+    border-radius: 2vh;
+    padding: 3vw 2vw 0vw 2vw;
+    box-shadow: rgba(50, 50, 93, 0.40) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    position: relative;
+    top: 7vw;
+  }
+
+  .login2 {
+    max-width: 95vw;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .input-wrapper {
+    width: 35vw;
+  }
+  
+  
+  .input1 {
+    width: 35vw;
+  }
+
+  .buttonSignIn {
+    width: 35vw;
+    height: 6vh;
+  }
+
+  hr {
+    border: 1.3px  #81a8c9;;
+    width: 10vw;
+    border-style: solid;
+  }
+
+  #circle {
+    box-shadow: rgba(50, 50, 93, 0.9) 0px 9px 27px -9px, rgba(0, 0, 0, 0.8) 0px 7px 16px -8px;
+  }
+  
+  .imgForHome{
+    display: none;
+    position: absolute;
+    z-index: 200;
+    width: 45vh;
+    left: -20vw;
+    bottom: -15vw;
+  }
+  
+  .imgFooter {
+    bottom: 70%
+  }
+
+  .doggy{
+    position:absolute;
+   
+  }
+  
+  .logo {
+    width: 20vh;
+    z-index: 100;
+    position: absolute;
+    bottom:0;
+  }
+}
