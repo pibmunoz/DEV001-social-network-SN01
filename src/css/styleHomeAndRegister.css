@@ -479,13 +479,6 @@ z-index: 0;
 @media screen and (min-width: 1024px) and (orientation: landscape) {
   
   
-  .logo {
-    position: absolute;
-    width: 37vw;
-    left: 3vw;
-    z-index: 100;
-    top: 7vh
-  }
   
   
   .cuerpo {
@@ -509,10 +502,10 @@ z-index: 0;
   .mainBox {
     background-color: #ffffff;
     border-radius: 2vh;
-    padding: 3vw 2vw 0vw 2vw;
+    padding: 3vw 2vw 2vw 2vw;
     box-shadow: rgba(50, 50, 93, 0.40) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     position: relative;
-    top: 15vw;
+    top: 0vw;
     left: -23vw
   }
 
@@ -563,7 +556,7 @@ z-index: 0;
     animation-name: bounce;
     animation-duration: 8s;
     animation-iteration-count: infinite;
-    bottom: -4vw;
+    bottom: 1vw;
   }
 
   @keyframes bounce {
@@ -618,10 +611,11 @@ z-index: 0;
   }
   
   .logo {
-    width: 20vh;
+    width: 30vh;
     z-index: 100;
-    position: absolute;
+    position: relative;
     bottom:0;
+    left: -43vh;
   }
 
   .upBackgroundHome{

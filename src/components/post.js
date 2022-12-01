@@ -1,11 +1,14 @@
-import { QuerySnapshot } from 'firebase/firestore';
-import { savePost, getSavePosts, getPost } from '../lib/index';
+// import {  } from 'firebase/firestore';
+import { savePost, getPost } from '../lib/index';
 
+// Exporta vista de posts
 export const viewForPost = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  // Crea constante user que guarda usuario desde localStorage con nombre 'user
+  const userProfile = JSON.parse(localStorage.getItem('userProfile'));
   const postDiv = document.createElement('div');
   postDiv.classList.add('fullBodyPost');
-  postDiv.innerHTML = `
+  // Añade el template de viewForPost en HTML
+  const bodyOfPost = `
   <section class='grandpaDivForPost'>
     <header class="headerOfPost">
       <div class='leftHeader'>
@@ -23,8 +26,8 @@ export const viewForPost = () => {
           </ul>
         </div>
       </div>
-        <h2 class="helloForPost">Hi ${user.displayName}!</h2>
-        <img src="${user.photoURL}" id='photoProfile' class= 'photoForPost'  alt="Imagen de perfil">
+        <h2 class="helloForPost">Hi ${userProfile.name}!</h2>
+        <img src="${userProfile.photoURL}" id='photoProfile' class= 'photoForPost'  alt="Imagen de perfil">
     </header>
     
     <div class="post">
@@ -36,32 +39,85 @@ export const viewForPost = () => {
     </div>
     
     <div id="showPost" class="post-anteriores"></div>
-    <div class="post-anteriores">Esta es la mejor red social del mundo!</div>
+   
   </section>
 
 `;
-  let postArea = postDiv.querySelector('#showPost');
+  postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
 
+  // Selecciona button showPost desde template para mostrar posts
+  const postArea = postDiv.querySelector('#showPost');
+  console.log(postArea);
+  // Escucha evento 'click' en button buttonPost
   postDiv.querySelector('#buttonPost').addEventListener('click', () => {
     const textAreaPost = postDiv.querySelector('#inputPost').value;
-    const nameUser = user.displayName;
-    const userUid = user.uid;
+    const nameUser = userProfile.name;
+    const userUid = userProfile.user;
+    // crea constante que guarda la fecha del momento en el que se guarda el post
     const creationDatePost = Date.now();
     console.log(textAreaPost);
+    // guarda el post en función savePost con parámetros
     savePost(textAreaPost, nameUser, userUid, creationDatePost);
     console.log(nameUser);
   });
-
+  // Selecciona button showPost para mostrar posts y escucha evento 'click'
   postDiv.querySelector('#buttonShowPost').addEventListener('click', async () => {
-    getPost((QuerySnapshot) => {
-      console.log('querySnapshot', QuerySnapshot);
-      postArea = '';
+    // Llama a la función getPost que trae los posts publicados
+    getPost((querySnapshot) => {
+      console.log(querySnapshot);
+      postArea.innerHTML = '';
+      const arrayForPost = [];
+      // Consigue la data y cada post es agregado en un array
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        arrayForPost.push([data]);
+        console.log(data);
+        // console.log(Math.max(data[0].creationDate));
+      });
 
-    /*  const newPost = [];
-      QuerySnapshot.forEach((doc) => {
-        const data = doc.data;
-        const idDoc = doc.id;
-        newPost.push([data, {id: idDoc }]); */
+      console.log(arrayForPost[0][0]);
+      // En el array creado, se utiliza método sort para ordenar los post de forma descendente
+      const data = arrayForPost.sort(
+        (a, b) => new Date(b[0].creationDate) - new Date(a[0].creationDate),
+      );
+      // Por cada documento posteado se busca que el id del documento coincida con el id del usuario
+      // y si coincide, se inserta en el HTML un template para el post
+      data.forEach((doc) => {
+        const dateOfPost = new Date(doc[0].creationDate);
+        if (doc[0].usersId.includes(userProfile.uid)) {
+          console.log('hola hola caracola');
+          const allPosts = `
+          <section class="bodyOfEachPost" id="bodyOfEachPost">
+              <header class="headerOfEachPost" id="headerOfEachPost">
+                <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser}</p>
+                <p class="dateOfPost" id="dateOfPost">${dateOfPost.toLocaleDateString()}</p>
+              </header>
+              <div class="prueba">${doc[0].textOfEachPost}</div> 
+              <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
+                <button class="deletePost" id="deletePost">Delete</button>
+                <button class="editPost" id="editPost">Edit</button>
+              </div>
+          </section>
+          `;
+
+          postArea.insertAdjacentHTML('beforeend', allPosts);
+          // Si no, se insertan únicamente los posts de los demás usuarios
+        } else {
+          postArea.innerHTML += `
+          <section class="bodyOfEachPost" id="bodyOfEachPost">
+            <header class="headerOfEachPost" id="headerOfEachPost">
+              <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser}</p>
+              <p class="dateOfPost" id="dateOfPost">${dateOfPost.toLocaleDateString()}</p>
+            </header>
+            <div class="prueba"> ${doc[0].textOfEachPost} </div> 
+            <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
+              <button class="deletePost" id="deletePost">Delete</button>
+              <button class="editPost" id="editPost">Edit</button>
+            </div>
+          </section>
+          `;
+        }
+      });
     });
   });
 
