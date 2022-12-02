@@ -18,8 +18,7 @@ export const viewForHome = () => {
     <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
   </div>
   <div class="mainBox">
-  <img src="./img/boyPet-01.png" id='imgForHomeLeft' class='imgForHomeLeft'  alt="boy with pet">
-  <img src="./img/girlPet-01.png" id='imgForHomeRight' class='imgForHomeRight'  alt="girl with pet">
+  <img src="./img/homeImg.png" id='imgForHomeLeft' class='imgForHomeLeft'  alt="home image">
       <div class= "input-wrapper">
         <input  type= "email" class="input1" id="signInButton" placeholder="E-mail">
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">

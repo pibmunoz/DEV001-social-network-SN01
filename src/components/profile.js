@@ -38,7 +38,7 @@ export const viewForProfile = () => {
         <img src="${photo}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil">
         <input type="file" accept="image/png image/jpeg" id="updatePhoto">Sube una foto de perfil</img>
         <div class="profileFormDivDad">
-          <h1 class= "nameForProfile"> ${user.displayName} </h1>
+          <h1 class= "nameForProfile"> ${userProfile.name} </h1>
         </div>
       </div>
 

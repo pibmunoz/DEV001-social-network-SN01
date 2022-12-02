@@ -13,6 +13,7 @@ export const viewForRegister = () => {
   <img class="manchaRegister" src="./img/mancha.png" alt="fondo de mancha">
     <div class="headRegister">
       <img class="logo2" src="./img/pawsfinder.png" alt="Logo">
+      <img class="multiPets" src="./img/multiPets.png" alt="pets">
     </div>
     <form class="formRegister" id="formRegister">
       <h1 class="signUp">Sign Up</h1>
@@ -43,8 +44,10 @@ export const viewForRegister = () => {
       <button class="buttonSignUp" id="signUp">Sign Up</button>
       <button class="return" id="return">Return</button>
     </div> 
-    <img class="manchaRegisterBajo" src="./img/manchaBaja.png" alt="fondo de mancha">
-  </section>`;
+  </section>
+  <img class="upperBackground2" src="./img/homeBack01.png" alt="fondo de mancha">
+  <img src="./img/cat.png" id='imgForRegister' class='imgForRegisterLandPage'  alt="register img">
+  `;
 
   registerDiv.innerHTML = registerText;
   // seleccionamos el boton y funciona con template string cuando se usa querySelector

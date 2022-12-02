@@ -103,7 +103,7 @@ export const viewForPost = () => {
           postArea.insertAdjacentHTML('beforeend', allPosts);
           // Si no, se insertan únicamente los posts de los demás usuarios
         } else {
-          postArea.innerHTML += `
+          const allPosts = `
           <section class="bodyOfEachPost" id="bodyOfEachPost">
             <header class="headerOfEachPost" id="headerOfEachPost">
               <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser}</p>
@@ -116,6 +116,8 @@ export const viewForPost = () => {
             </div>
           </section>
           `;
+
+          postArea.insertAdjacentHTML('beforeend', allPosts);
         }
       });
     });
