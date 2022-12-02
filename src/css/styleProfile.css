@@ -253,3 +253,11 @@
       margin-bottom: 1rem;
      
     }
+
+    .textEditPost{
+      z-index : 200;
+      position: fixed;
+      top: 30%;
+      left: 20%;
+
+    }

@@ -1,5 +1,5 @@
 import {
-  doc, setDoc, getDoc, addDoc, collection, onSnapshot,
+  doc, setDoc, getDoc, addDoc, collection, onSnapshot, deleteDoc, updateDoc,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -112,8 +112,8 @@ export const savePost = (textOfEachPost, nameOfUser, usersId, creationDate) => {
 /**
  * Exporta constante que recupera la colección de posts
  */
-export const getSavePosts = () => {
-  getDoc(collection(db, 'posts'));
+export const getSavePosts = (id) => {
+  getDoc(doc(db, 'posts', id));
 };
 
 /**
@@ -123,7 +123,23 @@ export const getPost = (callback) => {
   onSnapshot(collection(db, 'posts'), callback);
 };
 
-export const getUser = (docId) => {
-  const docRef = doc(db, 'users', docId);
+/**
+ * Exporta constante que retorna documento desde colección según id del usuario
+ */
+export const getUser = (userId) => {
+  const docRef = doc(db, 'users', userId);
   return getDoc(docRef);
 };
+
+/**
+ * Exporta constante que elimina documento desde firestore
+ */
+export const functionDeleteEachPost = (id) => deleteDoc(doc(db, 'posts', id));
+
+// Función de getDoc
+// export const functionGetTask2 = (id) => getDoc(doc(db, 'task', id));
+
+/**
+ * Exporta constante que actualiza post según id de documento
+ */
+export const updatePost = (id, newPost) => updateDoc(doc(db, 'posts', id), newPost);
