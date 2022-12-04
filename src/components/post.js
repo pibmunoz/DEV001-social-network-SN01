@@ -7,7 +7,6 @@ import {
 export const viewForPost = () => {
   // Crea constante user que guarda usuario desde localStorage con nombre 'user
   const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-  console.log(userProfile);
   const postDiv = document.createElement('div');
   postDiv.classList.add('fullBodyPost');
   // Añade el template de viewForPost en HTML
@@ -79,19 +78,25 @@ export const viewForPost = () => {
         arrayForPost.push([data, { id: idDoc }]);
         // console.log(arrayForPost);
         // console.log(Math.max(data[0].creationDate));
+        // console.log(arrayForPost[0][0]);
+        // En el array creado, se utiliza método sort para ordenar los post de forma descendente
+        const dataSort = arrayForPost.sort(
+          (a, b) => new Date(b[0].creationDate) - new Date(a[0].creationDate),
+        );
+        console.log(dataSort);
+
+
+        
       });
 
-      // console.log(arrayForPost[0][0]);
-      // En el array creado, se utiliza método sort para ordenar los post de forma descendente
-      const dataSort = arrayForPost.sort(
-        (a, b) => new Date(b[0].creationDate) - new Date(a[0].creationDate),
-      );
       // Por cada documento posteado se busca que el id del documento coincida con el id del usuario
       // y si coincide, se inserta en el HTML un template para el post
       dataSort.forEach((doc) => {
         const dateOfPost = new Date(doc[0].creationDate);
         // console.log(`${doc[0].usersId} ${userProfile.user}`);
         if (doc[0].usersId === userProfile.user) {
+          const postBodyCreate = document.createElement('div');
+          postBodyCreate.setAttribute('id', doc.id);
           const allPosts = `
           <section class="bodyOfEachPost" id="bodyOfEachPost">
               <header class="headerOfEachPost" id="headerOfEachPost">
@@ -105,8 +110,8 @@ export const viewForPost = () => {
                </div>
           </section>
           `;
-
-          postArea.insertAdjacentHTML('beforeend', allPosts);
+          postBodyCreate.appendChild(allPosts);
+          postArea.insertAdjacentHTML('beforeend', postBodyCreate);
           // Si no, se insertan únicamente los posts de los demás usuarios
         } else {
           const allPosts = `
@@ -126,6 +131,7 @@ export const viewForPost = () => {
         }
       });
       dataSort.forEach((doc) => {
+        console.log(doc[0]);
         if (doc[0].usersId === userProfile.user) {
           const buttonsForDelete = postArea.querySelectorAll('#deletePost');
           buttonsForDelete.forEach((button) => {
@@ -156,12 +162,12 @@ export const viewForPost = () => {
               console.log(doc.data);
               console.log('editando');
               // updatePost(dataset.id);
-             /*  const buttonSavePostNew = postArea.querySelectorAll('buttonSavePostNew');
+              /*  const buttonSavePostNew = postArea.querySelectorAll('buttonSavePostNew');
               buttonSavePostNew.forEach((buttonSave) => {
                 buttonSave.addEventListener('click', () => {
                   updatePost(id); */
-                //});
-              //});
+              // });
+              // });
             });
           });
         }

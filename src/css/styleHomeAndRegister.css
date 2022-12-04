@@ -485,6 +485,10 @@ z-index: 0;
   display: none;
 }
 
+.upperBackground2{
+  display: none
+}
+
 
 
 @media screen and (min-width: 1024px) and (orientation: landscape) {
@@ -740,6 +744,7 @@ z-index: 0;
 }
 
 .upperBackground2{
+  display: flex;
   position: fixed;
   top: 0%;
   right: 0%;
