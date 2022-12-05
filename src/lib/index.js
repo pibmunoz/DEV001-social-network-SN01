@@ -12,6 +12,7 @@ import {
   app,
   db,
   updateProfile,
+  signOut,
 } from '../firebase';
 
 export const auth = getAuth(app);
@@ -102,9 +103,9 @@ export const updatePhoto = (currentUser, photo) => updateProfile(currentUser, {
 /**
  * Exporta constante que permite guardar información de los posts
  */
-export const savePost = (textOfEachPost, nameOfUser, usersId, creationDate) => {
+export const savePost = (textOfEachPost, nameOfUser, usersId, creationDate, likes) => {
   addDoc(collection(db, 'posts'), {
-    textOfEachPost, nameOfUser, usersId, creationDate,
+    textOfEachPost, nameOfUser, usersId, creationDate, likes,
   });
   console.log('base datos');
 };
@@ -143,3 +144,10 @@ export const functionDeleteEachPost = (id) => deleteDoc(doc(db, 'posts', id));
  * Exporta constante que actualiza post según id de documento
  */
 export const updatePost = (id, newPost) => updateDoc(doc(db, 'posts', id), newPost);
+
+export const updateLikes = (id, likes) => updateDoc(doc(db, 'posts', id), likes);
+
+/**
+ * Cerrar seción
+ */
+export const signOutUser = () => signOut(auth);

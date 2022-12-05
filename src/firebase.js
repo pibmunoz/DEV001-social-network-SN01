@@ -28,4 +28,5 @@ export {
   sendPasswordResetEmail,
   updateProfile,
   onAuthStateChanged,
+  signOut,
 } from 'firebase/auth';

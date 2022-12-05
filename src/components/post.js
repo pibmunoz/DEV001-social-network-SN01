@@ -1,6 +1,7 @@
 // import {  } from 'firebase/firestore';
 import {
-  savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost,
+  savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost, updateLikes, signOutUser,
+  changeHash, auth,
 } from '../lib/index';
 
 // Exporta vista de posts
@@ -21,11 +22,9 @@ export const viewForPost = () => {
             <span></span>
           </label>
           <ul class="menu__box">
-          <li><p class='menu__item'>Home</p></li>
           <li><p id="postSelect" class="menu__item">Posts</p></li>
           <li><p class="menu__item">Me</p></li>
-          <li><p class="menu__item">Adoptions</p></li>
-          <li><p class="menu__item"></p>Contact</li>
+          <li><p class="menu__item" id='closeSession' data-id ='${userProfile}'>Close</p></li>
           </ul>
         </div>
       </div>
@@ -34,10 +33,9 @@ export const viewForPost = () => {
     </header>
     
     <div class="post">
-      <h3>Post</h3>
+      <h3>Tell us about your day!</h3>
       <div class="postAreaForEdit"> 
-      <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
-      <button id="buttonSavePostNew" class="buttonSavePostNew">Save</button>
+        <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
       </div>      
       <button id="buttonPost" class="buttonPost">Post</button>
       <button id="buttonShowPost" class="buttonPost">Show Post</button> 
@@ -49,7 +47,7 @@ export const viewForPost = () => {
 
 `;
   postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
-
+  const likes = 0;
   // Selecciona button showPost desde template para mostrar posts
   const postArea = postDiv.querySelector('#showPost');
   // console.log(postArea);
@@ -62,7 +60,7 @@ export const viewForPost = () => {
     const creationDatePost = Date.now();
     // console.log(textAreaPost);
     // guarda el post en función savePost con parámetros
-    savePost(textAreaPost, nameUser, userUid, creationDatePost);
+    savePost(textAreaPost, nameUser, userUid, creationDatePost, likes);
     // console.log(nameUser);
   });
   // Selecciona button showPost para mostrar posts y escucha evento 'click'
@@ -95,14 +93,15 @@ export const viewForPost = () => {
           const allPosts = `
           <section class="bodyOfEachPost" id="bodyOfEachPost">
               <header class="headerOfEachPost" id="headerOfEachPost">
-                <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser}</p>
+                <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser} <span id='youTag'>You</span></p>
                 <p class="dateOfPost" id="dateOfPost">${dateOfPost.toLocaleDateString()}</p>
               </header>
               <div class="prueba" id="prueba">${doc[0].textOfEachPost}</div> 
               <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-              <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
-             <button class="editPost" id="editPost" ${doc[1].id}>Edit</button>
-               </div>
+                <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
+                <button class="editPost" id="editPost"  data-id=${doc[1].id}>Edit</button>
+                <button class="likePost" id="likePost" data-id=${doc[1].id}>Like</button>
+              </div>
           </section>
           `;
 
@@ -117,7 +116,7 @@ export const viewForPost = () => {
             </header>
             <div class="prueba">${doc[0].textOfEachPost}</div> 
             <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-             <div>"porque entra aqui"</div>
+            <button class="likePost" id="likePost" data-like=${doc.likes} data-id=${doc[1].id}>Like</button>
             </div>
           </section>
           `;
@@ -132,13 +131,14 @@ export const viewForPost = () => {
             button.addEventListener('click', ({ target: { dataset } }) => {
               const postId = dataset.id;
               console.log(dataset.id);
-
-              console.log('confirm?');
-              // eslint-disable-next-line no-restricted-globals
-              // const result = confirm('Delete post??');
-              // //if (result === true) {
-              //   functionDeleteEachPost(dataset.id);}
-              functionDeleteEachPost(postId);
+              if (doc[1].id === postId) {
+                alert('confirm?');
+                // eslint-disable-next-line no-restricted-globals
+                // const result = confirm('Delete post??');
+                // //if (result === true) {
+                //   functionDeleteEachPost(dataset.id);}
+                functionDeleteEachPost(postId);
+              }
             });
           });
         }
@@ -149,25 +149,82 @@ export const viewForPost = () => {
           const buttonsForEdit = postArea.querySelectorAll('#editPost');
           buttonsForEdit.forEach((button) => {
             button.addEventListener('click', ({ target: { dataset } }) => {
-              getSavePosts(dataset.id);
-              const textEditPost = document.querySelector('.postAreaForEdit');
-              textEditPost.classList.add('textEditPost');
-              console.log();
-              console.log(doc.data);
-              console.log('editando');
-              // updatePost(dataset.id);
-             /*  const buttonSavePostNew = postArea.querySelectorAll('buttonSavePostNew');
-              buttonSavePostNew.forEach((buttonSave) => {
-                buttonSave.addEventListener('click', () => {
-                  updatePost(id); */
-                //});
-              //});
+              const idEditButton = dataset.id;
+              if (doc[1].id === idEditButton) {
+                getSavePosts(idEditButton);
+                const buttonSaveNewPost = document.createElement('button');
+                buttonSaveNewPost.classList.add('buttonSavePostNew');
+                buttonSaveNewPost.innerText = 'save';
+                buttonSaveNewPost.setAttribute('id', doc[1].id);
+                postDiv.appendChild(buttonSaveNewPost);
+
+                // crear textarea
+
+                const textAreaForEdit = document.createElement('textarea');
+                textAreaForEdit.classList.add('textEditPost');
+                textAreaForEdit.innerText = `${doc[0].textOfEachPost}`;
+                textAreaForEdit.setAttribute('id', doc[1].id);
+                postDiv.appendChild(textAreaForEdit);
+
+                // console.log(buttonSaveNewPost.id);
+
+                buttonSaveNewPost.addEventListener('click', () => {
+                  const valueEditArea = textAreaForEdit.value;
+                  /* console.log(valueEditArea);
+                  console.log(buttonSaveNewPost.id); */
+                  updatePost(buttonSaveNewPost.id, {
+                    textOfEachPost: valueEditArea,
+                  });
+                });
+              } // FIN IF de edit
             });
           });
         }
       });
-      // AQUI TERMINA
+      // AQUI TERMINA y comienza likes
+      dataSort.forEach((doc) => {
+        const likeButton = postArea.querySelectorAll('.likePost');
+        likeButton.forEach((button) => {
+          let countLikes = 0;
+          button.addEventListener('click', ({ target: { dataset } }) => {
+            const idLikeButton = dataset.id;
+            // eslint-disable-next-line radix
+            countLikes++;
+            // eslint-disable-next-line no-plusplus
+            // countLikes++;
+            // likes = countLikes;
+            updateLikes(idLikeButton, {
+              likes: countLikes,
+            });
+          });
+          // }
+          // else {
+          //   // eslint-disable-next-line no-plusplus
+          //   countLikes += 1;
+          //   updateLikes(doc[1].id, {
+          //     likes: countLikes,
+          //   });
+          //   console.log(countLikes);
+
+        //   return countLikes;
+        // }
+        });
+      });
     });
+    // aqui termina
+  });
+  const buttonCloseSesion = postDiv.querySelector('#closeSession');
+  buttonCloseSesion.addEventListener('click', () => {
+    alert('hey');
+    signOutUser(auth)
+      .then(() => {
+        changeHash('#/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   });
 
   return postDiv;
