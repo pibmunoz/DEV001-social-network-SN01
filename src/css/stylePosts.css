@@ -1,11 +1,13 @@
  .fullBodyPost {
      width: 100%;
+     overflow:hidden;
+     min-height:100%;
      height: 100%;
      margin-top: 0;
      display: flex;
      flex-direction: column;
      align-items: center;
-     background: rgba(186, 217, 215, 1);
+     background: rgb(255, 255, 255);
      background-size: cover;
  }
 
@@ -13,30 +15,28 @@
      display: flex;
      flex-direction: column;
      align-items: center;
-     height: 100%;
+     height: max-content;
      width: 100%;
+     margin-top: 10vh;
  }
 
- .headerOfPost {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     justify-content: right;
-     flex-wrap: wrap;
-     width: 90%;
-     margin-top: 5%;
-     gap: 3vw;
-     z-index: 100;
+ .upperBackgroundPost{
+    width: 70vw;
+    position: fixed;
+    top: 0;
+    right: 0;
  }
+
 
  .photoForPost {
      width: 100px;
      height: 100px;
      border-radius: 100%;
-     z-index: 50;
+     z-index: 0;
      border-width: 0.2rem;
      border-color: #fff;
      border-style: solid;
+     object-fit: cover;
  }
 
 
@@ -66,6 +66,9 @@
  .helloForPost {
      font-size: 1rem;
      font-weight: 700;
+     top: 60%;
+     z-index: 50;
+
  }
 
  .post-anteriores {
@@ -73,17 +76,18 @@
      background-color: white;
      border-radius: 5px;
      padding: 15px;
-     z-index: 100;
+     z-index: 1;
  }
 
  .textAreaPost {
      margin: 15px;
-     z-index: 100;
+     z-index: 150;
  }
 
  .post {
      text-align: center;
      margin-bottom: 5%;
+     z-index: 50;
  }
 
  #post {
@@ -109,8 +113,11 @@
      z-index: 0;
  }
 
+
+
  .textAreaPost {
      z-index: 150;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
  }
 
  .prueba {
@@ -118,86 +125,197 @@
      margin-bottom: 1rem;
      padding: 15px;
      background: #F6F6F6;
-border-radius: 8px;
+     border-radius: 8px;
  }
 
  .textEditPost {
-    position:fixed;
+     position: fixed;
      z-index: 200;
      top: 10%;
      left: 20%;
+
+ }
+
+ #inputPost {
+     background-color: white;
+     border-radius: 5px;
+     width: 40vw;
+     font-weight: bold;
+     padding: 20px;
+     border-style: dashed;
+     border-color: rgb(218, 58, 170);
+     box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+     border-width: 0.8vh;
+ }
+
+ #deletePost,
+ #editPost {
+     border-style: none;
+     padding: 5px;
+     border-radius: 2px;
+     margin-bottom: 20px;
+ }
+
+ #deletePost {
+     background-color: red;
+     font-size: 0.9rem;
+     border-style: none;
+     padding: 0.6vw 2vw;
+     border-radius: 0.6vh;
+     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+     margin: 0.4vw ;
+ }
+
+ #editPost {
+     background-color: lightblue;
+     font-size: 0.9rem;
+     border-style: none;
+     padding: 0.6vw 2vw;
+     border-radius: 0.6vh;
+     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+     margin: 0.4vw ;
+ }
+
+ .likePost{
+    font-size: 0.9rem;
+     border-style: none;
+     padding: 0.6vw 2vw;
+     border-radius: 0.6vh;
+     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+     margin: 0.4vw ; 
+     background-color: #5dcaef;
+ }
+
+ #dateOfPost,
+ #youTag {
+     font-style: italic;
+     color: gray;
+ }
+
+ #dateOfPost {
+     float: right;
+ }
+
+ #youTag {
+     font-weight: normal !important;
+ }
+
+ #bodyOfEachPost {
+     border-bottom: gray solid 1px;
+ }
+
+ #nameOfUserPost {
+     font-weight: bold;
+     text-transform: capitalize
+ }
+
+ #buttonPost,
+ #buttonShowPost {
+     float: left;
+     margin-bottom: 10px;
     
  }
-#inputPost {
-    background-color: white;
-    border-radius: 5px;
-    width: 40vw;
-    border-style: none;
-    font-weight: bold;
-    padding: 20px;
-}
-#deletePost, #editPost {
-    border-style: none;
-    padding: 5px;
-    border-radius: 2px;
-    margin-bottom: 20px;
-}
-#deletePost {
-    background-color:red;
-}
-#editPost {
-    background-color: lightblue;
-}
 
-#dateOfPost, #youTag {
-    font-style: italic;
-    color: gray;
-}
-#dateOfPost {
-    float:right;
-}
-#youTag {
-    font-weight: normal !important;
-}
+ .buttonSavePostNew {
+     display: flex;
+     z-index: 200;
+     position: fixed;
+     top: 60%;
+     left: 30%;
 
-#bodyOfEachPost {
-    border-bottom: gray solid 1px;
-}
-#nameOfUserPost {
-    font-weight: bold;
-}
+ }
 
-#buttonPost, #buttonShowPost {
-    float: left;
-}
 
-.buttonSavePostNew{
-    display: flex;
-    z-index: 200;
+ .buttonCloseEditTextArea {
+     display: flex;
+     z-index: 200;
+     position: absolute;
+     top: 20%;
+     left: 30%;
+     width: 6vh;
+ }
+
+ .textEditPostDisplayNone {
+     display: none;
+ }
+
+ .buttonSavePostNewDisplayNone {
+     display: none;
+ }
+
+ .buttonCloseEditTextAreaDisplayNone {
+     display: none;
+ }
+
+ .upperBackgroundProfile {
+     width: 70vw;
+     position: fixed;
+     top: 0;
+     right: 0;
+ }
+
+ .pawBackgroundPost {
+    width: 35vh;
     position: fixed;
-    top: 60%;
-    left: 30%;
-
+    bottom: 0;
+    left: 0;
+    opacity: 0.9;
 }
 
+ .multiAnimals {
+     bottom: 0;
+     z-index: 1;
+     width: 30vh;
+     position: absolute;
+     margin-top: 10px;
+ }
 
-.buttonCloseEditTextArea{
+ .bannerPost {
+     display: none;
+ }
+
+ @media screen and (min-width: 1024px) and (orientation: landscape) {
+
+
+     #banner {
+         display: flex;
+         justify-content: center;
+         width: 100%;
+     }
+
+     .bannerPost {
+         display: block;
+         z-index: 1;
+         size: 100vw;
+     }
+
+     .upperBackgroundProfile {
+         display: none;
+     }
+
+     .pawBackgroundPost {
+         width: 40vh;
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         opacity: 0.9;
+     }
+
+.upperBackgroundPost{
+    width: 40vw;
+    position: fixed;
+    top: 0;
+    right: 0;
     display: flex;
-    z-index: 200;
+    z-index: 0;
+    opacity: 0.9;
+ }
+   
+ .multiAnimals {
+    bottom: 0;
+    z-index: 0;
+    width: 30vh;
     position: absolute;
-    top: 20%;
-    left: 30%;
-    width: 6vh;
+    margin-top: 10px;
 }
-
-.textEditPostDisplayNone{
-    display: none;
-}
-
-.buttonSavePostNewDisplayNone{
-    display: none;
-}
-
-.buttonCloseEditTextAreaDisplayNone{
-    display: none;
-}
+ }

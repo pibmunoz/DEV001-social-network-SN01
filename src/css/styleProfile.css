@@ -33,7 +33,7 @@
   width: 26px;
   height: 26px;
   cursor: pointer;
-  z-index: 15;
+  z-index: 90;
 }
 
 .menu__btn>span,
@@ -43,8 +43,9 @@
   position: absolute;
   width: 100%;
   height: 5px;
-  background-color: #e66c08;
+  background-color: rgb(237, 67, 149);
   transition-duration: .25s;
+ 
 }
 
 .menu__btn>span::before {
@@ -70,7 +71,7 @@
   background-color: #252525;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
   transition-duration: .25s;
-  z-index: 10;
+  z-index: 80;
 }
 
 .menu__item {
@@ -91,14 +92,15 @@
 /* Fin burger menu */
 
 .photoForProfile {
-  width: 30%;
-  height: 30%;
+  width: 150px;
+  height: 150px;
   border-radius: 100%;
   border-style: solid;
   border-color: rgb(255, 255, 255);
   border-width: 0.4rem;
   margin-bottom: 2vh;
   margin-top: 2vh;
+  object-fit: cover;
 }
 
 .allViewForProfile {
@@ -130,7 +132,7 @@
   width: 80vw;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(170, 195, 207);
+  background-color: rgb(237, 67, 149);
   border-radius: 0.7rem 0.7rem 0 0;
   padding-bottom: 2vh;
 }
@@ -174,12 +176,189 @@
 }
 
 #updatePhoto{
-  top: 150px;
-  width: 150px;
-  padding: 10px;
-  border: 1px dashed #BBB;
+  top: 1rem;
+  width: 60vw;
+  padding: 1vh;
+  border: 2px dashed rgb(255, 255, 255);
   text-align: center;
-  background-color: #DDD;
-  cursor: pointer;
-  opacity: 0;
 }
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+  width: 39vw;
+  background-color: rgb(102, 1, 102);
+  font-size: 0.9rem;
+  border-style: none;
+  padding: 0.5vw 1vh 0.5vw 1vh ;
+  color: rgb(255, 255, 255);
+  border-radius: 0.6vh;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+  cursor: pointer;
+}
+
+.nameForProfile{
+  font-size: 5vw;
+  text-transform: capitalize
+}
+
+.inputProfile{
+  width: 80%;
+  height: 2vh;
+  border-radius: 0.3rem;
+  border-style: dotted;
+  border-width: 0.4vh;
+  text-align: left;
+  font-size: 0.9em;
+  display: flex;
+  padding: 0.7rem;
+  position: relative;
+  z-index: 50;
+  margin-bottom: 2vh;
+}
+
+.profileFormDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.inputProfileDescription{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputProfileTextArea{
+  width: 80%;
+  border-radius: 0.3rem;
+  border-style: dotted;
+  border-width: 0.4vh;
+  text-align: left;
+  font-size: 0.9em;
+  margin-bottom: 1.8vh;
+}
+
+
+#buttonSave {
+  background-color: rgb(102, 1, 102);
+  font-size: 0.9rem;
+  border-style: none;
+  padding: 1vw 2vw;
+  color: rgb(255, 255, 255);
+  border-radius: 0.6vh;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+}
+
+#buttonSave:hover{
+  background-color: rgb(199, 22, 199); 
+}
+
+::-webkit-file-upload-button:hover{
+  background-color: rgb(235, 86, 17); 
+}
+
+.imgForProfileLandPage{
+  display: none;
+}
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  .formProfile {
+    width: 30vw;
+    border-radius: 0.7rem;
+    position: absolute;
+    padding: 0% 0% 5% 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-end;
+    top:-2vh;
+  
+    
+  }
+  .headerProfile {
+    display: flex;
+    width: 30vw;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(237, 67, 149);
+    border-radius: 0.7rem 0.7rem 0 0;
+    padding-bottom: 2vh;
+  }
+  
+  .allViewForProfile {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100vh;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  ::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+    width: 15vw;
+    background-color: rgb(102, 1, 102);
+    font-size: 0.9rem;
+    border-style: none;
+    padding: 0.5vw 1vh 0.5vw 1vh ;
+    color: rgb(255, 255, 255);
+    border-radius: 0.6vh;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    cursor: pointer;
+  }
+  #updatePhoto{
+    top: 1rem;
+    width: 22vw;
+    padding: 1vh;
+    border: 2px dashed rgb(255, 255, 255);
+    text-align: center;
+  }
+  .grandpaForProfile {
+    display: flex;
+    flex-direction: column;
+   
+    position: absolute;
+    top: 10%;
+  }
+
+  .imgForProfileLandPage{
+    display: flex;
+    position: fixed;
+    right: 0%;
+    top: 0;
+    height: 100%;
+  }
+
+  .pawBackground{
+    width: 40%;
+  }
+
+.upperBackgroundProfile{
+  display: none;
+}
+.nameForProfile{
+  font-size: 2vw;
+  text-transform: capitalize
+}
+#buttonSave {
+  background-color: rgb(102, 1, 102);
+  font-size: 0.9rem;
+  border-style: none;
+  padding: 0.6vw 2vw;
+  color: rgb(255, 255, 255);
+  border-radius: 0.6vh;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+  margin-bottom: 0.6vw ;
+}
+
+
+ }
+
+
+
+
+
+

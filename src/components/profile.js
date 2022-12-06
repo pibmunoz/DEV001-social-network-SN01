@@ -19,7 +19,7 @@ export const viewForProfile = () => {
   // Añade el template de viewForProfile en HTML
   profileDiv.innerHTML = `
   <section class='grandpaForProfile'>
-    <img src="./img/yello.png" id='upperBackgroundProfile' class='upperBackgroundProfile'  alt="noseve">
+    <img src="./img/yello.png" id='upperBackgroundProfile' class='upperBackgroundProfile'  alt="fondo color">
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
@@ -28,7 +28,7 @@ export const viewForProfile = () => {
 
       <ul class="menu__box">
         <li><p id="postSelect" class="menu__item">Posts</p></li>
-        <li><p class="menu__item">Me</p></li>
+        <li><p id= "profileSelect" class="menu__item">Me</p></li>
         <li><p class="menu__item" id='closeSession'>Close</p></li>
       </ul>
     </div>
@@ -52,23 +52,25 @@ export const viewForProfile = () => {
         <label for="type">Type</label>
         <input  type= "text" class="inputProfile" id="type" placeholder="Type, e.g: Cat"> 
       </div>
-      <div class="profileFormDiv">
+      <div class="inputProfileDescription">
         <label for="description">Description</label>
-        <textarea id="description" class="inputProfile" placeholder="..."></textarea>
-      </div>       
-    </form>
-    <div class ="buttonsProfile">
+        <textarea id="description" class="inputProfileTextArea" placeholder="..." rows="4" cols="50"></textarea>
+      </div>  
+      <div class ="buttonsProfile">
       <button class="buttonProfile" id="buttonSave">Save</button>
-    </div>
+    </div>     
+    </form>
+    
     <img src="./img/paw1.png" id='pawBackground' class='pawBackground' alt="paw">
-  </section>`;
+  </section>
+  <img src="./img/perritosProfile.png" id='imgForProfile' class='imgForProfileLandPage'  alt="profile img">`;
+
   // Guarda en constante sección post del menu
   const post = profileDiv.querySelector('#postSelect');
   // Escucha evento 'click' en constante post y realiza cambio de hash con función changeHash
   post.addEventListener('click', () => {
     changeHash('#/post');
   });
-
   // Input con type file y ID updatePhoto
   const photoForProfile = profileDiv.querySelector('#updatePhoto');
   // Escucha evento de cambio
@@ -129,7 +131,7 @@ export const viewForProfile = () => {
   });
   const buttonCloseSesion = profileDiv.querySelector('#closeSession');
   buttonCloseSesion.addEventListener('click', () => {
-    alert('hey');
+    alert('Confirm close session?');
     signOutUser(auth)
       .then(() => {
         changeHash('#/');
