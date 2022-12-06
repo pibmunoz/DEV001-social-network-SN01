@@ -1,263 +1,185 @@
-
 /* /* Inicio Burger menu */
-.hamburger-menu{
-    margin-bottom: 10%;
-  
-  }
-  
-  #menu__toggle {
-    opacity: 0;
-  }
-  #menu__toggle:checked + .menu__btn > span {
-    transform: rotate(45deg);
-  }
-  #menu__toggle:checked + .menu__btn > span::before {
-    top: 0;
-    transform: rotate(0deg);
-  }
-  #menu__toggle:checked + .menu__btn > span::after {
-    top: 0;
-    transform: rotate(90deg);
-  }
-  #menu__toggle:checked ~ .menu__box {
-    left: 0 !important;
-  }
-  .menu__btn {
-    position: fixed;
-    top: 6%;
-    left: 30px;
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    z-index: 15;
-  }
-  .menu__btn > span,
-  .menu__btn > span::before,
-  .menu__btn > span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #616161;
-    transition-duration: .25s;
-  }
-  .menu__btn > span::before {
-    content: '';
-    top: -8px;
-  }
-  .menu__btn > span::after {
-    content: '';
-    top: 8px;
-  }
-  .menu__box {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 300px;
-    height: 100%;
-    margin: 0;
-    padding: 80px 0;
-    list-style: none;
-    background-color: #ECEFF1;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-    transition-duration: .25s;
-    z-index: 10;
-  }
-  .menu__item {
-    display: block;
-    padding: 12px 24px;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-    transition-duration: .25s;
-  }
-  .menu__item:hover {
-    background-color: #CFD8DC;
-  }
-  /* Fin burger menu */
-  
-  .photoForProfile{
-    width:20%;
-    border-radius: 100%;
-  }
-  
-  .allViewForProfile{
-    background-color: rgba(186, 217, 215, 1);
-    width: 100%;
-    height: 100vmax;
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .formProfile{
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-radius: 5%;
-    width: 85%;
-    z-index: 3;
-    padding: 5%;
-  }
-  
-  .headerProfile{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  
-  .structureOfBackground{
+.hamburger-menu {
+  margin-bottom: 10%;
+
+}
+
+#menu__toggle {
+  opacity: 0;
+}
+
+#menu__toggle:checked+.menu__btn>span {
+  transform: rotate(45deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::before {
+  top: 0;
+  transform: rotate(0deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+#menu__toggle:checked~.menu__box {
+  left: 0 !important;
+}
+
+.menu__btn {
+  position: fixed;
+  top: 6%;
+  left: 30px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  z-index: 15;
+}
+
+.menu__btn>span,
+.menu__btn>span::before,
+.menu__btn>span::after {
+  display: block;
+  position: absolute;
   width: 100%;
-  
-  }
-  
-  .backgroundIconsDown{
-    width: 100%;
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    z-index: 0;
-    left: 0;
-    opacity: 0.7;
-  }
-  
-  .grandpaForProfile{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 10%;
-  }
-  
-  
-  .fullBodyPost{
-    width: 100%;
-    height: 100vmax;
-    margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background:  rgba(186, 217, 215, 1);
-    background-size: cover;
-  }
-  .grandpaDivForPost{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    width:100%;
-  }
-  
-  .headerOfPost{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: right;
-    flex-wrap: wrap;
-    width: 90%;
-    margin-top:5%;
-    gap:3vw;
-    z-index: 100;
-  }
-  
-  .photoForPost{
-    width: 9%;
-    border-radius: 100%;
-    z-index: 50;
-    border-width: 0.2rem;
-    border-color: #fff;
-    border-style: solid;
-  }
-  
-  
-  .buttonPost{
-      background-image: linear-gradient(to right, #24C6DC 0%, #514A9D  51%, #24C6DC  100%);
-      margin: 10px;
-      padding: 5px 15px;
-      text-align: center;
-      transition: 0.5s;
-      background-size: 200% auto;
-      color: white;            
-      box-shadow: 0 0 20px #eee;
-      border-radius: 10px;
-      display: block;
-      border-style: none;
-      align-self: center;
-      z-index: 100;
-    }
-    
-    .buttonPost:hover {
-      background-position: right center; /* change the direction of the change here */
-      color: #fff;
-      text-decoration: none;
-      
-    }
-  
-    .helloForPost{
-      font-size: 1rem;
-    }
-  
-    .post-anteriores{
-      margin: 15px;
-      background-color: white ;
-      border-radius: 5px;
-      padding: 15px;
-      z-index: 100;
-    }
-  
-    .textAreaPost{
-      margin: 15px;
-      z-index: 100;
-    }
-    .post{
-      text-align: center;
-      margin-bottom: 5%;
+  height: 5px;
+  background-color: #e66c08;
+  transition-duration: .25s;
+}
 
-    }
-  
-    #post {
-      background: #FFFFFF;
-      box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
-      border-radius: 16px;
-      height: 60%;
-      border: 0;
-      padding: 20px;
-      text-align: center;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-  
-    #downBackgroundPost{
-      width: 80%;
-      left: 0;
-      bottom: 0;
-      position: fixed;
-      opacity: .8;
-      z-index: 0;
-    }
+.menu__btn>span::before {
+  content: '';
+  top: -8px;
+}
 
-    .textAreaPost{
-      z-index: 150;
-    }
+.menu__btn>span::after {
+  content: '';
+  top: 8px;
+}
 
-    .prueba{
-      background-color: #514A9D;
-      width: 18vw;
-      margin-bottom: 1rem;
-     
-    }
+.menu__box {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100%;
+  margin: 0;
+  padding: 80px 0;
+  list-style: none;
+  background-color: #252525;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+  transition-duration: .25s;
+  z-index: 10;
+}
 
-    .textEditPost{
-      z-index : 200;
-      position: fixed;
-      top: 30%;
-      left: 20%;
+.menu__item {
+  display: block;
+  padding: 12px 24px;
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition-duration: .25s;
+}
 
-    }
+.menu__item:hover {
+  background-color: #CFD8DC;
+}
+
+/* Fin burger menu */
+
+.photoForProfile {
+  width: 30%;
+  height: 30%;
+  border-radius: 100%;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  border-width: 0.4rem;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+}
+
+.allViewForProfile {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 100vh;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formProfile {
+  width: 80vw;
+  border-radius: 0.7rem;
+  position: relative;
+  padding: 0% 0% 5% 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  z-index: 8;
+  background-color: white;
+}
+
+
+.headerProfile {
+  display: flex;
+  width: 80vw;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(170, 195, 207);
+  border-radius: 0.7rem 0.7rem 0 0;
+  padding-bottom: 2vh;
+}
+
+
+.structureOfBackground {
+  width: 100%;
+
+}
+
+.backgroundIconsDown {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  z-index: 0;
+  left: 0;
+  opacity: 0.7;
+}
+
+.grandpaForProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 10%;
+}
+
+.upperBackgroundProfile{
+  width: 70vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.pawBackground{
+  width: 70vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#updatePhoto{
+  top: 150px;
+  width: 150px;
+  padding: 10px;
+  border: 1px dashed #BBB;
+  text-align: center;
+  background-color: #DDD;
+  cursor: pointer;
+  opacity: 0;
+}

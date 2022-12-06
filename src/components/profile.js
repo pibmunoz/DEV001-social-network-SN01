@@ -2,7 +2,9 @@ import { doc, updateDoc } from 'firebase/firestore';
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
 } from 'firebase/storage';
-import { updatePhoto, changeHash, getUser } from '../lib/index';
+import {
+  updatePhoto, changeHash, getUser, signOutUser, auth,
+} from '../lib/index';
 import { db } from '../firebase';
 
 // Exporta vista de perfil de usuario
@@ -17,7 +19,7 @@ export const viewForProfile = () => {
   // Añade el template de viewForProfile en HTML
   profileDiv.innerHTML = `
   <section class='grandpaForProfile'>
-    <img src="./img/backg02.png" id='upperBackground' class='upperBackground'  alt="noseve">
+    <img src="./img/yello.png" id='upperBackgroundProfile' class='upperBackgroundProfile'  alt="noseve">
     <div class="hamburger-menu">
       <input id="menu__toggle" type="checkbox" />
       <label class="menu__btn" for="menu__toggle">
@@ -25,21 +27,21 @@ export const viewForProfile = () => {
       </label>
 
       <ul class="menu__box">
-        <li><p class= 'menu__item'>Home</p></li>
         <li><p id="postSelect" class="menu__item">Posts</p></li>
         <li><p class="menu__item">Me</p></li>
-        <li><p class="menu__item">Adoptions</p></li>
-        <li><p class="menu__item"></p>Contact</li>
+        <li><p class="menu__item" id='closeSession'>Close</p></li>
       </ul>
     </div>
 
     <form class="formProfile" id="formProfile">
       <div class="headerProfile">
-        <img src="${photo}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil">
-        <input type="file" accept="image/png image/jpeg" id="updatePhoto">Sube una foto de perfil</img>
+        <img src="${photo}" id='photoProfile' class= 'photoForProfile'  alt="Imagen de perfil"></img>
+        
+        <input type="file" accept="image/png image/jpeg" id="updatePhoto"></input>
+        </div>
         <div class="profileFormDivDad">
           <h1 class= "nameForProfile"> ${userProfile.name} </h1>
-        </div>
+        
       </div>
 
       <div class="profileFormDiv"></div>
@@ -58,7 +60,7 @@ export const viewForProfile = () => {
     <div class ="buttonsProfile">
       <button class="buttonProfile" id="buttonSave">Save</button>
     </div>
-    <img src="./img/backg01.png" id='backgroundIconsDown' class='backgroundIconsDown' alt="noseve">
+    <img src="./img/paw1.png" id='pawBackground' class='pawBackground' alt="paw">
   </section>`;
   // Guarda en constante sección post del menu
   const post = profileDiv.querySelector('#postSelect');
@@ -125,5 +127,19 @@ export const viewForProfile = () => {
         // });
       });
   });
+  const buttonCloseSesion = profileDiv.querySelector('#closeSession');
+  buttonCloseSesion.addEventListener('click', () => {
+    alert('hey');
+    signOutUser(auth)
+      .then(() => {
+        changeHash('#/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  });
+
   return profileDiv;
 };

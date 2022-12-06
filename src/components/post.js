@@ -1,12 +1,14 @@
 // import {  } from 'firebase/firestore';
 import {
-  savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost,
+  savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost, updateLikes, signOutUser,
+  changeHash, auth,
 } from '../lib/index';
 
 // Exporta vista de posts
 export const viewForPost = () => {
   // Crea constante user que guarda usuario desde localStorage con nombre 'user
   const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+  console.log(userProfile);
   const postDiv = document.createElement('div');
   postDiv.classList.add('fullBodyPost');
   // Añade el template de viewForPost en HTML
@@ -20,11 +22,9 @@ export const viewForPost = () => {
             <span></span>
           </label>
           <ul class="menu__box">
-          <li><p class='menu__item'>Home</p></li>
           <li><p id="postSelect" class="menu__item">Posts</p></li>
           <li><p class="menu__item">Me</p></li>
-          <li><p class="menu__item">Adoptions</p></li>
-          <li><p class="menu__item"></p>Contact</li>
+          <li><p class="menu__item" id='closeSession' data-id ='${userProfile}'>Close</p></li>
           </ul>
         </div>
       </div>
@@ -33,10 +33,9 @@ export const viewForPost = () => {
     </header>
     
     <div class="post">
-      <h3>Post</h3>
+      <h3>Tell us about your day!</h3>
       <div class="postAreaForEdit"> 
-      <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
-      <button id="buttonSavePostNew" class="buttonSavePostNew">Save</button>
+        <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
       </div>      
       <button id="buttonPost" class="buttonPost">Post</button>
       <button id="buttonShowPost" class="buttonPost">Show Post</button> 
@@ -45,10 +44,9 @@ export const viewForPost = () => {
     <div id="showPost" class="post-anteriores"></div>
    
   </section>
-
 `;
   postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
-
+  const likes = 0;
   // Selecciona button showPost desde template para mostrar posts
   const postArea = postDiv.querySelector('#showPost');
   // console.log(postArea);
@@ -61,11 +59,11 @@ export const viewForPost = () => {
     const creationDatePost = Date.now();
     // console.log(textAreaPost);
     // guarda el post en función savePost con parámetros
-    savePost(textAreaPost, nameUser, userUid, creationDatePost);
+    savePost(textAreaPost, nameUser, userUid, creationDatePost, likes);
     // console.log(nameUser);
   });
   // Selecciona button showPost para mostrar posts y escucha evento 'click'
-  postDiv.querySelector('#buttonShowPost').addEventListener('click', async () => {
+  postDiv.addEventListener('click', async () => {
     // Llama a la función getPost que trae los posts publicados
     getPost((querySnapshot) => {
       // console.log(querySnapshot);
@@ -78,40 +76,35 @@ export const viewForPost = () => {
         arrayForPost.push([data, { id: idDoc }]);
         // console.log(arrayForPost);
         // console.log(Math.max(data[0].creationDate));
-        // console.log(arrayForPost[0][0]);
-        // En el array creado, se utiliza método sort para ordenar los post de forma descendente
-        const dataSort = arrayForPost.sort(
-          (a, b) => new Date(b[0].creationDate) - new Date(a[0].creationDate),
-        );
-        console.log(dataSort);
-
-
-        
       });
 
+      // console.log(arrayForPost[0][0]);
+      // En el array creado, se utiliza método sort para ordenar los post de forma descendente
+      const dataSort = arrayForPost.sort(
+        (a, b) => new Date(b[0].creationDate) - new Date(a[0].creationDate),
+      );
       // Por cada documento posteado se busca que el id del documento coincida con el id del usuario
       // y si coincide, se inserta en el HTML un template para el post
       dataSort.forEach((doc) => {
         const dateOfPost = new Date(doc[0].creationDate);
         // console.log(`${doc[0].usersId} ${userProfile.user}`);
         if (doc[0].usersId === userProfile.user) {
-          const postBodyCreate = document.createElement('div');
-          postBodyCreate.setAttribute('id', doc.id);
           const allPosts = `
           <section class="bodyOfEachPost" id="bodyOfEachPost">
               <header class="headerOfEachPost" id="headerOfEachPost">
-                <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser}</p>
+                <p class="nameOfUserPost" id="nameOfUserPost">${doc[0].nameOfUser} <span id='youTag'>You</span></p>
                 <p class="dateOfPost" id="dateOfPost">${dateOfPost.toLocaleDateString()}</p>
               </header>
               <div class="prueba" id="prueba">${doc[0].textOfEachPost}</div> 
               <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-              <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
-             <button class="editPost" id="editPost" ${doc[1].id}>Edit</button>
-               </div>
+                <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
+                <button class="editPost" id="editPost"  data-id=${doc[1].id}>Edit</button>
+                <button class="likePost" data-id=${doc[1].id}>Like</button>
+              </div>
           </section>
           `;
-          postBodyCreate.appendChild(allPosts);
-          postArea.insertAdjacentHTML('beforeend', postBodyCreate);
+
+          postArea.insertAdjacentHTML('beforeend', allPosts);
           // Si no, se insertan únicamente los posts de los demás usuarios
         } else {
           const allPosts = `
@@ -122,7 +115,7 @@ export const viewForPost = () => {
             </header>
             <div class="prueba">${doc[0].textOfEachPost}</div> 
             <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-             <div>"porque entra aqui"</div>
+            <button class="likePost" data-id=${doc[1].id}>Like</button>
             </div>
           </section>
           `;
@@ -131,20 +124,20 @@ export const viewForPost = () => {
         }
       });
       dataSort.forEach((doc) => {
-        console.log(doc[0]);
         if (doc[0].usersId === userProfile.user) {
           const buttonsForDelete = postArea.querySelectorAll('#deletePost');
           buttonsForDelete.forEach((button) => {
             button.addEventListener('click', ({ target: { dataset } }) => {
               const postId = dataset.id;
               console.log(dataset.id);
-
-              console.log('confirm?');
-              // eslint-disable-next-line no-restricted-globals
-              // const result = confirm('Delete post??');
-              // //if (result === true) {
-              //   functionDeleteEachPost(dataset.id);}
-              functionDeleteEachPost(postId);
+              if (doc[1].id === postId) {
+                alert('confirm?');
+                // eslint-disable-next-line no-restricted-globals
+                // const result = confirm('Delete post??');
+                // //if (result === true) {
+                //   functionDeleteEachPost(dataset.id);}
+                functionDeleteEachPost(postId);
+              }
             });
           });
         }
@@ -155,25 +148,89 @@ export const viewForPost = () => {
           const buttonsForEdit = postArea.querySelectorAll('#editPost');
           buttonsForEdit.forEach((button) => {
             button.addEventListener('click', ({ target: { dataset } }) => {
-              getSavePosts(dataset.id);
-              const textEditPost = document.querySelector('.postAreaForEdit');
-              textEditPost.classList.add('textEditPost');
-              console.log();
-              console.log(doc.data);
-              console.log('editando');
-              // updatePost(dataset.id);
-              /*  const buttonSavePostNew = postArea.querySelectorAll('buttonSavePostNew');
-              buttonSavePostNew.forEach((buttonSave) => {
-                buttonSave.addEventListener('click', () => {
-                  updatePost(id); */
-              // });
-              // });
+              const idEditButton = dataset.id;
+              if (doc[1].id === idEditButton) {
+                getSavePosts(idEditButton);
+                // crear textarea
+                const conteinerOfEditPost = document.createElement('div');
+                const textAreaForEdit = document.createElement('textarea');
+                textAreaForEdit.classList.add('textEditPost');
+                textAreaForEdit.innerText = `${doc[0].textOfEachPost}`;
+                textAreaForEdit.setAttribute('id', doc[1].id);
+                conteinerOfEditPost.classList.add('containerEditPost');
+                conteinerOfEditPost.appendChild(textAreaForEdit);
+                postDiv.appendChild(conteinerOfEditPost);
+
+                const buttonSaveNewPost = document.createElement('button');
+                buttonSaveNewPost.classList.add('buttonSavePostNew');
+                buttonSaveNewPost.innerText = 'save';
+                buttonSaveNewPost.setAttribute('id', doc[1].id);
+                conteinerOfEditPost.appendChild(buttonSaveNewPost);
+                // console.log(buttonSaveNewPost.id);
+
+                /*  crear boton cerrar */
+
+                const buttonCloseModal = document.createElement('img');
+                buttonCloseModal.src = './img/cerrar.png';
+                buttonCloseModal.classList.add('buttonCloseEditTextArea');
+                buttonCloseModal.innerText = 'close';
+                buttonCloseModal.setAttribute('id', doc[1].id);
+                conteinerOfEditPost.appendChild(buttonCloseModal);
+
+                buttonSaveNewPost.addEventListener('click', () => {
+                  const valueEditArea = textAreaForEdit.value;
+                  /* console.log(valueEditArea);
+                  console.log(buttonSaveNewPost.id); */
+                  updatePost(buttonSaveNewPost.id, {
+                    textOfEachPost: valueEditArea,
+                  });
+                });
+
+                /* aqui se llama boton cerrar y se pasa evento para poner display None */
+                buttonCloseModal.addEventListener('click', () => {
+                  textAreaForEdit.classList.remove('textEditPost');
+                  textAreaForEdit.classList.add('textEditPostDisplayNone');
+                  buttonSaveNewPost.classList.remove('buttonSavePostNew');
+                  buttonSaveNewPost.classList.add('buttonSavePostNewDisplayNone');
+                  buttonCloseModal.classList.remove('buttonCloseEditTextArea');
+                  buttonCloseModal.classList.add('buttonCloseEditTextAreaDisplayNone');
+                });
+              } // FIN IF de edit
             });
           });
         }
       });
-      // AQUI TERMINA
+      // AQUI TERMINA y comienza likes
+      const buttonLikes = postArea.querySelectorAll('.likePost');
+      buttonLikes.forEach((button) => {
+        button.addEventListener('click', ({ target: { dataset } }) => {
+          const idDocButtonEdit = dataset.id;
+          const but = getSavePosts(idDocButtonEdit);
+          console.log(but)
+            .then((doc) => {
+              console.log(idDocButtonEdit);
+              const docOfEachPost = doc.data();
+              console.log(docOfEachPost);
+            });
+        });
+      });
+
+      //
     });
+    // aqui termina
+  });
+  const buttonCloseSesion = postDiv.querySelector('#closeSession');
+  buttonCloseSesion.addEventListener('click', () => {
+    alert('hey');
+    signOutUser(auth)
+      .then(() => {
+        changeHash('#/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   });
 
   return postDiv;
