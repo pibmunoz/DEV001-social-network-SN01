@@ -14,6 +14,10 @@ export const viewForPost = () => {
   // Añade el template de viewForPost en HTML
   const bodyOfPost = `
   <section class='grandpaDivForPost'>
+  <div id = "banner">
+  <img src="./img/bannerPrototipo2.png" id='bannerPost' class='bannerPost'  alt="fondo color">
+  </div>
+  <img src="./img/yello.png" id='upperBackgroundPost' class='upperBackgroundPost'  alt="paw background>
     <header class="headerOfPost">
       <div class='leftHeader'>
         <div class="hamburger-menu">
@@ -23,7 +27,7 @@ export const viewForPost = () => {
           </label>
           <ul class="menu__box">
           <li><p id="postSelect" class="menu__item">Posts</p></li>
-          <li><p class="menu__item">Me</p></li>
+          <li><p id= "profileSelect" class="menu__item">Me</p></li>
           <li><p class="menu__item" id='closeSession' data-id ='${userProfile}'>Close</p></li>
           </ul>
         </div>
@@ -42,8 +46,10 @@ export const viewForPost = () => {
     </div>
    
     <div id="showPost" class="post-anteriores"></div>
-   
-  </section>
+
+    <img src="./img/paw1.png" id='pawBackgroundPost' class='pawBackgroundPost' alt="paw">
+    <img src="./img/multiAnimals.png" id='multiAnimals' class='multiAnimals' alt="animals">
+   </section>
 `;
   postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
   const likes = 0;
@@ -62,8 +68,9 @@ export const viewForPost = () => {
     savePost(textAreaPost, nameUser, userUid, creationDatePost, likes);
     // console.log(nameUser);
   });
+  const buttonShowPost = postDiv.querySelector('#buttonShowPost');
   // Selecciona button showPost para mostrar posts y escucha evento 'click'
-  postDiv.addEventListener('click', async () => {
+  buttonShowPost.addEventListener('click', async () => {
     // Llama a la función getPost que trae los posts publicados
     getPost((querySnapshot) => {
       // console.log(querySnapshot);
@@ -221,7 +228,7 @@ export const viewForPost = () => {
   });
   const buttonCloseSesion = postDiv.querySelector('#closeSession');
   buttonCloseSesion.addEventListener('click', () => {
-    alert('hey');
+    alert('Confirm close session?');
     signOutUser(auth)
       .then(() => {
         changeHash('#/');
