@@ -1,0 +1,181 @@
+ .fullBodyPost {
+     width: 100%;
+     height: 100%;
+     margin-top: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     background: rgba(186, 217, 215, 1);
+     background-size: cover;
+ }
+
+ .grandpaDivForPost {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     height: 100%;
+     width: 100%;
+ }
+
+ .headerOfPost {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: right;
+     flex-wrap: wrap;
+     width: 90%;
+     margin-top: 5%;
+     gap: 3vw;
+     z-index: 100;
+ }
+
+ .photoForPost {
+     width: 100px;
+     height: 100px;
+     border-radius: 100%;
+     z-index: 50;
+     border-width: 0.2rem;
+     border-color: #fff;
+     border-style: solid;
+ }
+
+
+ .buttonPost {
+     background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+     margin: 10px;
+     padding: 5px 15px;
+     text-align: center;
+     transition: 0.5s;
+     background-size: 200% auto;
+     color: white;
+     box-shadow: 0 0 20px #eee;
+     border-radius: 10px;
+     display: block;
+     border-style: none;
+     z-index: 100;
+ }
+
+ .buttonPost:hover {
+     background-position: right center;
+     /* change the direction of the change here */
+     color: #fff;
+     text-decoration: none;
+
+ }
+
+ .helloForPost {
+     font-size: 1rem;
+     font-weight: 700;
+ }
+
+ .post-anteriores {
+     margin: 15px;
+     background-color: white;
+     border-radius: 5px;
+     padding: 15px;
+     z-index: 100;
+ }
+
+ .textAreaPost {
+     margin: 15px;
+     z-index: 100;
+ }
+
+ .post {
+     text-align: center;
+     margin-bottom: 5%;
+ }
+
+ #post {
+     background: #FFFFFF;
+     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
+     border-radius: 16px;
+     height: 60%;
+     border: 0;
+     padding: 20px;
+     text-align: center;
+     z-index: 100;
+     display: flex;
+     flex-direction: column;
+     gap: 2rem;
+ }
+
+ #downBackgroundPost {
+     width: 80%;
+     left: 0;
+     bottom: 0;
+     position: fixed;
+     opacity: .8;
+     z-index: 0;
+ }
+
+ .textAreaPost {
+     z-index: 150;
+ }
+
+ .prueba {
+     width: 45vw;
+     margin-bottom: 1rem;
+     padding: 15px;
+     background: #F6F6F6;
+border-radius: 8px;
+ }
+
+ .textEditPost {
+    position:fixed;
+     z-index: 200;
+     top: 30%;
+     left: 20%;
+    
+ }
+#inputPost {
+    background-color: white;
+    border-radius: 5px;
+    width: 40vw;
+    border-style: none;
+    font-weight: bold;
+    padding: 20px;
+}
+#deletePost, #editPost {
+    border-style: none;
+    padding: 5px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+#deletePost {
+    background-color:red;
+}
+#editPost {
+    background-color: lightblue;
+}
+
+#dateOfPost, #youTag {
+    font-style: italic;
+    color: gray;
+}
+#dateOfPost {
+    float:right;
+}
+#youTag {
+    font-weight: normal !important;
+}
+
+#bodyOfEachPost {
+    border-bottom: gray solid 1px;
+}
+#nameOfUserPost {
+    font-weight: bold;
+}
+
+#buttonPost, #buttonShowPost {
+    float: left;
+}
+
+.buttonSavePostNew{
+    display: flex;
+    z-index: 200;
+    position: fixed;
+    top: 60%;
+    left: 30%;
+
+}

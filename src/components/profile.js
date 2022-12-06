@@ -2,7 +2,9 @@ import { doc, updateDoc } from 'firebase/firestore';
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL,
 } from 'firebase/storage';
-import { updatePhoto, changeHash, getUser } from '../lib/index';
+import {
+  updatePhoto, changeHash, getUser, signOutUser, auth,
+} from '../lib/index';
 import { db } from '../firebase';
 
 // Exporta vista de perfil de usuario
@@ -25,11 +27,9 @@ export const viewForProfile = () => {
       </label>
 
       <ul class="menu__box">
-        <li><p class= 'menu__item'>Home</p></li>
         <li><p id="postSelect" class="menu__item">Posts</p></li>
         <li><p class="menu__item">Me</p></li>
-        <li><p class="menu__item">Adoptions</p></li>
-        <li><p class="menu__item"></p>Contact</li>
+        <li><p class="menu__item" id='closeSession'>Close</p></li>
       </ul>
     </div>
 
@@ -125,5 +125,19 @@ export const viewForProfile = () => {
         // });
       });
   });
+  const buttonCloseSesion = profileDiv.querySelector('#closeSession');
+  buttonCloseSesion.addEventListener('click', () => {
+    alert('hey');
+    signOutUser(auth)
+      .then(() => {
+        changeHash('#/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  });
+
   return profileDiv;
 };
