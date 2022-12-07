@@ -1,5 +1,5 @@
 // import {  } from 'firebase/firestore';
-import { async } from 'regenerator-runtime';
+// import { async } from 'regenerator-runtime';
 import {
   savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost, updateLikes, signOutUser,
   changeHash, auth,
@@ -15,7 +15,7 @@ export const viewForPost = () => {
   // Añade el template de viewForPost en HTML
   const bodyOfPost = `
   <section class='grandpaDivForPost'>
-  <div id = "banner">
+  <div id="banner">
   <img src="./img/bannerPrototipo2.png" id='bannerPost' class='bannerPost'  alt="fondo color">
   </div>
   <img src="./img/yello.png" id='upperBackgroundPost' class='upperBackgroundPost'  alt="paw background>
@@ -43,7 +43,7 @@ export const viewForPost = () => {
         <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
       </div>      
       <button id="buttonPost" class="buttonPost">Post</button>
-      <button id="buttonShowPost" class="buttonPost">Show Post</button> 
+      <button id="buttonShowPost" class="buttonPost">Show Posts</button> 
     </div>
    
     <div id="showPost" class="post-anteriores"></div>
@@ -105,11 +105,11 @@ export const viewForPost = () => {
               </header>
               <div class="prueba" id="prueba">${doc[0].textOfEachPost}</div> 
               <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-                <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
-                <button class="editPost" id="editPost" data-id=${doc[1].id}>Edit</button>
-                <button class="likePost" data-id=${doc[1].id}>Like</button>
+                <img src="./img/delete.png" class="deletePost" id="deletePost" data-id=${doc[1].id}>
+                <img src="./img/editButton.png" class="editPost" id="editPost" data-id=${doc[1].id}>
                 <div class="likesRow">
-                  <p> Likes:</p><span class="numberOfLikes">${doc[0].likes.length}</span>
+                  <img src= ${doc[0].likes.includes(userProfile.user) ? './img/likePaw2.png' : './img/likePaw.png'} class="likePost" data-id=${doc[1].id}>
+                  <span class="numberOfLikes">${doc[0].likes.length}</span>
                 </div>
               </div>
           </section>
@@ -125,10 +125,10 @@ export const viewForPost = () => {
               <p class="dateOfPost" id="dateOfPost">${dateOfPost.toLocaleDateString()}</p>
             </header>
             <div class="prueba">${doc[0].textOfEachPost}</div> 
-            <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-              <button class="likePost" data-id=${doc[1].id}>Like</button>
+            <div class="reactionsandEventsForPost2" id="reactionsandEventsForPost">
               <div class="likesRow">
-                <p>Likes:</p><span class="numberOfLikes">${doc[0].likes.length}</span>
+                <img src= ${doc[0].likes.includes(userProfile.user) ? './img/likePaw2.png' : './img/likePaw.png'} class="likePost" data-id=${doc[1].id}>
+                <span class="numberOfLikes">${doc[0].likes.length}</span>
               </div>
             </div>
           </section>
@@ -238,16 +238,20 @@ export const viewForPost = () => {
   });
   const buttonCloseSesion = postDiv.querySelector('#closeSession');
   buttonCloseSesion.addEventListener('click', () => {
-    alert('Confirm close session?');
-    signOutUser(auth)
-      .then(() => {
-        changeHash('#/');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Confirm close session?')) {
+      signOutUser(auth)
+        .then(() => {
+          changeHash('#/');
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
+    } else {
+      changeHash('#/post');
+    }
   });
 
   return postDiv;

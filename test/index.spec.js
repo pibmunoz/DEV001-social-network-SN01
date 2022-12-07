@@ -183,7 +183,7 @@ describe('viewForHome', () => {
     const buttonReturnToLogin = homeDiv.querySelector('#buttonSignIn');
     console.log(window.location.hash);
     expect(window.location.hash).toBe('#/');
-    //const clickEvent = new Event('click');
+    // const clickEvent = new Event('click');
     buttonReturnToLogin.click();
     return Promise.resolve(expect(window.location.hash).toBe('#/profile'));
   });
