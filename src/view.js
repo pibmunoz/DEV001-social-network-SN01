@@ -16,6 +16,9 @@ export const changeView = (hash) => {
     case '#/profile':
       divRoot.appendChild(routes.profile());
       break;
+    case '#/post':
+      divRoot.appendChild(routes.post());
+      break;
  // skip default case }
   }
 };

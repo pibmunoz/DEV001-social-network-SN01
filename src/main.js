@@ -14,3 +14,7 @@ const initSpa = () => {
 };
 // cuando la pagina esta completamente cargada gatilla el initSpa
 window.addEventListener('load', initSpa);
+
+export const changeHash = (hash) => {
+  window.location.hash = hash;
+};

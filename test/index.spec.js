@@ -11,10 +11,10 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  setDoc,
+  /*  setDoc,
   db,
   doc,
-  getFirestore,
+  getFirestore, */
 } from 'firebase/auth';
 // import {
 
@@ -38,11 +38,28 @@ describe('viewForRegister', () => {
     const returnToHome = registerDiv.querySelector('#return');
     expect(returnToHome.outerHTML).toBe('<button class="return" id="return">Return</button>');
   });
+  it('Tenemos boton de submit', () => {
+    const bodyRegister = viewForRegister();
+    const botonSubmit = bodyRegister.querySelector('#signUp');
+    expect(botonSubmit.outerHTML).toBe('<button class="buttonSignUp" id="signUp">Sign Up</button>');
+  });
   it('cambia de hash y retorna a home', () => {
     const registerDiv = viewForRegister();
+    // const changeHash = jest.fn();
+    // changeHash();
+    viewForRegister();
     const buttonReturnToHome = registerDiv.querySelector('#return');
-    expect(window.location.hash).toBe('');
+    expect(window.location.hash).toBe('#/register');
     buttonReturnToHome.click();
+    expect(window.location.hash).toBe('#/');
+  });
+  it('se llama a changeHash desde botón return', () => {
+    const changeHash = jest.fn();
+    changeHash();
+    const registerDiv = viewForRegister();
+    const buttonReturnToHome = registerDiv.querySelector('#return');
+    buttonReturnToHome.click();
+    expect(changeHash).toHaveBeenCalledTimes(1);
     expect(window.location.hash).toBe('#/');
   });
   it('contraseña y confirmación no son iguales', () => {
@@ -56,11 +73,11 @@ describe('viewForRegister', () => {
     expect(password !== passwordConf).toBe(true); // preguntar si esta bien :(
   });
 
-  describe('elemento root', () => {
+  describe('elemento .root existe en el HTML', () => {
     beforeAll(() => {
       document.body.innerHTML = '<div class="root" id="root"></div>';
     });
-    it('debería existir elemento root', () => {
+    it('debería existir elemento .root', () => {
       const bodyRoot = document.getElementById('root');
       expect(bodyRoot.outerHTML).toBe('<div class="root" id="root"></div>');
     });
@@ -72,16 +89,11 @@ describe('submitRegister', () => {
   it('debería ser una función', () => {
     expect(typeof submitRegister).toBe('function');
   });
-  it('Tenemos boton de submit', () => {
-    const bodyRegister = viewForRegister();
-    const botonSubmit = bodyRegister.querySelector('#signUp');
-    expect(botonSubmit.outerHTML).toBe('<button class="buttonSignUp" id="signUp">Sign Up</button>');
-  });
-  it('deberia llamar correctamente userwithEmailAndPassword', () => {
+  it('deberia llamar correctamente createUserWithEmailAndPassword', () => {
     createUserWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
       expect(email).toBe('test@test.test');
       expect(password).toBe('123');
-      return Promise.resolve({ user: { email, password } });
+      // return Promise.resolve({ user: { email, password } });
     });
     submitRegister('test@test.test', '123');
   });
@@ -91,15 +103,15 @@ describe('envioCorreoVerificacion', () => {
   it('debería ser una función', () => {
     expect(typeof sendEmail).toBe('function');
   });
-  it('deberia llamar correctamente sendEmailVerification', (done) => {
+  it('deberia llamar correctamente sendEmailVerification', () => {
     sendEmailVerification.mockImplementationOnce((currentUser) => {
       expect(currentUser).toBe('testUser');
-      return Promise.resolve();
+      // return Promise.resolve();
     });
-    window.addEventListener('hashchange', () => {
+    /* window.addEventListener('hashchange', () => {
       expect(window.location.hash).toBe('#/');
       done();
-    });
+    }); */
     sendEmail('testUser');
   });
 });
@@ -111,7 +123,7 @@ describe('forgotPassword', () => {
   it('forgotPassword llama correctamente a sendPasswordResetEmail', () => {
     sendPasswordResetEmail.mockImplementationOnce((auth, email) => {
       expect(email).toBe('test@test.test');
-      return Promise.resolve();
+      // return Promise.resolve();
     });
     forgotPassword('test@test.test');
   });
@@ -123,21 +135,57 @@ describe('logInHome', () => {
   it('debería ser una función', () => {
     expect(typeof logInHome).toBe('function');
   });
-  it('Tenemos boton de login', () => {
-    const bodyHome = viewForHome();
-    const buttonSignIn = bodyHome.querySelector('#buttonSignIn');
-    expect(buttonSignIn.outerHTML).toBe('<button class="buttonSignIn" id="buttonSignIn">Sign In</button>');
-  });
   it('deberia llamar correctamente signInWithEmailAndPassword', () => {
     signInWithEmailAndPassword.mockImplementationOnce((auth, email, password) => {
       expect(email).toBe('test@test.test');
       expect(password).toBe('123');
-      return Promise.resolve({ user: { email, password } });
-    });
-    window.addEventListener('hashchange', () => {
-      expect(window.location.hash).toBe('#/profile');
+      // return Promise.resolve({ user: { email, password } });
     });
     logInHome('test@test.test', '123');
+  });
+  it('have an alert', async () => {
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    expect(window.alert).toBeDefined();
+    await expect(Promise.reject(new Error('auth/wrong-password'))).rejects.toThrow(
+      'auth/wrong-password',
+    );
+  });
+});
+
+// viewForHome
+describe('viewForHome', () => {
+  it('debería ser una función', () => {
+    expect(typeof logInHome).toBe('function');
+  });
+  it('Tenemos boton de login en HTML', () => {
+    const bodyHome = viewForHome();
+    const buttonSignIn = bodyHome.querySelector('#buttonSignIn');
+    expect(buttonSignIn.outerHTML).toBe('<button class="buttonSignIn" id="buttonSignIn">Sign In</button>');
+  });
+  it('Tenemos boton de register', () => {
+    const bodyHome = viewForHome();
+    const buttonSignUp = bodyHome.querySelector('#buttonRegister');
+    expect(buttonSignUp.outerHTML).toBe('<button id="buttonRegister" class="buttonRegister">Register</button>');
+  });
+  it('Tenemos boton de forgotPassword', () => {
+    const bodyHome = viewForHome();
+    const buttonForgotPassword = bodyHome.querySelector('#forgotPassword');
+    expect(buttonForgotPassword.outerHTML).toBe('<button class="forgotPassword" id="forgotPassword">Forgot Password</button>');
+  });
+  it('Tenemos boton de loginGoogle', () => {
+    const bodyHome = viewForHome();
+    const buttonGoogleLogIn = bodyHome.querySelector('#googleIcon');
+    expect(buttonGoogleLogIn.outerHTML).toBe('<img class="iconoGoogle" id="googleIcon" src="/img/google.svg" alt="google">');
+  });
+  // POR REVISAR
+  it('cambia de hash y retorna a login', () => {
+    const homeDiv = viewForHome();
+    const buttonReturnToLogin = homeDiv.querySelector('#buttonSignIn');
+    console.log(window.location.hash);
+    expect(window.location.hash).toBe('#/');
+    //const clickEvent = new Event('click');
+    buttonReturnToLogin.click();
+    return Promise.resolve(expect(window.location.hash).toBe('#/profile'));
   });
 });
 
@@ -146,32 +194,41 @@ describe('googleLogIn', () => {
   it('debería ser una función', () => {
     expect(typeof googleLogIn).toBe('function');
   });
-  it('Tenemos boton de loginGoogle', () => {
-    const bodyHome = viewForHome();
-    const buttonGoogleLogIn = bodyHome.querySelector('#googleIcon');
-    expect(buttonGoogleLogIn.outerHTML).toBe('<img class="iconoGoogle" id="googleIcon" src="/img/google.svg" alt="google">');
-  });
-  /* it('deberia llamar correctamente  signInWithPopup', () => {
-    signInWithPopup.mockImplementationOnce((auth) => {
-      const provider = jest.fn(new GoogleAuthProvider());
-       expect(provider).toHaveBeenCalled();
-      expect(provider).toBe(new GoogleAuthProvider());
-      return Promise.resolve();
+  // ----------------------Inicio prueba 2 ---------------
+  it('deberia llamar correctamente  signInWithPopup', () => {
+    signInWithPopup.mockImplementationOnce((auth, provider) => {
+      // const provider = jest.fn(new GoogleAuthProvider());
+      // expect(provider).toHaveBeenCalled();
+      expect(provider).toStrictEqual(new GoogleAuthProvider());
+      return Promise.resolve({ user: { provider } });
     });
     window.addEventListener('hashchange', () => {
       expect(window.location.hash).toBe('#/profile');
     });
     googleLogIn();
-  }); */
+  });
+  // ----------------------Fin prueba 2----------------
 });
-
-describe.only('saveDataFromUsers', () => {
+/* // saveDataFromUsers
+describe('saveDataFromUsers', () => {
   it('debería ser una función', () => {
     expect(typeof saveDataFromUsers).toBe('function');
   });
-  
+  it('debería llamar correctamente a', () => {
+    expect(saveDataFromUsers).toBe('');
+  });
 });
 
+// saveDataFromGoogle
+describe('saveDataFromGoogle', () => {
+  it('debería ser una función', () => {
+    expect(typeof saveDataFromGoogle).toBe('function');
+  });
+  it('debería llamar correctamente a', () => {
+    expect(saveDataFromG).toBe('');
+  });
+});
+ */
 /* import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { submitRegister } from '../src/lib/index.js';
 

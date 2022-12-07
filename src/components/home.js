@@ -1,4 +1,8 @@
-import { logInHome, googleLogIn, forgotPassword } from '../lib/index';
+import {
+  logInHome, googleLogIn, forgotPassword, saveDataFromGoogle, changeHash, getUser,
+} from '../lib/index';
+import { AuthErrorCodes, GoogleAuthProvider } from '../firebase'; // esto podria estar en archivo intermedio!
+
 // Constante que contiene el template de la vista de home
 export const viewForHome = () => {
   const homeDiv = document.createElement('div');
@@ -9,41 +13,49 @@ export const viewForHome = () => {
 
   button.innerText = 'Hola';
   const textHome = `  <section class="homeDivi">
-  <div class="logo1">
+  <img src="./img/homeBack01.png" id='upperBackground' class='upBackgroundHome'  alt="fondos superior">
+  <div class="headerLogo">
     <img class= "logo" src="./img/pawsfinder.png" alt="Logo">
   </div>
   <div class="mainBox">
+  <img src="./img/homeImg.png" id='imgForHomeLeft' class='imgForHomeLeft'  alt="home image">
       <div class= "input-wrapper">
         <input  type= "email" class="input1" id="signInButton" placeholder="E-mail">
         <img  class="iconoEmail" src="/img/email.png" alt= "icono email">
       </div>
-      <div class= "input-wrapper">
+      <div class="input-wrapper">
         <input id="password" type="password" class="input1" placeholder="Password">
-        <img class="iconoPassword" src= "/img/password.png" alt= "password">
-        <img class="iconoPasswordEye" id='eyePassword'  src= "/img/eye.png" alt= "showPassword">
-        </div>
+        <img class="iconoPassword" src="/img/password.png" alt="password">
+        <img class="iconoPasswordEye" id='eyePassword'  src="/img/eye.png" alt="showPassword">
+      </div>
       <button class="buttonSignIn" id="buttonSignIn">Sign In</button>
       <button class="forgotPassword" id="forgotPassword">Forgot Password</button>
-      <p class="registerText"><span class="text1">Doesn't have an account yet? </span> 
+      <div class="textDisplay" id="textDisplay"></div>
+      <div class="textDisplay" id="textWrongPassword"></div>
+        <p class="registerText"><span class="text1">Doesn't have an account yet?</span> 
       <button id="buttonRegister" class= "buttonRegister">Register</button></p>
       <div class="login2">
         <div class="acomodo">
-        <hr> <p>Or login with</p> <hr>
+          <hr> <p>Or login with</p> <hr>
         </div>
         <div class="google">
-        <img class="iconoGoogle" id='googleIcon' src= "/img/google.svg" alt= "google">
-        <div class = "circle" id= "circle"></div>
+          <img class="iconoGoogle" id='googleIcon' src="/img/google.svg" alt="google">
+          <div class="circle" id="circle"></div>
         </div>
       </div>
       
   </div>
 </section>
 <div class="doggy">
-  <img  class="imgFooter" src="./img/puppy1.png" alt="Puppy2">
+  <img  class="imgFooter" src="./img/multiPets.png" alt="Puppy2">
   </div>
+
  `;
 
   homeDiv.innerHTML = textHome;
+
+  const textForAlert = homeDiv.querySelector('#textDisplay');
+  textForAlert.innerHTML = '';
 
   // Selecciona elemento eyePassword desde homeDiv que permite mostrar el password oculto
   homeDiv.querySelector('#eyePassword').addEventListener('click', () => {
@@ -59,21 +71,40 @@ export const viewForHome = () => {
   // para dar click en el button register
   const forChangeViewToRegister = homeDiv.querySelector('#buttonRegister');
 
+  // Agrega evento a button en constante forChangeViewToRegister
   forChangeViewToRegister.addEventListener('click', () => {
-    // al hacer click hacemos cambio de hash :)
-    window.location.hash = '#/register';
+    // Cambio de hash con función changeHash
+    changeHash('#/register');
   });
 
-  // LogIn de usuario, según value de input email y password, confirma que existan
-  homeDiv.querySelector('#buttonSignIn').addEventListener('click', () => {
-    const email = homeDiv.querySelector('#signInButton').value;
-    const password = homeDiv.querySelector('#password').value;
-    console.log(email, password);
-    logInHome(email, password);
-  });
   // Si usuario hace click en botón google, llama a la función googleLogIn() que loguea con google
   homeDiv.querySelector('#googleIcon').addEventListener('click', () => {
-    googleLogIn();
+    const promise = googleLogIn();
+    promise
+      .then((result) => {
+        getUser(result.user.uid).then((userSnap) => {
+          const user = result.user;
+          // Crea item en localStorage con nombre 'user' y 'userProfile'
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('userProfile', JSON.stringify(userSnap.data()));
+          const usersId = user.uid;
+          const nameGoogle = user.displayName;
+          const emailGoogle = user.email;
+          console.log(usersId, nameGoogle, emailGoogle);
+          saveDataFromGoogle(nameGoogle, usersId, emailGoogle);
+          changeHash('#/profile');
+        });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credentialError = GoogleAuthProvider.credentialFromError(error);
+        alert(errorCode, errorMessage, credentialError);
+      });
     console.log('google auth');
   });
 
@@ -85,8 +116,45 @@ export const viewForHome = () => {
     if (email === '') {
       alert('insert your email in the input call email');
     } else {
-      forgotPassword(email);
+      forgotPassword(email)
+        .then(() => {
+          textForAlert.innerHTML = 'check your E-mail';
+          // alert('Password reset email sent!');
+          console.log(email);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+        });
     }
   });
+
+  // LogIn de usuario, según value de input email y password, confirma que existan
+  homeDiv.querySelector('#buttonSignIn').addEventListener('click', () => {
+    const email = homeDiv.querySelector('#signInButton').value;
+    const password = homeDiv.querySelector('#password').value;
+    logInHome(email, password)
+      .then((userCredential) => {
+        getUser(userCredential.user.uid).then((userSnap) => {
+          // Signed in
+          const user = userCredential.user;
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('userProfile', JSON.stringify(userSnap.data()));
+          changeHash('#/profile');
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === AuthErrorCodes.INVALID_PASSWORD
+        || error.code === AuthErrorCodes.USER_DELETED) {
+          textForAlert.innerHTML = 'contraseña incorrecta';
+          console.log('El E-mail o la contraseña son incorrectos');
+        } else {
+          console.log('no has ingresado nada');
+        }
+      });
+  });
+
   return homeDiv;
 };
