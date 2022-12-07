@@ -1,4 +1,5 @@
 // import {  } from 'firebase/firestore';
+import { async } from 'regenerator-runtime';
 import {
   savePost, getPost, functionDeleteEachPost, getSavePosts, updatePost, updateLikes, signOutUser,
   changeHash, auth,
@@ -52,7 +53,7 @@ export const viewForPost = () => {
    </section>
 `;
   postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
-  const likes = 0;
+  const likes = [];
   // Selecciona button showPost desde template para mostrar posts
   const postArea = postDiv.querySelector('#showPost');
   // console.log(postArea);
@@ -105,8 +106,11 @@ export const viewForPost = () => {
               <div class="prueba" id="prueba">${doc[0].textOfEachPost}</div> 
               <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
                 <button class="deletePost" id="deletePost" data-id=${doc[1].id}>Delete</button>
-                <button class="editPost" id="editPost"  data-id=${doc[1].id}>Edit</button>
+                <button class="editPost" id="editPost" data-id=${doc[1].id}>Edit</button>
                 <button class="likePost" data-id=${doc[1].id}>Like</button>
+                <div class="likesRow">
+                  <p> Likes:</p><span class="numberOfLikes">${doc[0].likes.length}</span>
+                </div>
               </div>
           </section>
           `;
@@ -122,7 +126,10 @@ export const viewForPost = () => {
             </header>
             <div class="prueba">${doc[0].textOfEachPost}</div> 
             <div class="reactionsandEventsForPost" id="reactionsandEventsForPost">
-            <button class="likePost" data-id=${doc[1].id}>Like</button>
+              <button class="likePost" data-id=${doc[1].id}>Like</button>
+              <div class="likesRow">
+                <p>Likes:</p><span class="numberOfLikes">${doc[0].likes.length}</span>
+              </div>
             </div>
           </section>
           `;
@@ -210,15 +217,18 @@ export const viewForPost = () => {
       // AQUI TERMINA y comienza likes
       const buttonLikes = postArea.querySelectorAll('.likePost');
       buttonLikes.forEach((button) => {
-        button.addEventListener('click', ({ target: { dataset } }) => {
-          const idDocButtonEdit = dataset.id;
-          const but = getSavePosts(idDocButtonEdit);
-          console.log(but)
-            .then((doc) => {
-              console.log(idDocButtonEdit);
-              const docOfEachPost = doc.data();
-              console.log(docOfEachPost);
-            });
+        button.addEventListener('click', async ({ target: { dataset } }) => {
+          // button.preventDefault();
+          const post = await getSavePosts(dataset.id);
+          const docOfEachPost = post.data();
+          if (!docOfEachPost.likes.includes(userProfile.user)) {
+            const newLikes = [...docOfEachPost.likes, userProfile.user];
+            updateLikes(dataset.id, { likes: newLikes });
+            // document.querySelector('.likePost2').style.backgroundColor = 'red';
+          } else {
+            const dislike = docOfEachPost.likes.filter((users) => users !== userProfile.user);
+            updateLikes(dataset.id, { likes: dislike });
+          }
         });
       });
 

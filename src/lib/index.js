@@ -113,9 +113,7 @@ export const savePost = (textOfEachPost, nameOfUser, usersId, creationDate, like
 /**
  * Exporta constante que recupera la colección de posts
  */
-export const getSavePosts = (id) => {
-  getDoc(doc(db, 'posts', id));
-};
+export const getSavePosts = (id) => getDoc(doc(db, 'posts', id));
 
 /**
  * Exporta constante que llama al documento de la colección
