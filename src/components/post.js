@@ -169,6 +169,11 @@ export const viewForPost = () => {
                 getSavePosts(idEditButton);
                 // crear textarea
                 const conteinerOfEditPost = document.createElement('div');
+                const divHeaderEditPost = document.createElement('div');
+                divHeaderEditPost.classList.add('divHeaderPost');
+                conteinerOfEditPost.appendChild(divHeaderEditPost);
+                divHeaderEditPost.innerText = 'Edit your post here';
+
                 const textAreaForEdit = document.createElement('textarea');
                 textAreaForEdit.classList.add('textEditPost');
                 textAreaForEdit.innerText = `${doc[0].textOfEachPost}`;
@@ -199,10 +204,19 @@ export const viewForPost = () => {
                   console.log(buttonSaveNewPost.id); */
                   updatePost(buttonSaveNewPost.id, {
                     textOfEachPost: valueEditArea,
+                  }).then(() => {
+                    divHeaderEditPost.classList.remove('divHeaderPost');
+                    divHeaderEditPost.classList.add('divHeaderPostDisplayNone');
+                    textAreaForEdit.classList.remove('textEditPost');
+                    textAreaForEdit.classList.add('textEditPostDisplayNone');
+                    buttonSaveNewPost.classList.remove('buttonSavePostNew');
+                    buttonSaveNewPost.classList.add('buttonSavePostNewDisplayNone');
+                    conteinerOfEditPost.classList.remove('containerEditPost');
+                    conteinerOfEditPost.classList.add('textEditPostDisplayNone');
                   });
                 });
 
-                /* aqui se llama boton cerrar y se pasa evento para poner display None */
+                /* aqui se llama boton cerrar y se pasa evento para poner display None
                 buttonCloseModal.addEventListener('click', () => {
                   textAreaForEdit.classList.remove('textEditPost');
                   textAreaForEdit.classList.add('textEditPostDisplayNone');
@@ -210,7 +224,7 @@ export const viewForPost = () => {
                   buttonSaveNewPost.classList.add('buttonSavePostNewDisplayNone');
                   buttonCloseModal.classList.remove('buttonCloseEditTextArea');
                   buttonCloseModal.classList.add('buttonCloseEditTextAreaDisplayNone');
-                });
+                }); */
               } // FIN IF de edit
             });
           });
