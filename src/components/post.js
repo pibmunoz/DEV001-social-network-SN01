@@ -215,16 +215,16 @@ export const viewForPost = () => {
                     conteinerOfEditPost.classList.add('textEditPostDisplayNone');
                   });
                 });
-
-                /* aqui se llama boton cerrar y se pasa evento para poner display None
                 buttonCloseModal.addEventListener('click', () => {
+                  divHeaderEditPost.classList.remove('divHeaderPost');
+                  divHeaderEditPost.classList.add('divHeaderPostDisplayNone');
                   textAreaForEdit.classList.remove('textEditPost');
                   textAreaForEdit.classList.add('textEditPostDisplayNone');
                   buttonSaveNewPost.classList.remove('buttonSavePostNew');
                   buttonSaveNewPost.classList.add('buttonSavePostNewDisplayNone');
-                  buttonCloseModal.classList.remove('buttonCloseEditTextArea');
-                  buttonCloseModal.classList.add('buttonCloseEditTextAreaDisplayNone');
-                }); */
+                  conteinerOfEditPost.classList.remove('containerEditPost');
+                  conteinerOfEditPost.classList.add('textEditPostDisplayNone');
+                });
               } // FIN IF de edit
             });
           });
