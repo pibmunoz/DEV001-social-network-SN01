@@ -41,15 +41,17 @@ export const viewForPost = () => {
       <h3>Tell us about your day!</h3>
       <div class="postAreaForEdit"> 
         <textarea id= "inputPost" class= "textAreaPost" rows="6" cols="30"></textarea>
-      </div>      
+      </div>  
+      <span class= "buttonPostDiv">   
       <button id="buttonPost" class="buttonPost">Post</button>
-      <button id="buttonShowPost" class="buttonPost">Show Posts</button> 
+      </span>
     </div>
-   
+    <span class ="buttonShowPosts">
+    <button id="buttonShowPost" class="buttonShowPost2">Show Posts</button> 
+    </span>
     <div id="showPost" class="post-anteriores"></div>
 
     <img src="./img/paw1.png" id='pawBackgroundPost' class='pawBackgroundPost' alt="paw">
-    <img src="./img/multiAnimals.png" id='multiAnimals' class='multiAnimals' alt="animals">
    </section>
 `;
   postDiv.insertAdjacentHTML('beforeend', bodyOfPost);
