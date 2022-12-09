@@ -1,6 +1,11 @@
 import {
   doc, setDoc, getDoc, addDoc, collection, onSnapshot, deleteDoc, updateDoc,
 } from 'firebase/firestore';
+
+import {
+  getStorage, ref, uploadBytesResumable, getDownloadURL,
+} from 'firebase/storage';
+
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -146,6 +151,14 @@ export const updatePost = (id, newPost) => updateDoc(doc(db, 'posts', id), newPo
 export const updateLikes = (id, likes) => updateDoc(doc(db, 'posts', id), likes);
 
 /**
- * Cerrar seción
+ * Cerrar sesión
  */
 export const signOutUser = () => signOut(auth);
+
+export const storage = () => getStorage();
+
+export const downloadUrl = (uploadTask) => getDownloadURL(uploadTask);
+export const refFunction = (storageFunction, newPhoto) => ref(storageFunction, newPhoto);
+
+// eslint-disable-next-line max-len
+export const uploadToStorage = (reference, data, metadata) => uploadBytesResumable(reference, data, metadata);

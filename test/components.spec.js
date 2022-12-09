@@ -1,9 +1,11 @@
 /* aqui vamos a testear la funcionalidad de cada componente */
 // eslint-disable-next-line import/no-duplicates
+import { getDownloadURL } from 'firebase/firestore';
 import { changeHash } from '../src/lib/index';
 import { viewForRegister } from '../src/components/register';
 import { viewForProfile } from '../src/components/profile';
 import { viewForPost } from '../src/components/post';
+
 // eslint-disable-next-line import/no-duplicates
 // import index from '../src/lib/index';
 
@@ -64,17 +66,23 @@ describe('viewForProfile', () => {
   it('debería ser una función', () => {
     expect(typeof viewForProfile).toBe('function');
   });
-  it.only('se llama a changeHash desde botón post del menu', () => {
+  it('se llama a changeHash desde botón post del menu', () => {
     // revisar json y local storage
     JSON.parse = jest.fn(() => ({ photoUrl: 'httmpdjdjfjdjd' }));
     const profileDiv = viewForProfile();
     const post = profileDiv.querySelector('#postSelect');
-    console.log(post);
     post.click();
     // viewForProfile();
     expect(changeHash).toBeCalled();
     // expect(window.location.hash).toBe('#/post');
   });
+  /* it('se llama a funcion ', () => {
+    JSON.parse = jest.fn(() => ({ photoUrl: 'httmpdjdjfjdjd' }));
+    const profileDiv = viewForProfile();
+    const photoForProfile = profileDiv.querySelector('#photoProfile');
+    photoForProfile.change();
+    expect(getDownloadURL).toBeCalled();
+  }); */
   it('Tenemos p de post en menu', () => {
     const bodyProfile = viewForProfile();
     const post = bodyProfile.querySelector('#postSelect');
@@ -87,6 +95,7 @@ describe('viewForProfile', () => {
   });
 });
 
+// test viewForPost
 describe('viewForPost', () => {
   it('Tenemos botón de post', () => {
     const bodyPosts = viewForPost();

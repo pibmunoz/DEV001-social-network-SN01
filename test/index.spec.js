@@ -219,8 +219,16 @@ describe('savePost', () => {
     expect(typeof savePost).toBe('function');
   });
   it('deberia llamar correctamente addDoc', () => {
-    savePost(addDoc);
-    expect(addDoc).toBeCalled();
+    addDoc.mockImplementationOnce(() => Promise.resolve());
+    collection.mockImplementationOnce(() => ({}));
+    savePost('textotexto', 'karla', 'kcrm900503', '9005030208', {});
+    expect(addDoc).toHaveBeenCalledWith(expect.anything(), {
+      textOfEachPost: 'textotexto',
+      nameOfUser: 'karla',
+      usersId: 'kcrm900503',
+      creationDate: '9005030208',
+      likes: {},
+    });
   });
 });
 
