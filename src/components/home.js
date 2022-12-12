@@ -102,7 +102,6 @@ export const viewForHome = () => {
         // eslint-disable-next-line no-unused-expressions
         errorCode || errorMessage || credentialError ? alert('There is a problem, try again') : false;
       });
-    console.log('google auth');
   });
 
   // olvidaste tu contraseña
@@ -116,8 +115,6 @@ export const viewForHome = () => {
       forgotPassword(email)
         .then(() => {
           textForAlert.innerHTML = 'Check your e-mail';
-          // alert('Password reset email sent!');
-          console.log(email);
         })
         .catch((error) => {
           const errorCode = error.code;

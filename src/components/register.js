@@ -70,7 +70,6 @@ export const viewForRegister = () => {
     const textMessageSecret = registerDiv.querySelector('#secretText');
     console.log(passwordConf);
     const passwordConfTwo = registerDiv.querySelector('#signUpPasswordConf');
-    const emptyAlert = registerDiv.querySelector('#emptyInput');
     // Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos
     // antes de enviar el registro
     if (password !== passwordConf) {
@@ -80,12 +79,13 @@ export const viewForRegister = () => {
     }
     if (password === passwordConf) {
       passwordConfTwo.classList.remove('red');
-      textMessageSecret.innerHTML = ' ';
+      textMessageSecret.innerHTML = '';
     }
     if (email === '' || password === '' || name === '' || country === '') {
-      emptyAlert.innerHTML = 'Fill the empty inputs!!!';
-      return emptyAlert;
+      textMessageSecret.innerHTML = 'Fill the empty inputs!!!';
+      return textMessageSecret;
     }
+    console.log('hola como estas');
     submitRegister(email, password, name, country)
       .then((userCredential) => {
         const usersUid = userCredential.user.uid;
@@ -108,8 +108,8 @@ export const viewForRegister = () => {
         // agregue un mensaje de que el correo ya esta en uso
         if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
           // alert('El E-mail ya existe');
-          emptyAlert.innerHTML = 'Email already exist';
-          return emptyAlert;
+          textMessageSecret.innerHTML = 'Email already exist';
+          return textMessageSecret;
         }
       });
   });

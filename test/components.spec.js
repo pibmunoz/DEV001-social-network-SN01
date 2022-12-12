@@ -1,6 +1,6 @@
 /* aqui vamos a testear la funcionalidad de cada componente */
 // eslint-disable-next-line import/no-duplicates
-import { getDownloadURL } from 'firebase/firestore';
+// import { getDownloadURL } from 'firebase/firestore';
 import { changeHash } from '../src/lib/index';
 import { viewForRegister } from '../src/components/register';
 import { viewForProfile } from '../src/components/profile';
@@ -23,6 +23,8 @@ describe('viewForRegister', () => {
   it('Tenemos boton de return', () => {
     const registerDiv = viewForRegister();
     const returnToHome = registerDiv.querySelector('#return');
+    returnToHome.click();
+    expect(window.location.hash).toBe('#/');
     expect(returnToHome.outerHTML).toBe('<button class="return" id="return">Return</button>');
   });
   it('Tenemos boton de submit', () => {
@@ -39,13 +41,38 @@ describe('viewForRegister', () => {
   });
   it('contraseña y confirmación no son iguales', () => {
     const registerDiv = viewForRegister();
-    let password = registerDiv.querySelector('#signUpPassword').value;
-    let passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
-    password = 'holahola';
-    passwordConf = 'holasholas';
+    registerDiv.querySelector('#signUpPassword').value = 'holahola';
+    registerDiv.querySelector('#signUpPasswordConf').value = 'holasholas';
+    const password = registerDiv.querySelector('#signUpPassword').value;
+    const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
     const buttonSignUp = registerDiv.querySelector('#signUp');
     buttonSignUp.click();
-    expect(password !== passwordConf).toBeTruthy(); // preguntar si esta bien :(
+    expect(password !== passwordConf).toBeTruthy();
+  });
+  it('contraseña y confirmación son iguales', () => {
+    const registerDiv = viewForRegister();
+    registerDiv.querySelector('#signUpPassword').value = 'holahola';
+    registerDiv.querySelector('#signUpPasswordConf').value = 'holahola';
+    // const password = registerDiv.querySelector('#signUpPassword').value;
+    // const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
+    const buttonSignUp = registerDiv.querySelector('#signUp');
+    const passwordConfTwo = registerDiv.querySelector('#signUpPasswordConf');
+    buttonSignUp.click();
+    expect(passwordConfTwo.classList.contains('red')).toBe(false);
+  });
+
+  it('anuncia que falta llenar un input', () => {
+    const registerDiv = viewForRegister();
+    const password = registerDiv.querySelector('#signUpPassword').value;
+    const country = registerDiv.querySelector('#signUpCountry').value;
+    const email = registerDiv.querySelector('#signUpEmail').value;
+    const name = registerDiv.querySelector('#fName').value;
+    const emptyAlert = registerDiv.querySelector('#secretText');
+    if (email === '' || password === '' || name === '' || country === '') {
+      // emptyAlert.mockReturnValue('Fill the empty inputsSS!!!');
+      emptyAlert.innerHTML = 'Fill the empty inputs!!!';
+      expect(emptyAlert.innerHTML).toBe('Fill the empty inputs!!!');
+    }
   });
 
   describe('elemento .root existe en el HTML', () => {
@@ -83,10 +110,10 @@ describe('viewForProfile', () => {
     photoForProfile.change();
     expect(getDownloadURL).toBeCalled();
   }); */
-  it('Tenemos p de post en menu', () => {
+  it('Tenemos button de post en menu', () => {
     const bodyProfile = viewForProfile();
     const post = bodyProfile.querySelector('#postSelect');
-    expect(post.outerHTML).toBe('<p id="postSelect" class="menu__item">Posts</p>');
+    expect(post.outerHTML).toBe('<button id="postSelect" class="menu__item">Posts</button>');
   });
   it('Tenemos p de close en menu', () => {
     const bodyProfile = viewForProfile();

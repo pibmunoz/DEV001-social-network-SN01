@@ -9,6 +9,7 @@ import {
   downloadUrl,
   uploadToStorage,
   refFunction,
+  updateUsers,
 } from '../lib/index';
 import { db } from '../firebase';
 
@@ -146,5 +147,21 @@ export const viewForProfile = () => {
       });
   });
 
+  const buttonsave = profileDiv.querySelector('#buttonSave');
+  buttonsave.addEventListener('click', (e) => {
+    const namePetInput = profileDiv.querySelector('#namePet').value;
+    const typeInput = profileDiv.querySelector('#type').value;
+    const descriptionInput = profileDiv.querySelector('#description').value;
+    console.log('hola');
+    e.preventDefault();
+    updateUsers(userProfile.user, {
+      petName: namePetInput,
+      type: typeInput,
+      description: descriptionInput,
+    })
+      .then(() => {
+        console.log('ya se pudo');
+      });
+  });
   return profileDiv;
 };
