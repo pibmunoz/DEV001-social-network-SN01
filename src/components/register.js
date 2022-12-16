@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AuthErrorCodes } from '../firebase';
 import {
   submitRegister, sendEmail, saveDataFromUsers, updateInfo, changeHash,
@@ -9,44 +10,44 @@ export const viewForRegister = () => {
   registerDiv.classList.add('fullBodyOfRegister');
 
   const registerText = `
-  <section class="registerBody">
-  <img class="manchaRegister" src="./img/mancha.png" alt="fondo de mancha">
-    <div class="headRegister">
-      <img class="logo2" src="./img/pawsfinder.png" alt="Logo">
-      <img class="multiPets" src="./img/multiPets.png" alt="pets">
+  <section class='registerBody'>
+  <img class='manchaRegister' src='./img/mancha.png' alt='fondo de mancha'>
+    <div class='headRegister'>
+      <img class='logo2' src='./img/pawsfinder.png' alt='Logo'>
+      <img class='multiPets' src='./img/multiPets.png' alt='pets'>
     </div>
-    <form class="formRegister" id="formRegister">
-      <h1 class="signUp">Sign Up</h1>
-      <div class="underline-title"></div>
-      <div class="infoForm">
-          <label for="fName">Name</label>
-          <input type= "text" class="input2" id="fName" placeholder="Your name, e.g: John Doe"> 
+    <form class='formRegister' id='formRegister'>
+      <h1 class='signUp'>Sign Up</h1>
+      <div class='underline-title'></div>
+      <div class='infoForm'>
+          <label for='fName'>Name</label>
+          <input type= 'text' class='input2' id='fName' placeholder='Your name, e.g: John Doe'> 
         </div>
-        <div class="infoForm">
-          <label for="fEmail">E-mail</label>
-          <input  type= "email" class="input2" id="signUpEmail" placeholder="Your mail, e.g: someone@gmail.com"> 
+        <div class='infoForm'>
+          <label for='fEmail'>E-mail</label>
+          <input  type= 'email' class='input2' id='signUpEmail' placeholder='Your mail, e.g: someone@gmail.com'> 
         </div>
-        <div class="infoForm">
-          <label for="fCountry">Country</label>
-          <input type="country" class="input2" id="signUpCountry" placeholder="Your country, e.g:Chile"> 
+        <div class='infoForm'>
+          <label for='fCountry'>Country</label>
+          <input type='country' class='input2' id='signUpCountry' placeholder='Your country, e.g:Chile'> 
         </div>
-        <div class="infoForm">
-          <label for="fPassword">Password</label>
-          <input  type= "text" class="input2" id="signUpPassword" placeholder="Enter a password: only letters and numbers">
+        <div class='infoForm'>
+          <label for='fPassword'>Password</label>
+          <input  type= 'text' class='input2' id='signUpPassword' placeholder='Enter a password: only letters and numbers'>
         </div>
-        <div class="infoForm">
-          <label for="fConfPassword">Confirm password</label>
-          <input type= "text" class="input2" id="signUpPasswordConf" placeholder="Confirm your password">
+        <div class='infoForm'>
+          <label for='fConfPassword'>Confirm password</label>
+          <input type= 'text' class='input2' id='signUpPasswordConf' placeholder='Confirm your password'>
           <div class ='secretText' id='secretText'></div>
         </div>    
     </form>
-    <div class ="buttonsRegisterForRow">
-      <button class="buttonSignUp" id="signUp">Sign Up</button>
-      <button class="return" id="return">Return</button>
+    <div class ='buttonsRegisterForRow'>
+      <button class='buttonSignUp' id='signUp'>Sign Up</button>
+      <button class='return' id='return'>Return</button>
     </div> 
   </section>
-  <img class="upperBackground2" src="./img/homeBack01.png" alt="fondo de mancha">
-  <img src="./img/cat.png" id='imgForRegister' class='imgForRegisterLandPage'  alt="register img">
+  <img class='upperBackground2' src='./img/homeBack01.png' alt='fondo de mancha'>
+  <img src='./img/cat.png' id='imgForRegister' class='imgForRegisterLandPage'  alt='register img'>
   `;
 
   registerDiv.innerHTML = registerText;
@@ -68,9 +69,7 @@ export const viewForRegister = () => {
     const country = registerDiv.querySelector('#signUpCountry').value;
     const passwordConf = registerDiv.querySelector('#signUpPasswordConf').value;
     const textMessageSecret = registerDiv.querySelector('#secretText');
-    console.log(passwordConf);
     const passwordConfTwo = registerDiv.querySelector('#signUpPasswordConf');
-    const emptyAlert = registerDiv.querySelector('#emptyInput');
     // Sección de validación de campos, contraseñas sean idénticas y que los campos no estén vacíos
     // antes de enviar el registro
     if (password !== passwordConf) {
@@ -80,11 +79,11 @@ export const viewForRegister = () => {
     }
     if (password === passwordConf) {
       passwordConfTwo.classList.remove('red');
-      textMessageSecret.innerHTML = ' ';
+      textMessageSecret.innerHTML = '';
     }
     if (email === '' || password === '' || name === '' || country === '') {
-      emptyAlert.innerHTML = 'Fill the empty inputs!!!';
-      return emptyAlert;
+      textMessageSecret.innerHTML = 'Fill the empty inputs!!!';
+      return textMessageSecret;
     }
     submitRegister(email, password, name, country)
       .then((userCredential) => {
@@ -92,24 +91,20 @@ export const viewForRegister = () => {
         saveDataFromUsers(name, country, usersUid, email, password);
         const currentUser = userCredential.user;
         updateInfo(currentUser, name);
-        console.log(currentUser);
         sendEmail(currentUser)
           .then(() => {
             alert('mail verification sent!');
             changeHash('#/');
           });
-        console.log(currentUser.displayName);
       })
       // eslint-disable-next-line consistent-return
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
         // agregue un mensaje de que el correo ya esta en uso
         if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
-          // alert('El E-mail ya existe');
-          emptyAlert.innerHTML = 'Email already exist';
-          return emptyAlert;
+          textMessageSecret.innerHTML = 'Email already exist';
+          return textMessageSecret;
         }
       });
   });
