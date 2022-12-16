@@ -235,7 +235,7 @@ export const viewForPost = () => {
                 /*  crear boton cerrar */
 
                 const buttonCloseModal = document.createElement('img');
-                buttonCloseModal.src = './img/cerrar.png';
+                buttonCloseModal.src = 'https://raw.githubusercontent.com/gabrielavillarrealdiaz/DEV001-social-network-SN01/main/src/img/cerrar.png';
                 buttonCloseModal.classList.add('buttonCloseEditTextArea');
                 buttonCloseModal.innerText = 'close';
                 buttonCloseModal.setAttribute('id', doc[1].id);

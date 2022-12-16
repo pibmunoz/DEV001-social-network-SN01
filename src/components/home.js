@@ -23,7 +23,7 @@ export const viewForHome = () => {
         <img src='https://raw.githubusercontent.com/gabrielavillarrealdiaz/DEV001-social-network-SN01/main/src/img/homeImg.png' id='imgForHomeLeft' class='imgForHomeLeft'  alt='home image'>
         <div class='input-wrapper'>
           <input type='email' class='input1' id='signInButton' placeholder='E-mail'>
-          <img class='iconoEmail' src='/img/email.png' alt='email icon'>
+          <img class='iconoEmail' src='https://raw.githubusercontent.com/gabrielavillarrealdiaz/DEV001-social-network-SN01/main/src/img/email.png' alt='email icon'>
         </div>
         <div class='input-wrapper'>
           <input id='password' type='password' class='input1' placeholder='Password'>
