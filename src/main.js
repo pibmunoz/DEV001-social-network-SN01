@@ -1,58 +1,20 @@
-//vamos a hacer las rutas
-import './firebase.js';
-import {home} from './components/home.js';
-import {register} from './components/register.js';
+import { changeView } from './view';
 
-const divRoot = document.getElementById("root");
+const initSpa = () => {
+  // le damos un hash cuando recien se ingresa a la pagina
+  if (window.location.hash === '') {
+    window.location.hash = '#/';
+  }
+  // Muestra la vista de acuerdo al hash en el que se encuentra, muestra home
 
-const routes ={
-    '/': home,
-    '#register': register,
-    //'#login': Login,
-}
+  changeView(window.location.hash);
+  return window.addEventListener('hashchange', () => {
+    changeView(window.location.hash);
+  });
+};
+// cuando la pagina esta completamente cargada gatilla el initSpa
+window.addEventListener('load', initSpa);
 
-export const onNavigate = (pathname) => {
-    divRoot.innerHTML="";
-     window.history.pushState(
-        {},
-        pathname,
-        window.location.origin + pathname,
-     );
-
-     
-
-     divRoot.appendChild(routes[pathname]())
- };
-
- window.onpopstate = () => {
-    divRoot.appendChild(component());
-
- }
- 
- 
-const component = routes[window.location.pathname];
-divRoot.appendChild(component());
-
-window.addEventListener('hashchange', (e) =>{
-onNavigate(location.hash)
-
-})
-
- 
-    document.getElementById("buttonRegister").addEventListener("click", () => {
-      return onNavigate("#register");
-      });
-
-//
-
-/*const signUp = document.getElementById("signUp");
-console.log()
-
-signUp.addEventListener("click", (e)=>{
-    e.preventDefault()
-
-   const email= form["signUpEmail"];
-   const password= form["signUpPassword"];
- console.log(email, password)
-})*/
-
+export const changeHash = (hash) => {
+  window.location.hash = hash;
+};

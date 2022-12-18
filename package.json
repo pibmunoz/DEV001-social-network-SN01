@@ -16,17 +16,18 @@
     "stylelint": "stylelint --aei src/**/*.css",
     "pretest": "npm run htmlhint && npm run eslint && npm run stylelint",
     "test": "jest --coverage",
+    "testing": "jest --watch",
     "dev": "vite dev src",
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "./deploy.sh",
     "start": " node foo.js"
-    
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^25.3.0",
     "htmlhint": "^1.0.0",
@@ -38,5 +39,11 @@
   },
   "engines": {
     "node": ">=16.x"
+  },
+  "dependencies": {
+    "firebase": "^9.14.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

@@ -1,0 +1,590 @@
+ .fullBodyPost {
+     width: 100%;
+     overflow: hidden;
+     min-height: 100%;
+     height: 100%;
+     margin-top: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     background: rgb(255, 255, 255);
+     background-size: cover;
+ }
+
+ .likesRow {
+     display: flex;
+     gap: 1vh;
+     align-items: center;
+
+ }
+
+
+ .headerOfEachPost {
+     display: flex;
+     justify-content: space-between;
+     width: 95%;
+     margin-bottom: 2vh;
+ }
+
+ .grandpaDivForPost {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     height: max-content;
+     width: 100%;
+     margin-top: 12vh;
+ }
+
+ .upperBackgroundPost {
+     width: 70vw;
+     position: fixed;
+     top: 0;
+     right: 0;
+     z-index: 0;
+     opacity: 0.8;
+ }
+
+ .reactionsandEventsForPost {
+     display: flex;
+     width: 95%;
+     justify-content: space-between;
+ }
+
+ .reactionsandEventsForPost2 {
+     display: flex;
+     width: 95%;
+     justify-content: flex-end;
+ }
+
+ .photoForPost {
+     width: 100px;
+     height: 100px;
+     border-radius: 100%;
+     z-index: 0;
+     border-width: 0.2rem;
+     border-color: #fff;
+     border-style: solid;
+     object-fit: cover;
+ }
+
+ .buttonShowPosts {
+     width: 95%;
+     z-index: 60;
+     display: flex;
+     justify-content: center;
+ }
+
+ .carousel {
+     display: none;
+ }
+
+ .buttonShowPost2 {
+     background-image: linear-gradient(to right, #3A1C71 0%, #a644e7 51%, #711c4e 100%);
+     margin: 10px;
+     padding: 5px 15px;
+     transition: 0.5s;
+     background-size: 200% auto;
+     color: white;
+     box-shadow: 0 0 20px #eee;
+     border-radius: 1vh;
+     display: flex;
+     border-style: none;
+     z-index: 100;
+     width: 60vw;
+     height: 5vh;
+     align-items: center;
+     justify-content: center;
+     font-weight: 700;
+ }
+
+ .buttonPost {
+     background-image: linear-gradient(to right, #711c6d 0%, #e244e7 51%, #4b1c71 100%);
+     margin: 10px;
+     padding: 5px 15px;
+     transition: 0.5s;
+     background-size: 200% auto;
+     font-weight: 700;
+     color: white;
+     box-shadow: 0 0 20px #eee;
+     border-radius: 1vh;
+     display: flex;
+     border-style: none;
+     z-index: 100;
+     width: 60vw;
+     height: 4.4vh;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .buttonPost:hover {
+     background-position: right center;
+     /* change the direction of the change here */
+     color: #fff;
+     text-decoration: none;
+
+ }
+
+ .buttonShowPost2:hover {
+     background-position: right center;
+     /* change the direction of the change here */
+     color: #fff;
+     text-decoration: none;
+ }
+
+ .helloForPost {
+     font-size: 100%;
+     font-weight: 900;
+     z-index: 20;
+     text-transform: capitalize;
+     margin-bottom: 3vh;
+
+ }
+
+ .post h3 {
+     font-size: 100%;
+     font-weight: 700;
+ }
+
+
+ .containerEditPost {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: fixed;
+     top: 40vh;
+     z-index: 60;
+     background-color: white;
+     width: 85%;
+     height: 35%;
+     border-radius: 2vh 2vh 2vh 2vh;
+     padding: 0 0 2vh 0;
+     box-shadow: rgb(0 0 0 / 40%) 0px 2px 4px, rgb(0 0 0 / 30%) 0px 7px 13px -3px, rgb(0 0 0 / 20%) 0px -3px 0px inset
+ }
+
+ .divHeaderPost {
+     background-color: #3A1C71;
+     width: 100%;
+     height: 17vw;
+     display: flex;
+     justify-content: center;
+     color: white;
+     font-weight: 700;
+     align-items: center;
+     border-radius: 2vh 2vh 0vh 0vh;
+     margin-bottom: 2vh;
+     font-size: 3vh;
+ }
+
+ .divHeaderPostDisplayNone {
+     display: none;
+ }
+
+ .post-anteriores {
+     margin: 15px;
+     border-radius: 5px;
+     padding: 15px;
+     z-index: 1;
+     width: 80vw;
+     display: flex;
+     flex-direction: column;
+     gap: 3vh;
+     position: relative;
+ }
+
+ .textAreaPost {
+     margin: 15px;
+     z-index: 150;
+     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+ }
+
+ .post {
+     text-align: center;
+     margin-bottom: 5%;
+     z-index: 50;
+     display: flex;
+     width: 100%;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ .buttonPostDiv {
+     display: flex;
+     width: 100%;
+     justify-content: center;
+ }
+
+ #postSelect {
+     background: transparent;
+     border-style: none;
+     width: 100%;
+     text-align: left;
+ }
+
+ #postSelect:hover {
+     background-color: #CFD8DC;
+ }
+
+
+ #post {
+     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
+     border-radius: 16px;
+     height: 60%;
+     border: 0;
+     padding: 20px;
+     text-align: center;
+     z-index: 100;
+     display: flex;
+     flex-direction: column;
+     gap: 2rem;
+ }
+
+ #downBackgroundPost {
+     width: 80%;
+     left: 0;
+     bottom: 0;
+     position: fixed;
+     opacity: .8;
+     z-index: 0;
+ }
+
+
+ .prueba {
+     width: 95%;
+     margin-bottom: 1rem;
+     padding: 15px;
+     background: #d6dce3;
+     border-radius: 8px;
+     font-size: 80%;
+     font-weight: 500;
+ }
+
+ .textEditPost {
+     z-index: 200;
+     width: 85%;
+     height: 40vw;
+     border-style: solid;
+     border-color: #5ea7d8;
+     border-radius: 2vh;
+     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+     border-width: 1vh;
+     padding: 2%;
+     margin-bottom: 2vh;
+ }
+
+ #inputPost {
+     background-color: white;
+     border-radius: 5px;
+     width: 95%;
+     font-weight: bold;
+     padding: 20px;
+     border-style: dashed;
+     border-color: rgb(218, 58, 170);
+     box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+     border-width: 0.8vh;
+ }
+
+
+
+ #deletePost {
+     width: 6vh;
+     height: 6vh;
+ }
+
+ #editPost {
+     width: 6vh;
+     height: 6vh;
+ }
+
+ .likePost {
+     width: 6vh;
+     height: 6vh;
+ }
+
+ .likePost2 {
+     width: 6vh;
+     height: 6vh;
+ }
+
+ #dateOfPost,
+ #youTag {
+     font-style: italic;
+     color: gray;
+     font-size: 90%;
+ }
+
+ .iconForLikes {
+     z-index: 250;
+     width: 100%;
+ }
+
+ .numberOfLikes {
+     font-size: 100%;
+     font-weight: 700;
+     z-index: 200;
+     color: rgb(196, 4, 61);
+ }
+
+ #dateOfPost {
+     float: right;
+ }
+
+ #youTag {
+     font-weight: normal !important;
+ }
+
+ #bodyOfEachPost {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     border-radius: 3vh;
+     background-color: white;
+     padding: 2vh;
+     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+ }
+
+ #nameOfUserPost {
+     font-weight: bold;
+     font-size: 90%;
+     text-transform: capitalize
+ }
+
+ #buttonPost,
+ #buttonShowPost {
+     float: left;
+     margin-bottom: 10px;
+
+ }
+
+ .buttonSavePostNew {
+     display: flex;
+     z-index: 200;
+     font-size: 0.9rem;
+     border-style: none;
+     padding: 0.6vw 2vw;
+     border-radius: 0.6vh;
+     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+     margin: 0.4vw;
+     background-color: #f739a1;
+     color: white;
+     font-weight: 500;
+     width: 40%;
+     justify-content: center;
+ }
+
+ .buttonSavePostNew:hover {
+     display: flex;
+     z-index: 200;
+     font-size: 0.9rem;
+     border-style: none;
+     padding: 0.6vw 2vw;
+     border-radius: 0.6vh;
+     box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+     margin: 0.4vw;
+     background-color: #f40689;
+     color: white;
+     font-weight: 500;
+     width: 40%;
+     justify-content: center;
+ }
+
+
+ .buttonCloseEditTextArea {
+     display: flex;
+     z-index: 200;
+     width: 9vmin;
+     position: fixed;
+     right: 52vh;
+     top: 39vh
+ }
+
+ .textEditPostDisplayNone {
+     display: none;
+ }
+
+ .buttonSavePostNewDisplayNone {
+     display: none;
+ }
+
+ .buttonCloseEditTextAreaDisplayNone {
+     display: none;
+ }
+
+ .upperBackgroundProfile {
+     width: 70vw;
+     position: fixed;
+     top: 0;
+     right: 0;
+ }
+
+ .pawBackgroundPost {
+     width: 35vh;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     opacity: 0.9;
+ }
+
+ .multiAnimals {
+     bottom: 26%;
+     z-index: 1;
+     width: 30vh;
+     position: absolute;
+     margin-top: 10px;
+ }
+
+ .bannerPost {
+     display: none;
+ }
+
+ .carousel {
+     z-index: 20;
+ }
+
+ .postAreaForEdit {
+     width: 90%;
+     display: flex;
+     justify-content: center;
+ }
+
+ @media screen and (min-width: 1024px) and (orientation: landscape) {
+
+
+     #banner {
+         display: flex;
+         justify-content: center;
+         width: 100%;
+     }
+
+     .bannerPost {
+         display: block;
+         z-index: 1;
+         size: 100vw;
+     }
+
+     .upperBackgroundProfile {
+         display: none;
+     }
+
+     .pawBackgroundPost {
+         width: 40vh;
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         opacity: 0.9;
+     }
+
+     .upperBackgroundPost {
+         width: 40vw;
+         position: fixed;
+         top: 0;
+         right: 0;
+         display: flex;
+         z-index: 0;
+         opacity: 0.9;
+     }
+
+     .multiAnimals {
+         bottom: 0;
+         z-index: 0;
+         width: 30vh;
+         position: absolute;
+         margin-top: 10px;
+     }
+
+     .helloForPost {
+         font-size: 2vw;
+         font-weight: 900;
+         top: 60%;
+         z-index: 20;
+         text-transform: capitalize;
+         margin-bottom: 3vh;
+
+     }
+
+     .containerEditPost {
+         width: 50%;
+     }
+
+     .divHeaderPost {
+         font-size: 2.6vh;
+     }
+
+     .buttonSavePostNew {
+         font-size: 1.2rem;
+         width: 30%;
+     }
+
+     .post {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         width: 100%
+     }
+
+
+     .buttonSavePostNew:hover {
+         font-size: 1.2rem;
+         width: 30%;
+     }
+
+     .textAreaPost {
+         width: 40vw;
+     }
+
+     .postAreaForEdit {
+         width: 40vw;
+         display: flex;
+         justify-content: center;
+     }
+
+     .buttonPost {
+         width: 30%;
+         height: 5vh;
+     }
+
+     .buttonShowPosts {
+         width: 80%;
+     }
+
+     .buttonShowPost2 {
+         background-image: linear-gradient(to right, #3A1C71 0%, #a644e7 51%, #711c4e 100%);
+         margin: 10px;
+         padding: 5px 15px;
+         transition: 0.5s;
+         background-size: 200% auto;
+         color: white;
+         box-shadow: 0 0 20px #eee;
+         border-radius: 1vh;
+         display: flex;
+         border-style: none;
+         z-index: 100;
+         width: 30vw;
+         height: 5vh;
+         align-items: center;
+         justify-content: center;
+         font-weight: 700;
+     }
+
+     .post-anteriores {
+         width: 40vw;
+         display: flex;
+         flex-direction: column;
+         gap: 3vh;
+         position: relative;
+     }
+
+     .previous-button {
+         width: 4vw;
+     }
+
+     .next-button {
+         width: 4vw;
+     }
+
+     .carousel {
+         display: flex;
+         align-items: center;
+         gap: 1vh
+     }
+
+ }
